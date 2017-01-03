@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>PostgreSQLのバキュームにてハマる -- Ship of Fools</title>
+
+    
+
+    
+    <link href="https://kachina.github.io/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="https://kachina.github.io/css/clean-blog.min.css" rel="stylesheet">
+
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    
+    
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://kachina.github.io">Ship of Fools</a>
+            </div>
+
+                       
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <a href="https://kachina.github.io/">home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://kachina.github.io/post/">Archives</a>
+                    </li>
+                    
+                  </ul>
+            </div>
+           
+
+        </div>
+        
+    </nav>
+
+
+    
+    
+    <header class="intro-header" style="background-image: url('https://kachina.github.io//img/about-bg.jpg')">
+      
+      <div class="container">
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             <div class="post-heading">
+               <h1>PostgreSQLのバキュームにてハマる</h1>
+               <h2 class="subheading"></h2>
+               <span class="meta">Posted by <a href="#">@kachina_t</a> on Mon, Jan 10, 2011
+                 <br />
+                 In <a href="https://kachina.github.io/categories/development">Development</a>
+
+                 <br />
+                 Tags <a href="https://kachina.github.io/tags/development">development</a>
+               </span>
+             </div>
+           </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <p>案件によって、色々なRDBを使うのだけど、今回はPostgreSQLのおはなし。</p>
+
+<pre><code>[postgres@devsrv ~]$ psql -l
+Password for user postgres:
+        List of databases
+    Name    |  Owner   | Encoding
+------------+----------+----------
+ foo_db     | foo      | UTF8
+ bar_db     | bar      | UTF8
+ postgres   | postgres | UTF8
+ template0  | postgres | UTF8
+ template1  | postgres | UTF8
+(5 rows)
+</code></pre>
+
+<p>定期的にvacuumをしなくちゃいけないってのは知ってたので<br />
+サービスで使っているデータベース『foo_db』と『bar_db』に対しては<br />
+日次処理でvacuumを実行していたのだけど</p>
+
+<p>運用から３年弱で、予期せぬエラーが</p>
+
+<pre><code>WARNING:  database &quot;postgres&quot; must be vacuumed within 9183172 transactions
+HINT:  To avoid a database shutdown, execute a full-database VACUUM in &quot;postgres&quot;.
+</code></pre>
+
+<p>無知でした『postgres』データベースに対してもvacuumが必要な様です。<br />
+このメッセージが出ちゃったら、以下の手順でしか復旧できないようで．．．</p>
+
+<p>手順１．PostgreSQLサービスの再起動</p>
+
+<pre><code>[root@devsrv ~]# /etc/init.d/postgresql restart
+</code></pre>
+
+<p>手順２．フルバキュームの実施</p>
+
+<pre><code>[postgres@devsrv ~]$ psql -U postgres postgres
+Password for user postgres:
+Welcome to psql 8.1.15 (server 8.1.5), the PostgreSQL interactive terminal.
+
+Type:  \copyright for distribution terms
+       \h for help with SQL commands
+       \? for help with psql commands
+       \g or terminate with semicolon to execute query
+       \q to quit
+
+postgres=# vacuum full;
+</code></pre>
+
+<p>要約すると、データベース×トランザクション毎に『xid』と言われる<br />
+ユニークキーが採番されるのだけど、この『xid』は10億から始り、20億より以下であることが求められています。<br />
+vacuumを実行することで、採番された『xid』を『FrozenXID』に再割り当てし『xid』を初期化します。</p>
+
+<p>先に記したエラーメッセージは、postgresデータベースの『xid』が枯渇してしまい<br />
+残りが1000万を切りましたよってことです。</p>
+
+<p>なので、あと1000万トランザクションを使いきるまでに<br />
+対象となっている『postgres』データベースに対して、vacuumを実行する必要があります。</p>
+
+<p>まあ、大抵のサービスではミドルウェアのバージョンアップ、インフラの拡張等で移行すると思うので<br />
+この障害に出くわすことはあまりないと思うのだが<br />
+こんなこともあるから、気をつけなきゃだめだよってことで。</p>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <ul class="list-inline text-center">
+                    <li>
+                      <a href="mailto:">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://twitter.com/kachina_t">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://github.com/kachina">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://www.facebook.com/tetsuya.chiba">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted">Code released under the Apache 2.0 license.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://kachina.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/clean-blog.js"></script>
+
+    
+
+</body>
+
+</html>
+

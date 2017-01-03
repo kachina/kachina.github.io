@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lifestyle on Ship of Fools</title>
+    <link>https://kachina.github.io/categories/lifestyle/index.xml</link>
+    <description>Recent content in Lifestyle on Ship of Fools</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <copyright>Code released under the Apache 2.0 license.</copyright>
+    <atom:link href="https://kachina.github.io/categories/lifestyle/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>FedoraからApple TVを利用</title>
+      <link>https://kachina.github.io/post/2014-09-21-airplay-from-fedora/</link>
+      <pubDate>Sun, 21 Sep 2014 20:51:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2014-09-21-airplay-from-fedora/</guid>
+      <description>
+
+&lt;p&gt;FedoraからをApple TVを操作する方法です。&lt;/p&gt;
+
+&lt;h1 id=&#34;環境情報&#34;&gt;環境情報&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;$ cat /etc/issue                                                                                                                               [~]
+Fedora release 20 (Heisenbug)
+Kernel \r on an \m (\l)
+
+$ ruby -v                                                                                                                                      [~]
+ruby 2.1.2p95 (2014-05-08 revision 45877) [i686-linux]
+
+$ java -version                                                                                                                                [~]
+java version &amp;quot;1.7.0_65&amp;quot;
+OpenJDK Runtime Environment (fedora-2.5.2.5.fc20-i386 u65-b17)
+OpenJDK Server VM (build 24.65-b04, mixed mode)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以下、Apple TVのIPアドレスは&lt;code&gt;192.168.11.8&lt;/code&gt;で記載してあります。&lt;/p&gt;
+
+&lt;h1 id=&#34;1-動画-画像を送る&#34;&gt;1. 動画/画像を送る&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/unused/airstream&#34;&gt;airstream&lt;/a&gt; を利用します。&lt;/p&gt;
+
+&lt;h3 id=&#34;インストール&#34;&gt;インストール&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;$ sudo yum install -y avahi-compat-libdns_sd-devel
+$ gem install airstream
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;動画を再生&#34;&gt;動画を再生&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;$ airstream http://example.com/sample.mp4 -o 192.168.11.8   # Web上のファイルを再生
+$ airstream ~/Movies/sample.mp4 -o 192.168.11.8             # ローカルファイルを再生
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;写真を再生&#34;&gt;写真を再生&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;$ airimg http://example.com/sample.png -o 192.168.11.8      # Web上のファイルを再生
+$ airimg ~/Pictures/sample.png -o 192.168.11.8              # ローカルファイルを再生
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;スライドショーで写真を再生&#34;&gt;スライドショーで写真を再生&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;$ airimg ~/Pictures/* -n 5 -o 192.168.11.8                  # 5秒毎にスライド
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;2-画面のミラーリング&#34;&gt;2. 画面のミラーリング&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.mediafire.com/download/v3h1dbwpqk04h58/airplay.jar&#34;&gt;Airplay.jar&lt;/a&gt; を利用するのが簡単そうです。&lt;/p&gt;
+
+&lt;h3 id=&#34;ミラーリングの開始&#34;&gt;ミラーリングの開始&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;$ java -jar airplay.jar -h 192.168.11.8 -d
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;まとめ&#34;&gt;まとめ&lt;/h1&gt;
+
+&lt;p&gt;特に利用シーンはないのですが、簡単に出来るのか気になったので調べてみました。&lt;br /&gt;
+お試しの際は、自己責任でお願いします。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>newsbeuter on Mac</title>
+      <link>https://kachina.github.io/post/2012-09-06-newsbeuter/</link>
+      <pubDate>Thu, 06 Sep 2012 11:03:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2012-09-06-newsbeuter/</guid>
+      <description>
+
+&lt;p&gt;約1年ぶりに個人ブログ向けのネタができたので投稿します。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://hiroki.jp/2012/08/26/5318/&#34;&gt;若者のRSS離れが深刻&lt;/a&gt;らしいって記事を読みました。&lt;/p&gt;
+
+&lt;p&gt;僕はiGoogleが大好きで、サービス開始の2005年から『ポータル』＋『ブックマーク』＋『RSSリーダ』として長年愛用していました。&lt;br /&gt;
+しかし、7月のGoogleの発表にて2013年11月01日をもってサービスをクローズすると言うではないですか。。。&lt;/p&gt;
+
+&lt;p&gt;これにはまいった、ってことでiGoogleの代わりを検討／検証を始めました。&lt;/p&gt;
+
+&lt;h2 id=&#34;1-ポータル-について&#34;&gt;1.『ポータル』について&lt;/h2&gt;
+
+&lt;p&gt;『ポータル』としては、以下を利用していました。&lt;br /&gt;
+計算機&lt;br /&gt;
+乗換案内&lt;br /&gt;
+ナショナルジオグラフィックの今日の一枚&lt;br /&gt;
+Wikipedia検索&lt;br /&gt;
+Gmail:新着メール&lt;br /&gt;
+GoogleLatitude&lt;br /&gt;
+この殆どが、Macのダッシュボードで再現できたのでコレを持って解決とします。&lt;/p&gt;
+
+&lt;h2 id=&#34;2-ブックマーク-について&#34;&gt;2.『ブックマーク』について&lt;/h2&gt;
+
+&lt;p&gt;先日まで、MacのメインブラウザがSRWare Iron、iPhone/iPadがSafariだったので非常に苦労していました。&lt;br /&gt;
+しかし、最近iPhone/iPad版のChromeがリリースしたこと、&lt;br /&gt;
+デバイス間のタブ同期が標準で利用可能なことから、全デバイスのブラウザをChromeに統一しました。&lt;br /&gt;
+これにより、Chromeのブックマーク同期機能が利用可能となったのでソレを持って解決としました。&lt;/p&gt;
+
+&lt;h2 id=&#34;3-rssリーダ-について&#34;&gt;3.『RSSリーダ』について&lt;/h2&gt;
+
+&lt;p&gt;さて、噺の枕が長くなりましたが、ここからが本題です。&lt;/p&gt;
+
+&lt;p&gt;個人的には、アプリケーションを多数起動してリソースを蝕まれるのがとてもキライなので&lt;br /&gt;
+できるだけターミナル（iTerm2）とブラウザ（Chrome）以外は起動したくないと考えています。&lt;/p&gt;
+
+&lt;p&gt;上記に加えて、業務にて利用するWebサービスが多い為、業務時間中は常に10個近いタブを開いており&lt;br /&gt;
+1GB程度のメモリをブラウザにを持ってかれています。コレも何とか改善したいトコロです。&lt;br /&gt;
+そこで、&amp;rdquo;CUIで出来ることはCUIでヤル&amp;rdquo;を基本指針として環境を整えています。&lt;/p&gt;
+
+&lt;p&gt;現在、TwitterはCUIで利用できるearthquakeを使っているのですが&lt;br /&gt;
+これと同様に、RSSもCUIで便利に使えないかと調べてみたところ『newsbeuter』ってのが&lt;br /&gt;
+なかなか良さそうなので試してみました。&lt;/p&gt;
+
+&lt;p&gt;まずはインストール&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo brew tap posativ/homebrew-newsbeuter
+$ sudo brew install newsbeuter
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;RSSフィードの設定
+urlsファイルを作成して購読したいRSSフィードを追記&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ echo &amp;quot;http://feeds.feedburner.com/mactegaki&amp;quot; &amp;gt;&amp;gt; ~/.newsbeuter/urls
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;起動&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ newsbeuter
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;たったこれダケで利用が開始できます。&lt;br /&gt;
+画面下にガイドが出ていて良い感じです。&lt;br /&gt;
+と思ったのですが。。。&lt;br /&gt;
+対象記事をブラウザで開く為の&lt;br /&gt;
+『o』コマンドが効かない！！&lt;/p&gt;
+
+&lt;p&gt;調べてみて納得、同コマンドは初期設定ではCUIブラウザであるlynxにて起動されるそうです。&lt;br /&gt;
+CUIのRSSリーダなので、CUIブラウザで開くのは自然な流れですね。&lt;/p&gt;
+
+&lt;p&gt;だがしかし、今回は対象ページはChromeで開いて頂きたい。&lt;br /&gt;
+なによりCUIブラウザは不便なので使いたくない。&lt;/p&gt;
+
+&lt;p&gt;なんとかならない物かとGoogle先生に聞いてみたのですが、さっぱり解決策を教えてくれません。&lt;/p&gt;
+
+&lt;p&gt;試行錯誤することn時間、やっとChromeで開くことに成功しました。&lt;/p&gt;
+
+&lt;p&gt;まず、newsbeuterの設定は~/.newsbeuter/configに記載することができ&lt;br /&gt;
+『browser』パラメータを設定することで、対象ブラウザを変更することできます。&lt;br /&gt;
+例えば『browser w3m』とするとlynxからw3mに変更されます。&lt;/p&gt;
+
+&lt;p&gt;この値を『open -a Google\ Chrome %u』と指定することでChromeに引き渡すことができました！！&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;browser open -a Google\ Chrome %u
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これで『o』キーにて、対象ページをChromeの新しいタブで開きます。&lt;br /&gt;
+かなり良い感じです。&lt;/p&gt;
+
+&lt;p&gt;その他、自分の設定ファイルを公開しますので参考にして頂ければ幸いです。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;~/.newsbeuter/config&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;# no automatic reloading
+refresh-on-startup no
+auto-reload no
+#reload-time 360 # minutes
+reload-time 1
+
+# reloading
+reload-threads 4
+reload-only-visible-feeds no
+show-read-feeds no
+download-retries 4
+
+# notification
+notify-screen yes
+notify-xterm yes
+
+# storage
+max-items 200
+
+# browser for open command
+browser open -a Google\ Chrome %u
+
+# displayarticle-sort-order date-desc
+feedlist-format &amp;quot;%S%n %11u %t&amp;quot;
+articlelist-format &amp;quot;%D %f %?T?;%-17T; ?%t&amp;quot;
+datetime-format %m-%d
+color background   white   black
+color listnormal   white   black
+color listfocus    yellow  green   bold
+color info         yellow  green   bold
+color article      white   black
+
+# interface
+confirm-exit yes
+bind-key k up
+bind-key j down
+bind-key O open-in-browser-and-mark-read
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;利用イメージは↓こんな感じになります。&lt;br /&gt;
+iterm2+tmuxにて以下の環境を実現しています。&lt;br /&gt;
+ウィンドウ1：eaathquake(twitter)&lt;br /&gt;
+ウィンドウ2：newsbeuter(rss)&lt;br /&gt;
+ウィンドウ3：作業用&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://dl.dropboxusercontent.com/u/523792/blog/newsbeuter.png&#34; alt=&#34;Screen Shot&#34; title=&#34;Optional title&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Twitterはリアルタイムな情報を把握しやすいのですが、次々と更新されてしまいタイムラインでは&lt;br /&gt;
+どうしても流れてしまいます。&lt;br /&gt;
+目を通しておきたい情報はRSSを利用することで、未読／既読を含めて管理できるので&lt;br /&gt;
+見落としの数が劇的に減ることでしょう。&lt;/p&gt;
+
+&lt;p&gt;最後に、合わせ技でTwitterアカウントの更新をRSSで取得する方法をご紹介します。&lt;br /&gt;
+以下の『nopponani』の部分を対象アカウント名に書き換えてご利用ください。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http://twitter.com/users/show/nopponani.xml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;このページで対象アカウントのIDを確認し、以下のURLの『xxxxxxxxx』に書き換え設定します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http://twitter.com/statuses/user_timeline/xxxxxxxxx.rss
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これでバッチシ！&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Gentooでの無線LAN設定 -- Ship of Fools</title>
+
+    
+
+    
+    <link href="https://kachina.github.io/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="https://kachina.github.io/css/clean-blog.min.css" rel="stylesheet">
+
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    
+    
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://kachina.github.io">Ship of Fools</a>
+            </div>
+
+                       
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <a href="https://kachina.github.io/">home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://kachina.github.io/post/">Archives</a>
+                    </li>
+                    
+                  </ul>
+            </div>
+           
+
+        </div>
+        
+    </nav>
+
+
+    
+    
+    <header class="intro-header" style="background-image: url('https://kachina.github.io//img/about-bg.jpg')">
+      
+      <div class="container">
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             <div class="post-heading">
+               <h1>Gentooでの無線LAN設定</h1>
+               <h2 class="subheading"></h2>
+               <span class="meta">Posted by <a href="#">@kachina_t</a> on Sat, May 18, 2013
+                 <br />
+                 In <a href="https://kachina.github.io/categories/os">OS</a>
+
+                 <br />
+                 Tags <a href="https://kachina.github.io/tags/os">os</a>
+               </span>
+             </div>
+           </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  
+
+<p>前回の <a href="http://blog.strigiformes.net/blog/2013/05/12/gentoo-dvorak/">GentooでDvorak配列を設定して&rdquo;control&rdquo;と&rdquo;caps Lock&rdquo;キーを入れ替える</a> に続き<br />
+今回は無線LANの設定をしたいとおもいます。</p>
+
+<p>使っているMacBookのバージョンは4,1(13-inch, Early 2008)です。</p>
+
+<h1 id="1-接続されているデバイスを確認">1. 接続されているデバイスを確認</h1>
+
+<pre><code class="language-objc">$ lspci | less
+02:00.0 Ntework controller [0280]: Broadcom Corporation BCM4321 802.11a/b/g/n [14e4:4328] (rev 03)
+</code></pre>
+
+<p>『Broadcom Corporation BCM4321』を利用していることが解りました。<br />
+(<code>lspci</code> コマンドは <code>emerge sys-apps/pciutils</code> で使えます)</p>
+
+<h1 id="2-デバイスの状態を確認">2. デバイスの状態を確認</h1>
+
+<pre><code class="language-objc">$ dmesg
+...
+b43-phy0: Broadcom 4321 WLAN found (core revision 11)
+b43-phy0 ERROR: FOUND UNSUPPORTED PHY (Analog 5, Type 4, Revision 1)
+b43: probe of ssb0:0 failed with error -95
+Broadcom 43xx driver loaded [ Features: PML ]
+...
+</code></pre>
+
+<p>正しく認識されていないことが解りました。<br />
+それでは、カーネルの設定〜アクセスポイントの設定までの<br />
+作業履歴を残していきたいと思います。</p>
+
+<h1 id="3-カーネルの設定">3. カーネルの設定</h1>
+
+<pre><code class="language-objc">$ cd /usr/src/linux
+$ make menuconfig
+
+Device Drivers ---&gt;
+  Broadcom specific AMBA
+    &lt;M&gt; BCMA support
+    [x] Support for BCMA on PCI-host bus
+    [x] BCMA Broadcom GBIT MAC COMMON core driver
+    [ ] BCMA debugging (NEW)
+[*] Network device support
+  [*] Wireless LAN
+    [ ] Broadcom 43xx debugging
+    &lt; &gt; Broadcom 43xx-legacy wireless support (mac80211 stack)
+    &lt;M&gt; Broadcom IEEE802.11n PCIe SoftMAC WLAN driver
+    &lt;M&gt; Broadcom IEEE802.11n embedded FullMAC WLAN driver
+    [*] USB bus interface support for FullMAC driver (NEW)
+-*- Networking support
+  -*- Wireless
+    &lt;M&gt; cfg80211 - wireless configuration API
+    [*] cfg80211 wireless extensions compatibility
+</code></pre>
+
+<h1 id="4-ドライバの変更">4. ドライバの変更</h1>
+
+<p><a href="http://www.broadcom.com/support/802.11/linux_sta.php">こちら</a> のREADME.txtに従って&rdquo;wl.ko&rdquo;ファイルを作成します。</p>
+
+<pre><code class="language-objc">$ mkdir /tmp/hybrid_wl
+$ cd /tmp/hybrid_wl
+$ wget http://www.broadcom.com/docs/linux_sta/hybrid-portsrc_x86_32-v5_100_82_112.tar.gz
+$ tar xzf hybrid-portsrc_x86_32-v5_100_82_112.tar.gz
+</code></pre>
+
+<p>手順書に従って<code>make</code> を実行すると、以下のメッセージが出て失敗します。</p>
+
+<pre><code class="language-objc">KBUILD_NOPEDANTIC=1 make -C /lib/modules/`uname -r`/build M=`pwd`
+make[1]: Entering directory `/usr/src/linux-3.8.13-gentoo'
+Wireless Extension is the only possible API for this kernel version
+Using Wireless Extension API
+LD /tmp/hybrid_wl/lbuilt-in.o
+CC [M] /tmp/hybrid_wl/src/shared/linux_osl.o
+CC [M] /tmp/hybrid_wl/src/wl/sys/wl_linux.o
+/tmp/hybrid_wl/src/wl/sys/wl_linux.c:43:24: fatal error: asm/system.h: No such file or directory
+compilation terminated.
+make[2]: *** [/tmp/hybrid_wl/src/wl/sys/wl_linux.o] Error 1
+make[1]: *** [_module_/tmp/hybrid_wl] Error 2
+make[1]: Leaving directory `/usr/src/linux-3.8.13-gentoo'
+make: *** [all] Error 2
+</code></pre>
+
+<p>&ldquo;src/wl/sys/wl_linux.c&rdquo;ファイルを編集します。</p>
+
+<pre><code class="language-objc">-- 43行目
+
+#include &lt;asm/system.h&gt;
+↓
+#include &lt;asm/switch_to.h&gt;
+
+-- 388行目
+.ndo_set_multicast_list = wl_set_multicast_list,
+↓
+.ndo_set_rx_mode = wl_set_multicast_list,
+</code></pre>
+
+<p>ファイルを編集したら<code>make</code>から手順書の作業を再開します</p>
+
+<pre><code class="language-objc">$ make
+$ make install
+$ depmod
+$ modprobe wl
+</code></pre>
+
+<p>生成された&rdquo;wl.ko&rdquo;ファイルを、既存のものと置き換えます。</p>
+
+<pre><code class="language-objc">$ rmmod wl
+$ mv /lib/modules/3.8.13-gentoo/kernel/net/wireless/wl.ko /lib/modules/3.8.13-gentoo/kernel/net/wireless/wl.ko.org
+$ cp ./wl.ko /lib/modules/3.8.13-gentoo/kernel/net/wireless/
+$ depmod
+$ modprobe wl
+</code></pre>
+
+<p>不要なモジュールを読まない様に、ブラックリストに追記し<br />
+&ldquo;wl&rdquo;モジュールをリロードします</p>
+
+<pre><code class="language-objc">$ echo &quot;blacklist ssb&quot; &gt;&gt; /etc/modprobe.d/blacklist.conf
+$ echo &quot;blacklist bcma&quot; &gt;&gt; /etc/modprobe.d/blacklist.conf
+$ echo &quot;blacklist b43&quot; &gt;&gt; /etc/modprobe.d/blacklist.conf
+$ rmmod ssb
+$ rmmod bcma
+$ rmmod b43
+$ rmmod wl
+$ modprobe wl
+</code></pre>
+
+<p>これで『Broadcom BCM4321』が認識されました。</p>
+
+<pre><code>$ iwconfig
+
+enp2s0    IEEE 802.11abgn  ESSID:&quot;&quot;
+          Mode:Managed  Frequency:2.447 GHz  Access Point: Not-Associated
+          Bit Rate:130 Mb/s  Tx-Power:24 dBm
+          Retry min limit:7  RTS thr:off  Fragment thr:off
+          Power Managementmode:All packets received
+          Link Quality=5/5 Signal level=0 dBm Noise level=-57 dBm
+          Rx invalid nwid:0 Rx invalid crypt:0 Rx invalid frag:0
+          Tx excessive retries:0 Invalid misc:0 Missed beacon:0
+</code></pre>
+
+<h1 id="5-ドライバの設定">5. ドライバの設定</h1>
+
+<p>&rdquo;/etc/conf.d/net&rdquo;ファイルに以下を追記</p>
+
+<pre><code>module_enp2s0=&quot;wpa_supplicant dhcpcd&quot;
+config_enp2s0=&quot;dhcp&quot;
+</code></pre>
+
+<p>dhcpcdデーモンの自動起動が設定されている場合は削除します。</p>
+
+<pre><code>$ rc-update del dhcpcd
+</code></pre>
+
+<p>それでは、アクセスポイントの設定に進みます。</p>
+
+<h1 id="6-アクセスポイントの設定">6. アクセスポイントの設定</h1>
+
+<p>サンプルの設定ファイルを流用します。</p>
+
+<p>まずは、&rdquo;/usr/share/doc/wpa_supplicant-<version>/wpa_supplicant.conf.gz&rdquo;ファイルを<br />
+&rdquo;/etc/wpa_supplicant/wpa_supplicant.conf&rdquo;に展開し<br />
+557行目の『Example blocks:』以下の行を消しちゃいます。</p>
+
+<p>そこにアクセスポイントの情報を追記していきます。<br />
+<code>wpa_passshpase</code>コマンドで、アクセスポイント名、暗号化したパスフレーズを追記します。</p>
+
+<pre><code>$ wpa_passphrase {アクセスポイント名} {パスフレーズ} &gt;&gt; /etc/wpa_supplicant/wpa_supplicant.conf
+</code></pre>
+
+<p>&ldquo;wpa_supplicant.conf&rdquo;ファイルを開き、その他の情報を追記します。</p>
+
+<pre><code>network={
+  scan_ssid=1
+  ssid=&quot;{アクセスポイント名}&quot;
+  psk={暗号化されたパスフレーズ}
+  priority=1
+}
+</code></pre>
+
+<h1 id="7-自動起動の設定">7. 自動起動の設定</h1>
+
+<pre><code>$ cd /etc/init.d
+$ ln -s net.lo net.enp2s0
+$ rc-update add net.enp2s0 default
+</code></pre>
+
+<h1 id="8-起動">8. 起動</h1>
+
+<pre><code>$ /etc/init.d/net.enp2s0 start
+</code></pre>
+
+<p>これで設定は完了です。<br />
+<code>iwconfig</code>でアクセスポイントに接続されていることを確認します。</p>
+
+<pre><code>$ iwconfig enp2s0
+
+enp2s0    IEEE 802.11abgn  ESSID:&quot;{アクセスポイント名}&quot;
+          Mode:Managed  Frequency:2.447 GHz  Access Point: xx:xx:xx:xx:xx:xx
+          Bit Rate:130 Mb/s  Tx-Power:24 dBm
+          Retry min limit:7  RTS thr:off  Fragment thr:off
+          Power Managementmode:All packets received
+          Link Quality=5/5 Signal level=0 dBm Noise level=-57 dBm
+          Rx invalid nwid:0 Rx invalid crypt:0 Rx invalid frag:0
+          Tx excessive retries:0 Invalid misc:0 Missed beacon:0
+</code></pre>
+
+<h1 id="9-有線lanの自動起動設定を削除">9. 有線LANの自動起動設定を削除</h1>
+
+<p>有線LANは利用は限定的になるので、自動起動の設定を削除します。</p>
+
+<pre><code>$ rc-update del net.eth0
+</code></pre>
+
+<p>苦節1週間、寝落ち3回、何度も外付けのUSB無線LANアダプタに逃げたくなりましたが<br />
+なんとか内蔵の無線LANが使える様になりました。</p>
+
+<p>これでやっと、スタバでドヤ顔できます。</p>
+
+<p>あとは、<code>enp2s0</code>って名前を<code>wlan0</code>とかに変更したいな。。。</p>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <ul class="list-inline text-center">
+                    <li>
+                      <a href="mailto:">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://twitter.com/kachina_t">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://github.com/kachina">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://www.facebook.com/tetsuya.chiba">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted">Code released under the Apache 2.0 license.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://kachina.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/clean-blog.js"></script>
+
+    
+
+</body>
+
+</html>
+

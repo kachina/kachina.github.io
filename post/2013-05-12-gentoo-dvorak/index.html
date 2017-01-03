@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>GentooでDvorak配列を設定して&#34;control&#34;と&#34;caps lock&#34;キーを入れ替える -- Ship of Fools</title>
+
+    
+
+    
+    <link href="https://kachina.github.io/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="https://kachina.github.io/css/clean-blog.min.css" rel="stylesheet">
+
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    
+    
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://kachina.github.io">Ship of Fools</a>
+            </div>
+
+                       
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <a href="https://kachina.github.io/">home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://kachina.github.io/post/">Archives</a>
+                    </li>
+                    
+                  </ul>
+            </div>
+           
+
+        </div>
+        
+    </nav>
+
+
+    
+    
+    <header class="intro-header" style="background-image: url('https://kachina.github.io//img/about-bg.jpg')">
+      
+      <div class="container">
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             <div class="post-heading">
+               <h1>GentooでDvorak配列を設定して&#34;control&#34;と&#34;caps lock&#34;キーを入れ替える</h1>
+               <h2 class="subheading"></h2>
+               <span class="meta">Posted by <a href="#">@kachina_t</a> on Sun, May 12, 2013
+                 <br />
+                 In <a href="https://kachina.github.io/categories/os">OS</a>
+
+                 <br />
+                 Tags <a href="https://kachina.github.io/tags/os">os</a>
+               </span>
+             </div>
+           </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <p>ジャンク品の白Macbookが手に入ったので<br />
+JISキーボードをUSキーボードに、HDDをSSDに付け替えて<br />
+干上がったバッテリーを新品に買い替えて、Gentoo Linuxを入れて遊んでます。</p>
+
+<p>無線LANが使えなかったり／GUI環境が整っていなかったりと、まだまだな感じですが<br />
+環境構築の備忘録を残していこうと思います。</p>
+
+<ol>
+<li>Dvorak配列の設定<br />
+まずは、キーボードの配列をQwertyからDvorakに変更します。<br />
+/etc/conf.d/keymapsを開き、以下のとおり編集します。<br /></li>
+</ol>
+
+<pre><code>keymap=&quot;dvorak&quot;
+</code></pre>
+
+<p>設定ファイルの編集後、キーマップサービスを再起動すればキー配列がDvorakに変わります。</p>
+
+<pre><code>/etc/init.d/keymaps restart
+</code></pre>
+
+<ol>
+<li>&ldquo;control&rdquo;キーと&rdquo;caps lock&rdquo;キーを入れ替える<br />
+Dvorakキー配列の設定は /usr/share/keymaps/i386/dvorak/dvorak.map.gz で定義されています。
+まずはファイルを開きます。<br /></li>
+</ol>
+
+<pre><code>cd /tmp
+cp /usr/share/keymaps/i386/dvorak/dvorak.map.gz /tmp/
+gunzip dvorak.map.gz
+vim dvorak.map
+</code></pre>
+
+<p>エディタにて、以下の行を編集します。</p>
+
+<pre><code>keycode 29 = Caps_Lock
+...
+keycode 58 = Control
+</code></pre>
+
+<p>編集後、ファイルを圧縮して元の場所に戻し<br />
+キーマップサービスを再起動すれば<br />
+&ldquo;control&rdquo;キーと&rdquo;caps lock&rdquo;キーを入れ替わります。</p>
+
+<pre><code>gzip dvorak.map
+mv dvorak.map.gz /usr/share/keymaps/i386/dvorak/
+/etc/init.d/keymaps restart
+</code></pre>
+
+<p>普段はMacbook Airを使っているのですが<br />
+白Macbookの方が、全然見た目が良いですね。</p>
+
+<p><img src="http://dl.dropboxusercontent.com/u/523792/blog/gentoo-dvorak.jpg" alt="Macbook" /></p>
+
+<p>ただ、起動時の『ジャーン！』って音だけは慣れません。</p>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <ul class="list-inline text-center">
+                    <li>
+                      <a href="mailto:">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://twitter.com/kachina_t">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://github.com/kachina">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://www.facebook.com/tetsuya.chiba">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted">Code released under the Apache 2.0 license.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://kachina.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/clean-blog.js"></script>
+
+    
+
+</body>
+
+</html>
+

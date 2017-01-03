@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>newsbeuter on Mac -- Ship of Fools</title>
+
+    
+
+    
+    <link href="https://kachina.github.io/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="https://kachina.github.io/css/clean-blog.min.css" rel="stylesheet">
+
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    
+    
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://kachina.github.io">Ship of Fools</a>
+            </div>
+
+                       
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <a href="https://kachina.github.io/">home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://kachina.github.io/post/">Archives</a>
+                    </li>
+                    
+                  </ul>
+            </div>
+           
+
+        </div>
+        
+    </nav>
+
+
+    
+    
+    <header class="intro-header" style="background-image: url('https://kachina.github.io//img/about-bg.jpg')">
+      
+      <div class="container">
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             <div class="post-heading">
+               <h1>newsbeuter on Mac</h1>
+               <h2 class="subheading"></h2>
+               <span class="meta">Posted by <a href="#">@kachina_t</a> on Thu, Sep 6, 2012
+                 <br />
+                 In <a href="https://kachina.github.io/categories/lifestyle">LifeStyle</a>, <a href="https://kachina.github.io/categories/development">Development</a>
+
+                 <br />
+                 Tags <a href="https://kachina.github.io/tags/lifestyle">lifestyle</a>, <a href="https://kachina.github.io/tags/development">development</a>
+               </span>
+             </div>
+           </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  
+
+<p>約1年ぶりに個人ブログ向けのネタができたので投稿します。</p>
+
+<p><a href="http://hiroki.jp/2012/08/26/5318/">若者のRSS離れが深刻</a>らしいって記事を読みました。</p>
+
+<p>僕はiGoogleが大好きで、サービス開始の2005年から『ポータル』＋『ブックマーク』＋『RSSリーダ』として長年愛用していました。<br />
+しかし、7月のGoogleの発表にて2013年11月01日をもってサービスをクローズすると言うではないですか。。。</p>
+
+<p>これにはまいった、ってことでiGoogleの代わりを検討／検証を始めました。</p>
+
+<h2 id="1-ポータル-について">1.『ポータル』について</h2>
+
+<p>『ポータル』としては、以下を利用していました。<br />
+計算機<br />
+乗換案内<br />
+ナショナルジオグラフィックの今日の一枚<br />
+Wikipedia検索<br />
+Gmail:新着メール<br />
+GoogleLatitude<br />
+この殆どが、Macのダッシュボードで再現できたのでコレを持って解決とします。</p>
+
+<h2 id="2-ブックマーク-について">2.『ブックマーク』について</h2>
+
+<p>先日まで、MacのメインブラウザがSRWare Iron、iPhone/iPadがSafariだったので非常に苦労していました。<br />
+しかし、最近iPhone/iPad版のChromeがリリースしたこと、<br />
+デバイス間のタブ同期が標準で利用可能なことから、全デバイスのブラウザをChromeに統一しました。<br />
+これにより、Chromeのブックマーク同期機能が利用可能となったのでソレを持って解決としました。</p>
+
+<h2 id="3-rssリーダ-について">3.『RSSリーダ』について</h2>
+
+<p>さて、噺の枕が長くなりましたが、ここからが本題です。</p>
+
+<p>個人的には、アプリケーションを多数起動してリソースを蝕まれるのがとてもキライなので<br />
+できるだけターミナル（iTerm2）とブラウザ（Chrome）以外は起動したくないと考えています。</p>
+
+<p>上記に加えて、業務にて利用するWebサービスが多い為、業務時間中は常に10個近いタブを開いており<br />
+1GB程度のメモリをブラウザにを持ってかれています。コレも何とか改善したいトコロです。<br />
+そこで、&rdquo;CUIで出来ることはCUIでヤル&rdquo;を基本指針として環境を整えています。</p>
+
+<p>現在、TwitterはCUIで利用できるearthquakeを使っているのですが<br />
+これと同様に、RSSもCUIで便利に使えないかと調べてみたところ『newsbeuter』ってのが<br />
+なかなか良さそうなので試してみました。</p>
+
+<p>まずはインストール</p>
+
+<pre><code>$ sudo brew tap posativ/homebrew-newsbeuter
+$ sudo brew install newsbeuter
+</code></pre>
+
+<p>RSSフィードの設定
+urlsファイルを作成して購読したいRSSフィードを追記</p>
+
+<pre><code>$ echo &quot;http://feeds.feedburner.com/mactegaki&quot; &gt;&gt; ~/.newsbeuter/urls
+</code></pre>
+
+<p>起動</p>
+
+<pre><code>$ newsbeuter
+</code></pre>
+
+<p>たったこれダケで利用が開始できます。<br />
+画面下にガイドが出ていて良い感じです。<br />
+と思ったのですが。。。<br />
+対象記事をブラウザで開く為の<br />
+『o』コマンドが効かない！！</p>
+
+<p>調べてみて納得、同コマンドは初期設定ではCUIブラウザであるlynxにて起動されるそうです。<br />
+CUIのRSSリーダなので、CUIブラウザで開くのは自然な流れですね。</p>
+
+<p>だがしかし、今回は対象ページはChromeで開いて頂きたい。<br />
+なによりCUIブラウザは不便なので使いたくない。</p>
+
+<p>なんとかならない物かとGoogle先生に聞いてみたのですが、さっぱり解決策を教えてくれません。</p>
+
+<p>試行錯誤することn時間、やっとChromeで開くことに成功しました。</p>
+
+<p>まず、newsbeuterの設定は~/.newsbeuter/configに記載することができ<br />
+『browser』パラメータを設定することで、対象ブラウザを変更することできます。<br />
+例えば『browser w3m』とするとlynxからw3mに変更されます。</p>
+
+<p>この値を『open -a Google\ Chrome %u』と指定することでChromeに引き渡すことができました！！</p>
+
+<pre><code>browser open -a Google\ Chrome %u
+</code></pre>
+
+<p>これで『o』キーにて、対象ページをChromeの新しいタブで開きます。<br />
+かなり良い感じです。</p>
+
+<p>その他、自分の設定ファイルを公開しますので参考にして頂ければ幸いです。</p>
+
+<blockquote>
+<p>~/.newsbeuter/config</p>
+</blockquote>
+
+<pre><code># no automatic reloading
+refresh-on-startup no
+auto-reload no
+#reload-time 360 # minutes
+reload-time 1
+
+# reloading
+reload-threads 4
+reload-only-visible-feeds no
+show-read-feeds no
+download-retries 4
+
+# notification
+notify-screen yes
+notify-xterm yes
+
+# storage
+max-items 200
+
+# browser for open command
+browser open -a Google\ Chrome %u
+
+# displayarticle-sort-order date-desc
+feedlist-format &quot;%S%n %11u %t&quot;
+articlelist-format &quot;%D %f %?T?;%-17T; ?%t&quot;
+datetime-format %m-%d
+color background   white   black
+color listnormal   white   black
+color listfocus    yellow  green   bold
+color info         yellow  green   bold
+color article      white   black
+
+# interface
+confirm-exit yes
+bind-key k up
+bind-key j down
+bind-key O open-in-browser-and-mark-read
+</code></pre>
+
+<p>利用イメージは↓こんな感じになります。<br />
+iterm2+tmuxにて以下の環境を実現しています。<br />
+ウィンドウ1：eaathquake(twitter)<br />
+ウィンドウ2：newsbeuter(rss)<br />
+ウィンドウ3：作業用</p>
+
+<p><img src="http://dl.dropboxusercontent.com/u/523792/blog/newsbeuter.png" alt="Screen Shot" title="Optional title" /></p>
+
+<p>Twitterはリアルタイムな情報を把握しやすいのですが、次々と更新されてしまいタイムラインでは<br />
+どうしても流れてしまいます。<br />
+目を通しておきたい情報はRSSを利用することで、未読／既読を含めて管理できるので<br />
+見落としの数が劇的に減ることでしょう。</p>
+
+<p>最後に、合わせ技でTwitterアカウントの更新をRSSで取得する方法をご紹介します。<br />
+以下の『nopponani』の部分を対象アカウント名に書き換えてご利用ください。</p>
+
+<pre><code>http://twitter.com/users/show/nopponani.xml
+</code></pre>
+
+<p>このページで対象アカウントのIDを確認し、以下のURLの『xxxxxxxxx』に書き換え設定します。</p>
+
+<pre><code>http://twitter.com/statuses/user_timeline/xxxxxxxxx.rss
+</code></pre>
+
+<p>これでバッチシ！</p>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <ul class="list-inline text-center">
+                    <li>
+                      <a href="mailto:">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://twitter.com/kachina_t">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://github.com/kachina">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://www.facebook.com/tetsuya.chiba">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted">Code released under the Apache 2.0 license.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://kachina.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/clean-blog.js"></script>
+
+    
+
+</body>
+
+</html>
+

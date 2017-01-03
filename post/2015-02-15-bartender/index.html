@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>13.3インチのディスプレイのみで働く工夫 -- Ship of Fools</title>
+
+    
+
+    
+    <link href="https://kachina.github.io/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="https://kachina.github.io/css/clean-blog.min.css" rel="stylesheet">
+
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    
+    
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://kachina.github.io">Ship of Fools</a>
+            </div>
+
+                       
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <a href="https://kachina.github.io/">home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://kachina.github.io/post/">Archives</a>
+                    </li>
+                    
+                  </ul>
+            </div>
+           
+
+        </div>
+        
+    </nav>
+
+
+    
+    
+    <header class="intro-header" style="background-image: url('https://kachina.github.io//img/about-bg.jpg')">
+      
+      <div class="container">
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             <div class="post-heading">
+               <h1>13.3インチのディスプレイのみで働く工夫</h1>
+               <h2 class="subheading"></h2>
+               <span class="meta">Posted by <a href="#">@kachina_t</a> on Sun, Feb 15, 2015
+                 <br />
+                 In <a href="https://kachina.github.io/categories/development">Development</a>
+
+                 <br />
+                 Tags <a href="https://kachina.github.io/tags/development">development</a>
+               </span>
+             </div>
+           </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  
+
+<p>これからはオフィスや自宅以外で働くことも多くなるので、場所にとらわれず同じ生産性を出す為に『持ち歩けないものは使わない』ってチャレンジを初めてから2年が経ちました。
+振り返りに良いタイミングなので、2年間の変化を整理しておきたいと思います。</p>
+
+<h4 id="この2年で使わなくなったもの">この2年で使わなくなったもの</h4>
+
+<ul>
+<li>外部ディスプレイ / Happy Hackingのキーボード / Logicoolの親指トラックボールマウス<br />
+この3つは慣れるまでシンドかった</li>
+<li>iPad<br />
+持ち歩いていたが全く利用しないことに気が付いた</li>
+<li>モバイルバッテリー</li>
+<li>Ethernetアダプタ</li>
+<li>EMOBILE<br />
+以下のサービスで代用
+
+<ul>
+<li>iPhone テザリング</li>
+<li>au Wi-Fi SPOT</li>
+<li>公衆無線LAN</li>
+</ul></li>
+</ul>
+
+<h4 id="いまも持ち歩いているもの">いまも持ち歩いているもの</h4>
+
+<ul>
+<li>13-inch MacBook Air
+
+<ul>
+<li>Mini DisplayPort (VGA) : プロジェクタ接続用</li>
+<li>Mini DisplayPort (HDMI) : プロジェクタ接続用</li>
+<li>電源アダプタ</li>
+</ul></li>
+<li>iPhone 6 (au)
+
+<ul>
+<li>Lightning USBケーブル</li>
+<li>USB 電源アダプタ</li>
+</ul></li>
+</ul>
+
+<p>毎日持ち歩くモノが減ったことが最良の出来事かもしれません。</p>
+
+<p>さて、キーボード/マウスは耐えるのみでしたが『外部ディスプレイを使わない』については、13.3インチの小さいディスプレイを有効に利用する為に <strong>徹底して不要な情報は出力しない</strong> を実施しました。</p>
+
+<p>前置きが長くなりましたが、今回はこれについて書きたいと思います。</p>
+
+<p>はじめに、自分はIDEを使いません。
+開発環境はターミナルとブラウザに集約させています。</p>
+
+<ul>
+<li><p><a href="http://iterm2.com/">iTerm2</a> (ターミナル)</p>
+
+<ul>
+<li><a href="http://tmux.sourceforge.net/">tmux</a> (ターミナルマルチプレクサ)</li>
+<li><a href="https://github.com/jugyo/earthquake">earthquake</a> (Twitterクライアント)</li>
+<li><a href="http://www.vim.org/">vim</a> (エディタ)</li>
+</ul></li>
+
+<li><p><a href="https://www.mozilla.org/en-US/firefox/new/">FireFox</a> (ブラウザ)</p>
+
+<ul>
+<li>HipChat / Slack / Sqwiggle等のOS X向けアプリを配布しているサービスも極力ブラウザ版を利用</li>
+<li>Flash PlayerをOS Xにインストールしないことで軽量化<br />
+Flash Playerが必要なサービスを利用するときは <a href="www.google.com/chrome/">Chrome</a> を利用</li>
+</ul></li>
+</ul>
+
+<h4 id="1-firefoxのカスタマイズ">1. FireFoxのカスタマイズ</h4>
+
+<p>FireFoxのツールバーは <strong>Liberator Statusline Toolbar</strong> 以外を非表示にしています。</p>
+
+<p><img src="images/20150215_image_1.png" alt="FireFox Screen 1" /></p>
+
+<p>最近のFireFoxはナビゲーションバーを非表示にすることが出来ないので <strong><a href="https://addons.mozilla.org/en-US/firefox/addon/classicthemerestorer/">Classic Theme Restorer</a></strong> アドオンを使って隠しています。</p>
+
+<p><img src="images/20150215_image_2.png" alt="FireFox Screen 2" /></p>
+
+<p>ブラウザ操作は <strong><a href="https://addons.mozilla.org/en-us/firefox/addon/vimperator/">Vimperator</a></strong> を使っており、コマンドのレスが <strong>Liberator Statusline Toolbar</strong> に出力されます。</p>
+
+<p><img src="images/20150215_image_3.png" alt="FireFox Screen 3" /></p>
+
+<h4 id="2-iterm2とos-xのカスタマイズ">2. iTerm2とOS Xのカスタマイズ</h4>
+
+<p>以下が <strong>iTerm2</strong> と <strong>OS Xのメニューバー</strong> です。</p>
+
+<p><img src="images/20150215_image_4.png" alt="iTerm2 x Menu Bar" /></p>
+
+<ol>
+<li>ホスト名</li>
+<li>tmuxのセッション名, ペイン番号</li>
+<li>現在のグローバルIPアドレス</li>
+<li>ペイン</li>
+<li>バッテリーの残量</li>
+<li>曜日, 年月日, 時分</li>
+<li>OS Xのメニューバー<br />
+以下のモノは <a href="http://www.macbartender.com/">Bartender</a> でメニューバーから隠しています。<br />
+<img src="images/20150215_image_5.png" alt="iTerm2 x Menu Bar" /><br />
+
+<ul>
+<li>アイコンがカラーのダサいアプリ</li>
+<li>マウスクリックして利用することのないアプリ</li>
+<li>1〜6で既に表示されている情報</li>
+</ul></li>
+</ol>
+
+<h4 id="まとめ">まとめ</h4>
+
+<p>上記の他には、サイズが小さくても読みやすいフォントを選ぶようにしています。(いまは<a href="http://opendyslexic.org/">OpenDyslexic</a>を試しているとこ)</p>
+
+<p>以上が、13.3インチの小さいディスプレイを有効に利用する為に工夫していることです。</p>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <ul class="list-inline text-center">
+                    <li>
+                      <a href="mailto:">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://twitter.com/kachina_t">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://github.com/kachina">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://www.facebook.com/tetsuya.chiba">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted">Code released under the Apache 2.0 license.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://kachina.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/clean-blog.js"></script>
+
+    
+
+</body>
+
+</html>
+

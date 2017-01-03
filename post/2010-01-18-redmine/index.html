@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Redmine Todo Lists plugin を使ってみた -- Ship of Fools</title>
+
+    
+
+    
+    <link href="https://kachina.github.io/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="https://kachina.github.io/css/clean-blog.min.css" rel="stylesheet">
+
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    
+    
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://kachina.github.io">Ship of Fools</a>
+            </div>
+
+                       
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <a href="https://kachina.github.io/">home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://kachina.github.io/post/">Archives</a>
+                    </li>
+                    
+                  </ul>
+            </div>
+           
+
+        </div>
+        
+    </nav>
+
+
+    
+    
+    <header class="intro-header" style="background-image: url('https://kachina.github.io/img/post-bg.jpg')">
+    
+      <div class="container">
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             <div class="post-heading">
+               <h1>Redmine Todo Lists plugin を使ってみた</h1>
+               <h2 class="subheading"></h2>
+               <span class="meta">Posted by <a href="#">@kachina_t</a> on Mon, Jan 18, 2010
+                 <br />
+                 In <a href="https://kachina.github.io/categories/development">Development</a>
+
+                 <br />
+                 Tags <a href="https://kachina.github.io/tags/development">development</a>
+               </span>
+             </div>
+           </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <p>Redmine Todo Lists pluginのインストールしてみました。<br />
+結構便利なプラグインなのに、日本語の情報があまりなくて苦労したのでここに残しておきます。</p>
+
+<p>インストールした環境は以下のとおり。<br />
+&gt; CentOS 5.3
+&gt; Rails 2.3.5
+&gt; Redmine 0.8.7</p>
+
+<p><a href="http://github.com/dalyons/redmine-todos-scrum-plugin/tree">こちら</a> 以下のページの最下部の手順に従ってインストールする。<br />
+（『git clone ～』に失敗したので、ページ最上部の『Download Source』から取得しました）</p>
+
+<p>【エラー１】プロジェクトの『Todoリスト』に1件以上のTodoが存在するとエラーとなる。</p>
+
+<blockquote>
+<p>ActionView::TemplateError (wrong number of arguments (2 for 1)) on line #26 of todos/_todo.html.erb:</p>
+</blockquote>
+
+<p><a href="http://github.com/gmiklaszewski/redmine-todos-scrum-plugin/commit/61dd31bdcf5713063df744d2e243ca7eef53c267">こちら</a> のページに従って、２ファイルを編集します。</p>
+
+<p>【エラー２】『マイTodoリスト』を押下するとエラーとなる。<br />
+エラーメッセージ：ActionView::TemplateError ～中略～ on line #11 of todos/_new_todo.html.erb:<br />
+以下のとおり、２つの『routes.rb』が有るのですが、ファイル１の方が適用されることが問題でした。</p>
+
+<ul>
+<li><p>ファイル１
+&gt; ./vendor/plugins/redmine_todos_plugin/routes.rb</p></li>
+
+<li><p>ファイル２
+&gt; ./vendor/plugins/redmine_todos_plugin/config/routes.rb</p></li>
+</ul>
+
+<pre><code class="language-objc">cp ./vendor/plugins/redmine_todos_plugin/config/routes.rb ¥ 
+./vendor/plugins/redmine_todos_plugin/routes.rb
+</code></pre>
+
+<p>以上で、正常にTodo機能が使えるようになりました。</p>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <ul class="list-inline text-center">
+                    <li>
+                      <a href="mailto:">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://twitter.com/kachina_t">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://github.com/kachina">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://www.facebook.com/tetsuya.chiba">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted">Code released under the Apache 2.0 license.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://kachina.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/clean-blog.js"></script>
+
+    
+
+</body>
+
+</html>
+

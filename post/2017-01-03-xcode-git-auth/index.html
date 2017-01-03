@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>xcodeからリモートのGitリポジトリの認証に既存の秘密鍵をつかう -- Ship of Fools</title>
+
+    
+
+    
+    <link href="https://kachina.github.io/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="https://kachina.github.io/css/clean-blog.min.css" rel="stylesheet">
+
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    
+    
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://kachina.github.io">Ship of Fools</a>
+            </div>
+
+                       
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <a href="https://kachina.github.io/">home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://kachina.github.io/post/">Archives</a>
+                    </li>
+                    
+                  </ul>
+            </div>
+           
+
+        </div>
+        
+    </nav>
+
+
+    
+    
+    <header class="intro-header" style="background-image: url('https://kachina.github.io//img/about-bg.jpg')">
+      
+      <div class="container">
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             <div class="post-heading">
+               <h1>xcodeからリモートのGitリポジトリの認証に既存の秘密鍵をつかう</h1>
+               <h2 class="subheading"></h2>
+               <span class="meta">Posted by <a href="#">@kachina_t</a> on Tue, Jan 3, 2017
+                 <br />
+                 In <a href="https://kachina.github.io/categories/development">Development</a>
+
+                 <br />
+                 Tags <a href="https://kachina.github.io/tags/development">development</a>
+               </span>
+             </div>
+           </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  
+
+<p>やりたいことができるアプリが App Store になかったので、いまさらながら iPhone アプリの実装にチャレンジすることにしました。
+Swift のチュートリアルをやっているのですが、ステップ毎に Git リポジトリにコミットしてリモートの BitBucket に Push しておこうと思った際につまずいたのでメモしておきます。</p>
+
+<p>実行環境は以下のとおりです。</p>
+
+<ul>
+<li>Xcode 8.2.1</li>
+<li>Remote Gitリポジトリ: BitBucket</li>
+<li>認証方式: 公開鍵認証</li>
+</ul>
+
+<h3 id="リモートリポジトリ-bitbucket-側に登録されている公開鍵">リモートリポジトリ(BitBucket)側に登録されている公開鍵</h3>
+
+<p>既に Xcode 以外の開発環境でも BitBucket は利用しているので公開鍵の設定は済んでおり、登録済みの鍵ペアは以下のとおりです。</p>
+
+<ul>
+<li>~/.ssh/foo.pem (秘密鍵)</li>
+<li>~/.ssh/foo.pub (公開鍵)</li>
+</ul>
+
+<h3 id="リモートリポジトリの登録">リモートリポジトリの登録</h3>
+
+<p>まず、Xcode からリモートリポジトリを設定を実施します。</p>
+
+<ol>
+<li>[menu bar] -&gt; [Source Control] -&gt; [&ldquo;プロジェクト名&rdquo; &ndash; master] -&gt; [Configure &ldquo;プロジェクト名&rdquo;&hellip;] でサブウィンドウを開く</li>
+<li>[Remote]タブの <code>＋</code> から[Add Remote&hellip;] からリモートリポジトリを登録します。</li>
+</ol>
+
+<h3 id="リモートリポジトリへのpush">リモートリポジトリへのPush</h3>
+
+<p>チュートリアルを進めて、いざリモートリポジトリにPushしようとしたら秘密鍵を作成するよう為のガイダンスが表示されてしまいました。<br />
+わたしとしては、既にリモートリポジトリに登録済みの <code>~/.ssh/foo.pem</code> で認証したいのですが、その選択肢はないようです。</p>
+
+<p>色々調べてみたところデフォルトでは <code>~/.ssh/id_rsa</code> を参照するようでしたので、以下のコマンドでシンボリックリンクを貼ることで、新たに鍵ペアを増やすことなくSSH鍵認証で BitBucket を利用することができました。</p>
+
+<pre><code>$ ln -s ~/.ssh/foo.pem ~/.ssh/id_rsa
+$ ln -s ~/.ssh/foo.pub ~/.ssh/id_rsa.pub
+</code></pre>
+
+<p>おしまい</p>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <ul class="list-inline text-center">
+                    <li>
+                      <a href="mailto:">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://twitter.com/kachina_t">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://github.com/kachina">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://www.facebook.com/tetsuya.chiba">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted">Code released under the Apache 2.0 license.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://kachina.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/clean-blog.js"></script>
+
+    
+
+</body>
+
+</html>
+

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>カラーモード『CMYK』のPDF → サムネイル化に失敗 -- Ship of Fools</title>
+
+    
+
+    
+    <link href="https://kachina.github.io/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="https://kachina.github.io/css/clean-blog.min.css" rel="stylesheet">
+
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    
+    
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://kachina.github.io">Ship of Fools</a>
+            </div>
+
+                       
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <a href="https://kachina.github.io/">home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://kachina.github.io/post/">Archives</a>
+                    </li>
+                    
+                  </ul>
+            </div>
+           
+
+        </div>
+        
+    </nav>
+
+
+    
+    
+    <header class="intro-header" style="background-image: url('https://kachina.github.io//img/about-bg.jpg')">
+      
+      <div class="container">
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             <div class="post-heading">
+               <h1>カラーモード『CMYK』のPDF → サムネイル化に失敗</h1>
+               <h2 class="subheading"></h2>
+               <span class="meta">Posted by <a href="#">@kachina_t</a> on Mon, Dec 6, 2010
+                 <br />
+                 In <a href="https://kachina.github.io/categories/development">Development</a>
+
+                 <br />
+                 Tags <a href="https://kachina.github.io/tags/development">development</a>
+               </span>
+             </div>
+           </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  
+
+<p>ImageMagickを使って、PDFファイルからJpegのサムネイルを作ってるのだけど<br />
+PDFのカラーモードが『RGB』の場合は問題ないのだけど、『CMYK』の場合はreadImage()でエラーになる。</p>
+
+<p>開発で使ってる環境は<br />
+↓こんな感じ</p>
+
+<ul>
+<li>CentOS 5.4</li>
+<li>PHP 5.3.2</li>
+</ul>
+
+<h2 id="example-php">example.php</h2>
+
+<pre><code class="language-objc">$filePath = '/tmp/foo.pdf';
+$type = 'jpeg';$maxH = 125;
+$maxW = 175;
+$image = new imagick();
+$image-&gt;readImage($filePath);
+$image-&gt;setImageFormat($type);
+$image-&gt;thumbnailImage($maxW, $maxH, true);
+$result = $image-&gt;writeImage($thumnailPath);$image-&gt;destroy();
+</code></pre>
+
+<h2 id="apache-error-log">apache:error.log</h2>
+
+<pre><code class="language-objc">ESP Ghostscript 815.02: Unrecoverable error, exit code 1
+[Mon Dec 06 16:11:18 2010] [error] [client xxx.xxx.xxx.xxx] Postscript delegate failed `/tmp/magick-XXPtZKJQ': /magick-XXQBr4Ok.cache @ error/pdf.c/ReadPDFImage/638, referer: http://dev.kachina.local/example.php
+</code></pre>
+
+<p>んで、いろいろ調べてみたらimagickでPDFを読み込む時に、『ghostscript』ってのを使ってて
+CentOS5.4のyumリポジトリから提供されてる最新が『8.15』なのさ。
+こいつが『8.71』以前だと、この現象が発生することが判明。</p>
+
+<p>回避策は、バージョンを上げちゃうこと。</p>
+
+<h2 id="回避策">回避策</h2>
+
+<p>まずは、バージョンの確認・バックアップ取得</p>
+
+<pre><code class="language-objc">[root@devsrv ~]# gs -v
+ESP Ghostscript 8.15.2 (2006-04-19)
+Copyright (C) 2004 artofcode LLC, Benicia, CA.  All rights reserved.
+[root@devsrv ~]# mv /usr/bin/gs /usr/bin/gs_8.15.2
+</code></pre>
+
+<p>んでもって、ghostscript-8.71のダウンロード・インストール</p>
+
+<pre><code class="language-objc">[root@devsrv ~]# cd /usr/local/src/
+[root@devsrv src]# wget http://ghostscript.com/releases/ghostscript-8.71.tar.gz
+[root@devsrv src]# tar xvzf ghostscript-8.71.tar.gz
+[root@devsrv src]# cd ghostscript-8.71
+[root@devsrv ghostscript-8.71]# ./configure
+[root@devsrv ghostscript-8.71]# make
+[root@devsrv ghostscript-8.71]# make install
+[root@devsrv ghostscript-8.71]# ln -s /usr/local/bin/gs /usr/bin/gs
+</code></pre>
+
+<p>最後に更新バージョンの確認</p>
+
+<pre><code class="language-objc">[root@devsrv ~]# gs -v
+GPL Ghostscript 8.71 (2010-02-10)
+Copyright (C) 2010 Artifex Software, Inc.  All rights reserved.
+</code></pre>
+
+<p>これで、apacheを再起動したらバッチ</p>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <ul class="list-inline text-center">
+                    <li>
+                      <a href="mailto:">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://twitter.com/kachina_t">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://github.com/kachina">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://www.facebook.com/tetsuya.chiba">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted">Code released under the Apache 2.0 license.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://kachina.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/clean-blog.js"></script>
+
+    
+
+</body>
+
+</html>
+

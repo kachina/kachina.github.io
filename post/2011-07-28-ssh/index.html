@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>sshの鍵ファイル認証にてハデにハマる -- Ship of Fools</title>
+
+    
+
+    
+    <link href="https://kachina.github.io/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="https://kachina.github.io/css/clean-blog.min.css" rel="stylesheet">
+
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    
+    
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://kachina.github.io">Ship of Fools</a>
+            </div>
+
+                       
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <a href="https://kachina.github.io/">home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://kachina.github.io/post/">Archives</a>
+                    </li>
+                    
+                  </ul>
+            </div>
+           
+
+        </div>
+        
+    </nav>
+
+
+    
+    
+    <header class="intro-header" style="background-image: url('https://kachina.github.io//img/about-bg.jpg')">
+      
+      <div class="container">
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             <div class="post-heading">
+               <h1>sshの鍵ファイル認証にてハデにハマる</h1>
+               <h2 class="subheading"></h2>
+               <span class="meta">Posted by <a href="#">@kachina_t</a> on Thu, Jul 28, 2011
+                 <br />
+                 In <a href="https://kachina.github.io/categories/os">OS</a>
+
+                 <br />
+                 Tags <a href="https://kachina.github.io/tags/os">os</a>
+               </span>
+             </div>
+           </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  
+
+<p>客先の火消し案件中にsshの鍵ファイル認証でハデにハマり<br />
+限りある時間を必要以上に使ってしまったので<br />
+この悲しい記憶を記録とします。</p>
+
+<p>以下の様な環境で、同一の秘密鍵を利用しているのに<br />
+【Linux1】&lt;-&gt;【Server】の接続は問題ないのだが<br />
+【Linux2】&lt;-&gt;【Server】の接続は失敗する現象に出くわしました。</p>
+
+<pre><code>           ssh             ssh
++--------+      +--------+      +--------+
+| Linux1 |&lt;----&gt;| Server |&lt;----&gt;| Linux2 |
++--------+      +--------+      +--------+
+            OK              NG
+</code></pre>
+
+<h2 id="server">【Server】</h2>
+
+<blockquote>
+<p>os：CentOS release 5.6</p>
+
+<p>sshd：openssh-server 4.3p2-72</p>
+</blockquote>
+
+<h2 id="linux1-linux2">【Linux1,Linux2】</h2>
+
+<blockquote>
+<p>openssh-clients 4.3p2-41</p>
+</blockquote>
+
+<p>まずは【Server】の設定ファイル『/etc/ssh/sshd_config』を以下のとおり変更し<br />
+デバッグメッセージを『/var/log/secure』へ出力するようにします。</p>
+
+<pre><code>SyslogFacility AUTHPRIV
+LogLevel DEBUG3
+</code></pre>
+
+<p>んで【Linux2】から【Server】へssh接続を実行すると</p>
+
+<pre><code>[piyo@linux2 ~]$ ssh hoge@example.com
+</code></pre>
+
+<p>【Server】側にて、以下のログが出力されました。</p>
+
+<pre><code>Jul 28 12:12:48 svn sshd[27401]: debug3: fd 4 is not O_NONBLOCK
+Jul 28 12:12:48 svn sshd[27494]: debug1: rexec start in 4 out 4 newsock 4 pipe 6 sock 7
+Jul 28 12:12:48 svn sshd[27401]: debug1: Forked child 27494.
+Jul 28 12:12:48 svn sshd[27401]: debug3: send_rexec_state: entering fd = 7 config len 701
+Jul 28 12:12:48 svn sshd[27401]: debug3: ssh_msg_send: type 0
+Jul 28 12:12:48 svn sshd[27401]: debug3: send_rexec_state: done
+Jul 28 12:12:48 svn sshd[27494]: debug1: inetd sockets after dupping: 3, 3
+Jul 28 12:12:48 svn sshd[27494]: debug3: Normalising mapped IPv4 in IPv6 address
+Jul 28 12:12:48 svn sshd[27494]: Connection from xxx.xxx.xxx.xxx port 42178
+Jul 28 12:12:48 svn sshd[27494]: debug1: Client protocol version 2.0; client software version OpenSSH_4.3
+Jul 28 12:12:48 svn sshd[27494]: debug1: match: OpenSSH_4.3 pat OpenSSH*
+Jul 28 12:12:48 svn sshd[27494]: debug1: Enabling compatibility mode for protocol 2.0
+Jul 28 12:12:48 svn sshd[27494]: debug1: Local version string SSH-2.0-OpenSSH_4.3
+Jul 28 12:12:48 svn sshd[27494]: debug2: fd 3 setting O_NONBLOCK
+Jul 28 12:12:48 svn sshd[27495]: debug3: privsep user:group 74:74
+Jul 28 12:12:48 svn sshd[27494]: debug2: Network child is on pid 27495
+Jul 28 12:12:48 svn sshd[27495]: debug1: permanently_set_uid: 74/74
+Jul 28 12:12:48 svn sshd[27494]: debug3: preauth child monitor started
+Jul 28 12:12:48 svn sshd[27495]: debug1: list_hostkey_types: ssh-rsa,ssh-dss
+Jul 28 12:12:48 svn sshd[27494]: debug3: mm_request_receive entering
+Jul 28 12:12:48 svn sshd[27495]: debug1: SSH2_MSG_KEXINIT sent
+Jul 28 12:12:48 svn sshd[27495]: debug1: SSH2_MSG_KEXINIT received
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: ssh-rsa,ssh-dss
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc,aes256-cbc,arcfour,rijndael-cbc@lysator.liu.se
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc,aes256-cbc,arcfour,rijndael-cbc@lysator.liu.se
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: hmac-md5,hmac-sha1,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: hmac-md5,hmac-sha1,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: none,zlib@openssh.com
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: none,zlib@openssh.com
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit:
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit:
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: first_kex_follows 0
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: reserved 0
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: ssh-rsa,ssh-dss
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,arcfour128,arcfour256,arcfour,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,arcfour128,arcfour256,arcfour,aes192-cbc,aes256-cbc,rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: hmac-md5,hmac-sha1,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: hmac-md5,hmac-sha1,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: none,zlib@openssh.com,zlib
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: none,zlib@openssh.com,zlib
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit:
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit:
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: first_kex_follows 0
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_parse_kexinit: reserved 0
+Jul 28 12:12:48 svn sshd[27495]: debug2: mac_init: found hmac-md5
+Jul 28 12:12:48 svn sshd[27495]: debug1: kex: client-&gt;server aes128-cbc hmac-md5 none
+Jul 28 12:12:48 svn sshd[27495]: debug3: Normalising mapped IPv4 in IPv6 address
+Jul 28 12:12:48 svn sshd[27495]: debug3: mm_request_send entering: type 2
+Jul 28 12:12:48 svn sshd[27494]: debug3: monitor_read: checking request 2
+Jul 28 12:12:48 svn sshd[27494]: debug3: Normalising mapped IPv4 in IPv6 address
+Jul 28 12:12:48 svn sshd[27494]: debug3: mm_request_send entering: type 3
+Jul 28 12:12:48 svn sshd[27494]: debug3: mm_request_receive entering
+Jul 28 12:12:48 svn sshd[27495]: debug3: mm_request_receive_expect entering: type 3
+Jul 28 12:12:48 svn sshd[27495]: debug3: mm_request_receive entering
+Jul 28 12:12:48 svn sshd[27495]: debug2: mac_init: found hmac-md5
+Jul 28 12:12:48 svn sshd[27495]: debug1: kex: server-&gt;client aes128-cbc hmac-md5 none
+Jul 28 12:12:48 svn sshd[27495]: debug3: Normalising mapped IPv4 in IPv6 address
+Jul 28 12:12:48 svn sshd[27495]: debug3: mm_request_send entering: type 2
+Jul 28 12:12:48 svn sshd[27494]: debug3: monitor_read: checking request 2
+Jul 28 12:12:48 svn sshd[27495]: debug3: mm_request_receive_expect entering: type 3
+Jul 28 12:12:48 svn sshd[27494]: debug3: mm_request_send entering: type 3
+Jul 28 12:12:48 svn sshd[27495]: debug3: mm_request_receive entering
+Jul 28 12:12:48 svn sshd[27494]: debug3: mm_request_receive entering
+Jul 28 12:12:48 svn sshd[27495]: debug1: SSH2_MSG_KEX_DH_GEX_REQUEST received
+Jul 28 12:12:48 svn sshd[27495]: debug3: mm_request_send entering: type 17
+Jul 28 12:12:48 svn sshd[27494]: debug3: monitor_read: checking request 17
+Jul 28 12:12:48 svn sshd[27495]: debug3: mm_choose_dh: waiting for MONITOR_ANS_MODULI
+Jul 28 12:12:48 svn sshd[27494]: debug3: mm_answer_moduli: got parameters: 1024 1024 8192
+Jul 28 12:12:48 svn sshd[27495]: debug3: mm_request_receive_expect entering: type 18
+Jul 28 12:12:48 svn sshd[27494]: debug3: mm_request_send entering: type 18
+Jul 28 12:12:48 svn sshd[27495]: debug3: mm_request_receive entering
+Jul 28 12:12:48 svn sshd[27494]: debug2: monitor_read: 17 used once, disabling now
+Jul 28 12:12:48 svn sshd[27495]: debug3: mm_choose_dh: remaining 0
+Jul 28 12:12:48 svn sshd[27494]: debug3: mm_request_receive entering
+Jul 28 12:12:48 svn sshd[27495]: debug1: SSH2_MSG_KEX_DH_GEX_GROUP sent
+Jul 28 12:12:48 svn sshd[27495]: debug2: dh_gen_key: priv key bits set: 137/256
+Jul 28 12:12:48 svn sshd[27495]: debug2: bits set: 536/1024
+Jul 28 12:12:48 svn sshd[27495]: debug1: expecting SSH2_MSG_KEX_DH_GEX_INIT
+Jul 28 12:12:48 svn sshd[27495]: debug2: bits set: 499/1024
+Jul 28 12:12:48 svn sshd[27495]: debug3: mm_key_sign entering
+Jul 28 12:12:48 svn sshd[27495]: debug3: mm_request_send entering: type 22
+Jul 28 12:12:48 svn sshd[27494]: debug3: monitor_read: checking request 22
+Jul 28 12:12:48 svn sshd[27495]: debug3: mm_key_sign: waiting for MONITOR_ANS_SIGN
+Jul 28 12:12:48 svn sshd[27495]: debug3: mm_request_receive_expect entering: type 23
+Jul 28 12:12:48 svn sshd[27495]: debug3: mm_request_receive entering
+Jul 28 12:12:48 svn sshd[27494]: debug3: mm_answer_sign
+Jul 28 12:12:48 svn sshd[27494]: debug3: mm_answer_sign: signature 0x9c1c7a0(271)
+Jul 28 12:12:48 svn sshd[27494]: debug3: mm_request_send entering: type 23
+Jul 28 12:12:48 svn sshd[27494]: debug2: monitor_read: 22 used once, disabling now
+Jul 28 12:12:48 svn sshd[27494]: debug3: mm_request_receive entering
+Jul 28 12:12:48 svn sshd[27495]: debug1: SSH2_MSG_KEX_DH_GEX_REPLY sent
+Jul 28 12:12:48 svn sshd[27495]: debug2: kex_derive_keys
+Jul 28 12:12:48 svn sshd[27495]: debug2: set_newkeys: mode 1
+Jul 28 12:12:48 svn sshd[27495]: debug1: SSH2_MSG_NEWKEYS sent
+Jul 28 12:12:48 svn sshd[27495]: debug1: expecting SSH2_MSG_NEWKEYS
+Jul 28 12:12:48 svn sshd[27495]: debug2: set_newkeys: mode 0
+Jul 28 12:12:48 svn sshd[27495]: debug1: SSH2_MSG_NEWKEYS received
+Jul 28 12:12:48 svn sshd[27495]: debug1: KEX done
+Jul 28 12:12:49 svn sshd[27495]: debug1: userauth-request for user kachina service ssh-connection method none
+Jul 28 12:12:49 svn sshd[27495]: debug1: attempt 0 failures 0
+Jul 28 12:12:49 svn sshd[27495]: debug3: mm_getpwnamallow entering
+Jul 28 12:12:49 svn sshd[27495]: debug3: mm_request_send entering: type 24
+Jul 28 12:12:49 svn sshd[27494]: debug3: monitor_read: checking request 24
+Jul 28 12:12:49 svn sshd[27494]: debug3: mm_answer_pwnamallow
+Jul 28 12:12:49 svn sshd[27494]: debug3: mm_answer_pwnamallow: sending MONITOR_ANS_PWNAM: 1
+Jul 28 12:12:49 svn sshd[27494]: debug3: mm_request_send entering: type 25
+Jul 28 12:12:49 svn sshd[27494]: debug2: monitor_read: 24 used once, disabling now
+Jul 28 12:12:49 svn sshd[27494]: debug3: mm_request_receive entering
+Jul 28 12:12:49 svn sshd[27495]: debug3: mm_getpwnamallow: waiting for MONITOR_ANS_PWNAM
+Jul 28 12:12:49 svn sshd[27495]: debug3: mm_request_receive_expect entering: type 25
+Jul 28 12:12:49 svn sshd[27495]: debug3: mm_request_receive entering
+Jul 28 12:12:49 svn sshd[27495]: debug2: input_userauth_request: setting up authctxt for kachina
+Jul 28 12:12:49 svn sshd[27495]: debug3: mm_start_pam entering
+Jul 28 12:12:49 svn sshd[27495]: debug3: mm_request_send entering: type 6
+Jul 28 12:12:49 svn sshd[27494]: debug3: monitor_read: checking request 6
+Jul 28 12:12:49 svn sshd[27495]: debug3: mm_inform_authserv entering
+Jul 28 12:12:49 svn sshd[27494]: debug1: PAM: initializing for &quot;kachina&quot;
+Jul 28 12:12:49 svn sshd[27495]: debug3: mm_request_send entering: type 20
+Jul 28 12:12:49 svn sshd[27494]: debug3: Normalising mapped IPv4 in IPv6 address
+Jul 28 12:12:49 svn sshd[27495]: debug3: mm_inform_authrole entering
+Jul 28 12:12:49 svn sshd[27494]: debug3: Trying to reverse map address xxx.xxx.xxx.xxx.
+Jul 28 12:12:49 svn sshd[27495]: debug3: mm_request_send entering: type 21
+Jul 28 12:12:49 svn sshd[27495]: debug2: input_userauth_request: try method none
+Jul 28 12:12:49 svn sshd[27495]: debug1: userauth-request for user kachina service ssh-connection method publickey
+Jul 28 12:12:49 svn sshd[27495]: debug1: attempt 1 failures 1
+Jul 28 12:12:49 svn sshd[27495]: debug2: input_userauth_request: try method publickey
+Jul 28 12:12:49 svn sshd[27495]: debug1: test whether pkalg/pkblob are acceptable
+Jul 28 12:12:49 svn sshd[27495]: debug3: mm_key_allowed entering
+Jul 28 12:12:49 svn sshd[27495]: debug3: mm_request_send entering: type 38
+Jul 28 12:12:49 svn sshd[27495]: debug3: mm_key_allowed: waiting for MONITOR_ANS_KEYALLOWED
+Jul 28 12:12:49 svn sshd[27495]: debug3: mm_request_receive_expect entering: type 39
+Jul 28 12:12:49 svn sshd[27495]: debug3: mm_request_receive entering
+Jul 28 12:12:49 svn sshd[27494]: debug1: PAM: setting PAM_RHOST to &quot;example.com&quot;
+Jul 28 12:12:49 svn sshd[27494]: debug1: PAM: setting PAM_TTY to &quot;ssh&quot;
+Jul 28 12:12:49 svn sshd[27494]: debug2: monitor_read: 6 used once, disabling now
+Jul 28 12:12:49 svn sshd[27494]: debug3: mm_request_receive entering
+Jul 28 12:12:49 svn sshd[27494]: debug3: monitor_read: checking request 20
+Jul 28 12:12:49 svn sshd[27494]: debug3: mm_answer_authserv: service=ssh-connection, style=
+Jul 28 12:12:49 svn sshd[27494]: debug2: monitor_read: 20 used once, disabling now
+Jul 28 12:12:49 svn sshd[27494]: debug3: mm_request_receive entering
+Jul 28 12:12:49 svn sshd[27494]: debug3: monitor_read: checking request 21
+Jul 28 12:12:49 svn sshd[27494]: debug3: mm_answer_authrole: role=
+Jul 28 12:12:49 svn sshd[27494]: debug2: monitor_read: 21 used once, disabling now
+Jul 28 12:12:49 svn sshd[27494]: debug3: mm_request_receive entering
+Jul 28 12:12:49 svn sshd[27494]: debug3: monitor_read: checking request 38
+Jul 28 12:12:49 svn sshd[27494]: debug3: mm_answer_keyallowed entering
+Jul 28 12:12:49 svn sshd[27494]: debug3: mm_answer_keyallowed: key_from_blob: 0x9c21770
+Jul 28 12:12:49 svn sshd[27494]: debug1: temporarily_use_uid: 503/503 (e=0/0)
+Jul 28 12:12:49 svn sshd[27494]: debug1: trying public key file /home/hoge/.ssh/authorized_keys
+Jul 28 12:12:49 svn sshd[27494]: debug3: secure_filename: checking '/home/hoge/.ssh'
+Jul 28 12:12:49 svn sshd[27494]: debug3: secure_filename: checking '/home/hoge'
+Jul 28 12:12:49 svn sshd[27494]: debug3: secure_filename: terminating check at '/home/hoge'
+Jul 28 12:12:49 svn sshd[27494]: debug1: restore_uid: 0/0
+Jul 28 12:12:49 svn sshd[27494]: debug2: key not found
+Jul 28 12:12:49 svn sshd[27494]: debug1: temporarily_use_uid: 503/503 (e=0/0)
+Jul 28 12:12:49 svn sshd[27494]: debug1: trying public key file /home/hoge/.ssh/authorized_keys
+Jul 28 12:12:49 svn sshd[27494]: debug3: secure_filename: checking '/home/hoge/.ssh'
+Jul 28 12:12:49 svn sshd[27494]: debug3: secure_filename: checking '/home/hoge'
+Jul 28 12:12:49 svn sshd[27494]: debug3: secure_filename: terminating check at '/home/hoge'
+Jul 28 12:12:49 svn sshd[27494]: debug1: restore_uid: 0/0
+Jul 28 12:12:49 svn sshd[27494]: debug2: key not found
+Jul 28 12:12:49 svn sshd[27494]: Failed publickey for kachina from xxx.xxx.xxx.xxx port 42178 ssh2
+Jul 28 12:12:49 svn sshd[27494]: debug3: mm_answer_keyallowed: key 0x9c21770 is disallowed
+Jul 28 12:12:49 svn sshd[27494]: debug3: mm_request_send entering: type 39
+Jul 28 12:12:49 svn sshd[27494]: debug3: mm_request_receive entering
+Jul 28 12:12:49 svn sshd[27495]: debug2: userauth_pubkey: authenticated 0 pkalg ssh-rsa
+Jul 28 12:12:49 svn sshd[27495]: debug3: Normalising mapped IPv4 in IPv6 address
+Jul 28 12:12:49 svn sshd[27495]: Connection closed by xxx.xxx.xxx.xxx
+Jul 28 12:12:49 svn sshd[27495]: debug1: do_cleanup
+Jul 28 12:12:49 svn sshd[27495]: debug3: PAM: sshpam_thread_cleanup entering
+Jul 28 12:12:49 svn sshd[27494]: debug1: do_cleanup
+Jul 28 12:12:49 svn sshd[27494]: debug1: PAM: cleanup
+Jul 28 12:12:49 svn sshd[27494]: debug3: PAM: sshpam_thread_cleanup entering
+</code></pre>
+
+<p>この手の内容でググると【Server】側のパーミッションの問題ってのがヒットするのだけど<br />
+その場合は【Linux1】&lt;-&gt;【Server】も失敗するハズなので無関係と判断します。</p>
+
+<p>さて、パーミッション以外の情報が全然ないの。。。</p>
+
+<p>【Linux1】と【Linux2】の『~/.ssh』以下を比較してみると<br />
+【Linux1】の『id_rsa』と『id_rsa.pub』が対(キーペア)であることに対して<br />
+【Linux2】の『id_rsa』と『id_rsa.pub』は対(キーペア)ではありませんでした。</p>
+
+<p>ってことで、【Linux2】の『id_rsa.pub』をリネームして再接続してみると成功！</p>
+
+<p>要約すると、sshクライアントが自動認識する<br />
+秘密鍵ファイル『~/.ssh/id_rsa』と、公開鍵ファイル『~/.ssh/id_rsa.pub』が存在する場合に<br />
+この2ファイルは対(キーペア)である必要がある。</p>
+
+<p>秘密鍵なんて、何個も作るもんじゃないね。。。</p>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <ul class="list-inline text-center">
+                    <li>
+                      <a href="mailto:">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://twitter.com/kachina_t">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://github.com/kachina">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://www.facebook.com/tetsuya.chiba">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted">Code released under the Apache 2.0 license.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://kachina.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/clean-blog.js"></script>
+
+    
+
+</body>
+
+</html>
+

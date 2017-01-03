@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>earthquakeが動かなくなった -- Ship of Fools</title>
+
+    
+
+    
+    <link href="https://kachina.github.io/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="https://kachina.github.io/css/clean-blog.min.css" rel="stylesheet">
+
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    
+    
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://kachina.github.io">Ship of Fools</a>
+            </div>
+
+                       
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <a href="https://kachina.github.io/">home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://kachina.github.io/post/">Archives</a>
+                    </li>
+                    
+                  </ul>
+            </div>
+           
+
+        </div>
+        
+    </nav>
+
+
+    
+    
+    <header class="intro-header" style="background-image: url('https://kachina.github.io//img/about-bg.jpg')">
+      
+      <div class="container">
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             <div class="post-heading">
+               <h1>earthquakeが動かなくなった</h1>
+               <h2 class="subheading"></h2>
+               <span class="meta">Posted by <a href="#">@kachina_t</a> on Sun, Feb 8, 2015
+                 <br />
+                 In <a href="https://kachina.github.io/categories/development">Development</a>
+
+                 <br />
+                 Tags <a href="https://kachina.github.io/tags/development">development</a>
+               </span>
+             </div>
+           </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  
+
+<p>諸事情あって、やっとYosemiteへのバージョンアップ許可がでたので
+アップグレードを繰り返してきたMacbook Airを、この機会にクリーンインストールに挑戦をしました。</p>
+
+<p>愛用していた <strong>LockScreen2</strong> が使えなくなったこと以外は購入済みのツールは復旧ができてひと安心
+スクリーンロックは <strong>電源 + s</strong> でディスプレイをオフにできるみたいなので、当面はこれで対応することにします。</p>
+
+<p>順調に開発環境は整ったのですが、ターミナル向けツイッタークライアントの <a href="https://github.com/jugyo/earthquake">earthquake</a> を動かすのに苦労したので書き残しておこうと思います。</p>
+
+<p>環境は以下のとおり</p>
+
+<ul>
+<li>OS X 10.10.2</li>
+<li>Ruby 2.2.0</li>
+<li>earthquake 1.0.2</li>
+</ul>
+
+<h3 id="activesupportの読み込みに失敗する">activesupportの読み込みに失敗する</h3>
+
+<p>インストール後、earthquakeを起動すると以下のエラーが出力されました。</p>
+
+<pre><code class="language-ruby">/Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/activesupport-4.2.0/lib/active_support/core_ext/module/deprecation.rb:21:in `deprecate': uninitialized constant ActiveSupport::Deprecation (NameError)
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/activesupport-4.2.0/lib/active_support/core_ext/class/delegating_attributes.rb:26:in `&lt;class:Class&gt;'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/activesupport-4.2.0/lib/active_support/core_ext/class/delegating_attributes.rb:6:in `&lt;top (required)&gt;'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/activesupport-4.2.0/lib/active_support/core_ext/class.rb:2:in `&lt;top (required)&gt;'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/activesupport-4.2.0/lib/active_support/core_ext.rb:2:in `block in &lt;top (required)&gt;'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/activesupport-4.2.0/lib/active_support/core_ext.rb:1:in `each'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/activesupport-4.2.0/lib/active_support/core_ext.rb:1:in `&lt;top (required)&gt;'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/lib/earthquake.rb:17:in `block in &lt;top (required)&gt;'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/lib/earthquake.rb:17:in `each'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/lib/earthquake.rb:17:in `&lt;top (required)&gt;'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/bin/earthquake:34:in `&lt;top (required)&gt;'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/bin/earthquake:25:in `load'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/bin/earthquake:25:in `&lt;main&gt;'
+</code></pre>
+
+<p>この問題は ~/bin/earthquake:9 以下でactive_supportを読み込むことで解決しました。</p>
+
+<pre><code class="language-ruby">require 'rubygems'
+require 'active_support'
+require 'active_support/deprecation'
+</code></pre>
+
+<h3 id="パラメーターエラーの対応">パラメーターエラーの対応</h3>
+
+<p>次に、以下のようなパラメーター不足エラーが発生しましした。</p>
+
+<pre><code class="language-ruby">/Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/em/buftok.rb:15:in `initialize': wrong number of arguments (2 for 0..1) (ArgumentError)
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:206:in `new'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:206:in `reset_state'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:140:in `post_init'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/em/connection.rb:58:in `block in new'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/em/connection.rb:49:in `instance_eval'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/em/connection.rb:49:in `new'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/eventmachine.rb:679:in `bind_connect'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/eventmachine.rb:649:in `connect'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:65:in `connect'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/lib/earthquake/core.rb:178:in `start_stream'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/lib/earthquake/core.rb:163:in `reconnect'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/lib/earthquake/core.rb:155:in `block in start'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/eventmachine.rb:187:in `call'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/eventmachine.rb:187:in `run_machine'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/eventmachine.rb:187:in `run'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/lib/earthquake/core.rb:130:in `start'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/bin/earthquake:39:in `&lt;top (required)&gt;'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/bin/earthquake:25:in `load'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/bin/earthquake:25:in `&lt;main&gt;'
+</code></pre>
+
+<p>この問題は ~/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:206 を
+以下のように変更することで解決します。</p>
+
+<pre><code class="language-ruby">@buffer  = BufferedTokenizer.new(&quot;\r&quot;, MAX_LINE_LENGTH)
+↓
+@buffer  = BufferedTokenizer.new(&quot;\r&quot;)
+</code></pre>
+
+<h3 id="不要な行をコメントアウト">不要な行をコメントアウト</h3>
+
+<p>次に、以下エラーが発生します。</p>
+
+<pre><code class="language-ruby">/Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:27: warning: duplicated key at line 30 ignored: :path
+</code></pre>
+
+<p>この問題は ~/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:27 を
+以下のように変更することで解決します。</p>
+
+<pre><code class="language-ruby">:path           =&gt; '/',
+↓
+#:path           =&gt; '/',
+</code></pre>
+
+<h3 id="nomethoderrorの対応">NoMethodErrorの対応</h3>
+
+<p>ここまでの修正で earthquake の起動は成功するのですが、25秒すると以下のエラーを出力して異常終了します。</p>
+
+<pre><code>earthquake: reconnecting in: 0.25 seconds
+/Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:119:in `unbind': undefined method `empty?' for #&lt;BufferedTokenizer:0x007f95949747b8&gt; (NoMethodError)
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/eventmachine.rb:1454:in `event_callback'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/eventmachine.rb:187:in `run_machine'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/eventmachine.rb:187:in `run'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/lib/earthquake/core.rb:130:in `start'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/bin/earthquake:39:in `&lt;top (required)&gt;'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/bin/earthquake:25:in `load'
+        from /Users/kachina_t/.rbenv/versions/2.2.0/bin/earthquake:25:in `&lt;main&gt;'
+</code></pre>
+
+<p>この問題は ~/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:119 を
+以下のように変更することで解決します。</p>
+
+<pre><code class="language-ruby">if @state == :stream &amp;&amp; !@buffer.empty?
+↓
+if @state == :stream &amp;&amp; !@buffer.nil?
+</code></pre>
+
+<p>以上で、earthquakeが正常に動作するようになりました。</p>
+
+<p>クリーンインストールしたので、すげー快適になりました。</p>
+
+<p>あわせて、8系にアップグレードしてからモッサリしていたiPadもクリーンインストールしたら
+驚くほど快適になりました。</p>
+
+<p>週末を1日以上使ってしまったけど、大満足の結果です。</p>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <ul class="list-inline text-center">
+                    <li>
+                      <a href="mailto:">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://twitter.com/kachina_t">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://github.com/kachina">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://www.facebook.com/tetsuya.chiba">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted">Code released under the Apache 2.0 license.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://kachina.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/clean-blog.js"></script>
+
+    
+
+</body>
+
+</html>
+

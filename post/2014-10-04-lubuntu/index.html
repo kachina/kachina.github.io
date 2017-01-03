@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>microSDにlubuntuを入れてみた -- Ship of Fools</title>
+
+    
+
+    
+    <link href="https://kachina.github.io/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="https://kachina.github.io/css/clean-blog.min.css" rel="stylesheet">
+
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    
+    
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://kachina.github.io">Ship of Fools</a>
+            </div>
+
+                       
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <a href="https://kachina.github.io/">home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://kachina.github.io/post/">Archives</a>
+                    </li>
+                    
+                  </ul>
+            </div>
+           
+
+        </div>
+        
+    </nav>
+
+
+    
+    
+    <header class="intro-header" style="background-image: url('https://kachina.github.io//img/about-bg.jpg')">
+      
+      <div class="container">
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             <div class="post-heading">
+               <h1>microSDにlubuntuを入れてみた</h1>
+               <h2 class="subheading"></h2>
+               <span class="meta">Posted by <a href="#">@kachina_t</a> on Sat, Oct 4, 2014
+                 <br />
+                 In <a href="https://kachina.github.io/categories/os">OS</a>
+
+                 <br />
+                 Tags <a href="https://kachina.github.io/tags/os">os</a>
+               </span>
+             </div>
+           </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  
+
+<p>お気に入りの白Macbookがお亡くなりになりました。</p>
+
+<p>中古品入手から、バッテリーの交換 / HDDからSSDへの換装 / JISからUSキーボードへの換装<br />
+とグレードアップしてきたのですが、キートップをdvorak配列に付け替えた際に『Uキー』の爪が折れてしまい<br />
+接着剤でダマシダマシ使っていたのですが復旧不可能な状態になってしまいました。</p>
+
+<p>メイン機のMacbook Airは、BYODして仕事で使っているから汚したくないので<br />
+SDカードスロットに指したmicroSDにLinuxを入れて<br />
+どこまで使えるか挑戦してみたいと思います。</p>
+
+<p>これでダメだったら、Macbookのキートップを探そうかなと(ry</p>
+
+<p>以下、手順を間違えるとOS X側のデータを全て消去される場合があるので気をつけてください。</p>
+
+<h3 id="1-microsdの購入">1. microSDの購入</h3>
+
+<p>すぐ遊びたかったので、近所の電気屋さんで16GBのmicroSD(SDカード化するアタッチメント付き)を3千円くらいで購入</p>
+
+<h3 id="2-microsdの初期化-パーティションの作成">2. microSDの初期化、パーティションの作成</h3>
+
+<ol>
+<li>SDカード化したmicroSDをMacbook Airに指して、Mac標準ソフトの『ディスクユーティリティ』を起動</li>
+<li>パーティションを2つ分割して、1つめのパーティションを以下のとおり作成する<br />
+名前: rEFIt<br />
+フォーマット: Mac OS 拡張 (ジャーナリング)<br />
+サイズ: 0.05<br /></li>
+<li>2つめのパーティションは無視して「適用」</li>
+<li><a href="http://refit.sourceforge.net/">http://refit.sourceforge.net/</a> からrEFItの「Mac disk image」をダウンロード</li>
+<li>「rEFIt-0.14.dmg」を展開</li>
+<li>展開した「efi」フォルダを、USBメモリの「rEFIt」パーティションへコピー</li>
+<li>「ターミナル」を起動してmicroSDの「refit」ディレクトリへ移動して「enable.sh」を実行</li>
+</ol>
+
+<pre><code class="language-ruby">$ cd /Volumes/rEFIt/efi/refit/
+$ ./enable.sh
+</code></pre>
+
+<h3 id="3-インストールメディアの作成">3. インストールメディアの作成</h3>
+
+<p>lubuntuのサイトから、最新のインストールイメージを取得して<br />
+インストールメディアを作成します。<br />
+<a href="http://unetbootin.sourceforge.net/">unetbootin</a>を使ってUSBに作成しました。</p>
+
+<h3 id="4-lubuntuのインストール">4. lubuntuのインストール</h3>
+
+<p>OS Xをシャットダウンしてから、キーボードの「option」を押したまま電源を入れると<br />
+起動メディアの選択ができるので、さっき作成したインストールメディアを選んでインストールスタート</p>
+
+<p>適当にすすめて、「instllation type」を選択する画面で「Something else」を選択すると<br />
+インストール先のパーティションを選択する画面が表示されるので<br />
+microSDに作成した、2つめのパーティションを選択する。(自分の環境では「/dev/sdb3」)<br />
+そこに、ファイルシステム「ext4」でマウントポイント「/」のパーティションを作成(swapなし)</p>
+
+<p>ブートローダーのインストール先も、同じパーティションを選択します。<br />
+あとは普通のインストールと一緒なので割愛します。</p>
+
+<h3 id="5-lubuntuの起動">5. lubuntuの起動</h3>
+
+<p>インストール終了後の再起動時に、キーボードの「option」を押したままにして<br />
+起動メディアの選択ができるので「rEFIt」を選択すると「OS X」か「lubuntu」を選択する画面が表示されます。</p>
+
+<p>以降、この手順でlubuntuを起動します。</p>
+
+<h3 id="6-チューニング-ファイルアクセス時にタイムスタンプを記録しない">6. チューニング：ファイルアクセス時にタイムスタンプを記録しない</h3>
+
+<p>microSDなので、SSDやHDDと比べるとIOが遅いです。<br />
+なので、OSのインストールが終わったらをmicroSDへのアクセスを極力減らす努力をします。</p>
+
+<p>まずは「/etc/fstab」を編集し、マウント時のオプションに「relatime」を追記して<br />
+microSDアクセス時のタイムスタンプ更新頻度を削減します。</p>
+
+<pre><code class="language-ruby"># /etc/fstabを編集
+UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  / ext4  relatime,errors=remount-ro  0  1
+</code></pre>
+
+<p>編集後、再マウントする</p>
+
+<pre><code class="language-ruby">$ sudo mount -o remount /
+</code></pre>
+
+<h3 id="7-チューニング-tmpをramdisk化">7. チューニング：/tmpをRAMDISK化</h3>
+
+<p>頻繁にIOが発生するディレクトリで、OSシャットダウン時に削除されても問題ないものは<br />
+RAMDISKにして、microSDへのIOを減らします。</p>
+
+<pre><code class="language-ruby"># /etc/fstabに以下を追記
+/dev/shm  /tmp  tmpfs  size=1024m  0  0
+</code></pre>
+
+<h3 id="8-チューニング-var-logもramdisk化">8. チューニング：/var/logもRAMDISK化</h3>
+
+<p>快適さを重視してログも残さないことにします。</p>
+
+<pre><code class="language-ruby"># /etc/fstabに以下を追記
+/dev/shm  /var/log  tmpfs  size=512m  0  0
+</code></pre>
+
+<h3 id="9-チューニング-firefoxのキャッシュもramdisk化">9. チューニング：FirefoxのキャッシュもRAMDISK化</h3>
+
+<p>Firefoxがメチャクチャ遅かったので、以下のページを参考にFirefoxのキャッシュもRAMDISKにました。</p>
+
+<p><a href="http://antarespc.com/web-browser/firefox-cache-ram.html">http://antarespc.com/web-browser/firefox-cache-ram.html</a></p>
+
+<h3 id="10-osの再起動">10. OSの再起動</h3>
+
+<p>んで、OSを再起動したらチューニング終了</p>
+
+<h3 id="まとめ">まとめ</h3>
+
+<p>SSDよりは遅いけど、そこそこ普通につかえるレベルにはなりました。<br />
+以下、入れたものをざっくり紹介</p>
+
+<ul>
+<li>Byobu (terminal)</li>
+<li>tmux, tmux-powerline</li>
+<li>Ricty (font)</li>
+<li>mozc</li>
+<li>vim</li>
+<li>rbenv</li>
+<li>earthquake (twitterクライアント)</li>
+<li>Dropbox</li>
+<li>Firefox (pluginいっぱい)</li>
+</ul>
+
+<p>あとは、寿命がどれだけ持つかだ</p>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <ul class="list-inline text-center">
+                    <li>
+                      <a href="mailto:">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://twitter.com/kachina_t">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://github.com/kachina">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://www.facebook.com/tetsuya.chiba">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted">Code released under the Apache 2.0 license.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://kachina.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/clean-blog.js"></script>
+
+    
+
+</body>
+
+</html>
+

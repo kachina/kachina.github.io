@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Codeshipでaws-spec実行する -- Ship of Fools</title>
+
+    
+
+    
+    <link href="https://kachina.github.io/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="https://kachina.github.io/css/clean-blog.min.css" rel="stylesheet">
+
+    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    
+    
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://kachina.github.io">Ship of Fools</a>
+            </div>
+
+                       
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <a href="https://kachina.github.io/">home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://kachina.github.io/post/">Archives</a>
+                    </li>
+                    
+                  </ul>
+            </div>
+           
+
+        </div>
+        
+    </nav>
+
+
+    
+    
+    <header class="intro-header" style="background-image: url('https://kachina.github.io//img/about-bg.jpg')">
+      
+      <div class="container">
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             <div class="post-heading">
+               <h1>Codeshipでaws-spec実行する</h1>
+               <h2 class="subheading"></h2>
+               <span class="meta">Posted by <a href="#">@kachina_t</a> on Sun, May 11, 2014
+                 <br />
+                 In <a href="https://kachina.github.io/categories/development">Development</a>
+
+                 <br />
+                 Tags <a href="https://kachina.github.io/tags/development">development</a>
+               </span>
+             </div>
+           </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  
+
+<p>50回/月まで無料のCIサービスの<a href="https://www.codeship.io/">Codeship</a>で<br />
+<a href="https://github.com/serverworks/aws-spec">aws-spec</a>を動かした際のメモ。</p>
+
+<h2 id="1-iamアカウントの作成">1. IAMアカウントの作成</h2>
+
+<p>aws-specに利用させるIAMアカウントを作成します。</p>
+
+<p><a href="https://console.aws.amazon.com/iam/home?region=ap-northeast-1#users">AWS Management Console</a>の<strong>[Create New User]</strong>から<br />
+<strong>[codeship]</strong>(任意)ユーザーを作成し、PolicyTemplateから<strong>[Read Only Access]</strong>を設定します。</p>
+
+<h2 id="2-aws-specをfork">2. aws-specをfork</h2>
+
+<p>GitHubにてaws-specを<a href="https://github.com/serverworks/aws-spec/fork">fork</a>します。</p>
+
+<h2 id="3-codeshipにサインアップ">3. Codeshipにサインアップ</h2>
+
+<p><a href="https://www.codeship.io/">Codeship</a>の<strong>[Sign in with GitHub]</strong>をクリックしてサインアップ。</p>
+
+<h2 id="4-projectの作成">4. Projectの作成</h2>
+
+<p>トップ画面の<strong>[Create my first project!]</strong>からプロジェクトを作成します。</p>
+
+<ul>
+<li>source code provider -&gt; GitHubを選択</li>
+<li>repository -&gt; forkしたaws-specを選択</li>
+</ul>
+
+<p>セットアップ画面では以下を設定します。</p>
+
+<h3 id="select-your-technology-to-prepopulate-basic-commands">Select your technology to prepopulate basic commands</h3>
+
+<pre><code>Ruby
+</code></pre>
+
+<h3 id="modify-your-setup-commands">Modify your Setup Commands</h3>
+
+<pre><code>rvm use 2.1.1
+bundle install
+</code></pre>
+
+<h3 id="modify-your-test-commands">Modify your Test Commands</h3>
+
+<pre><code>bundle exec rspec
+</code></pre>
+
+<p><strong>[SAVE AND GO TO DASHBOARD]</strong>をクリックすると<br />
+ダッシュボードに遷移しリポジトリをPushするように促されますが<br />
+これを無視して画面上部の<strong>[Choose a project&hellip;]</strong>を開き<br />
+<strong>[aws-spec]</strong>右部にある歯車アイコンを開き<strong>[Project Settings]</strong>へ遷移します。</p>
+
+<p>左メニューの<strong>[Environment]</strong>から以下のとおり<br />
+作成したIAMユーザーのアクセスキー/シークレットアクセスキーを設定します。</p>
+
+<pre><code>AWS_ACCESS_KEY_ID=&quot;Provide your access key&quot;
+AWS_SECRET_ACCESS_KEY=&quot;Provide your secret key&quot;
+AWS_REGION=&quot;ap-northeast-1&quot;
+</code></pre>
+
+<h2 id="5-実行">5. 実行</h2>
+
+<p>準備は整ったので、実際にテストを実行してみます。<br />
+試しにEC2インスタンス数が正しいかテストしてみたいと思います。</p>
+
+<h3 id="spec-ec2-spec-rbの編集">~/spec/ec2_spec.rbの編集</h3>
+
+<p>10行目の値を<strong>0</strong>から<strong>5</strong>に変更します。</p>
+
+<pre><code class="language-ruby">require &quot;spec_helper&quot;
+
+describe &quot;EC2&quot; do
+  ec2 = AWS::EC2.new
+
+  describe &quot;Instances&quot; do
+    subject(:instances) do
+      ec2.instances
+    end
+    it { should have(5).instances }
+  end
+</code></pre>
+
+<h3 id="push">Push</h3>
+
+<pre><code>$ git add .
+$ git commit -m &quot;change count instance&quot;
+$ git push origin master
+</code></pre>
+
+<h3 id="codeshipの確認">Codeshipの確認</h3>
+
+<p>テストが実行され<code>~/spec/ec2_spec.rb</code>の10行目が通っていることを確認します。</p>
+
+<h2 id="6-通知">6. 通知</h2>
+
+<p>デフォルトで、実行結果はメールにて通知されます。</p>
+
+<p><strong>[Project Settings]</strong>の<strong>[Notification]</strong>をイジればHipChat/Campfire/Slack等にも通知できます。</p>
+
+<h2 id="7-まとめ">7. まとめ</h2>
+
+<p>Codeshipで動いたのは良いけど、やりたかったことはPushのタイミングでテストを実行するんじゃなくて<br />
+Jenkinsのスケジュール機能みたいに、1回/日テストを実行してくれてNGだったら通知して欲しいのでコレじゃダメ。</p>
+
+<p>なにやってたんだろ。ってことで別のサービスを探す。</p>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <ul class="list-inline text-center">
+                    <li>
+                      <a href="mailto:">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://twitter.com/kachina_t">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://github.com/kachina">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://www.facebook.com/tetsuya.chiba">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted">Code released under the Apache 2.0 license.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://kachina.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/bootstrap.min.js"></script>
+
+    
+    <script src="https://kachina.github.io/js/clean-blog.js"></script>
+
+    
+
+</body>
+
+</html>
+

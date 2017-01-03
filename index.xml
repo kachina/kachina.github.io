@@ -1,0 +1,1353 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ship of Fools</title>
+    <link>https://kachina.github.io/index.xml</link>
+    <description>Recent content on Ship of Fools</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <copyright>Code released under the Apache 2.0 license.</copyright>
+    <lastBuildDate>Tue, 03 Jan 2017 23:12:37 +0900</lastBuildDate>
+    <atom:link href="https://kachina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>xcodeからリモートのGitリポジトリの認証に既存の秘密鍵をつかう</title>
+      <link>https://kachina.github.io/post/2017-01-03-xcode-git-auth/</link>
+      <pubDate>Tue, 03 Jan 2017 23:12:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2017-01-03-xcode-git-auth/</guid>
+      <description>
+
+&lt;p&gt;やりたいことができるアプリが App Store になかったので、いまさらながら iPhone アプリの実装にチャレンジすることにしました。
+Swift のチュートリアルをやっているのですが、ステップ毎に Git リポジトリにコミットしてリモートの BitBucket に Push しておこうと思った際につまずいたのでメモしておきます。&lt;/p&gt;
+
+&lt;p&gt;実行環境は以下のとおりです。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Xcode 8.2.1&lt;/li&gt;
+&lt;li&gt;Remote Gitリポジトリ: BitBucket&lt;/li&gt;
+&lt;li&gt;認証方式: 公開鍵認証&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;リモートリポジトリ-bitbucket-側に登録されている公開鍵&#34;&gt;リモートリポジトリ(BitBucket)側に登録されている公開鍵&lt;/h3&gt;
+
+&lt;p&gt;既に Xcode 以外の開発環境でも BitBucket は利用しているので公開鍵の設定は済んでおり、登録済みの鍵ペアは以下のとおりです。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;~/.ssh/foo.pem (秘密鍵)&lt;/li&gt;
+&lt;li&gt;~/.ssh/foo.pub (公開鍵)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;リモートリポジトリの登録&#34;&gt;リモートリポジトリの登録&lt;/h3&gt;
+
+&lt;p&gt;まず、Xcode からリモートリポジトリを設定を実施します。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;[menu bar] -&amp;gt; [Source Control] -&amp;gt; [&amp;ldquo;プロジェクト名&amp;rdquo; &amp;ndash; master] -&amp;gt; [Configure &amp;ldquo;プロジェクト名&amp;rdquo;&amp;hellip;] でサブウィンドウを開く&lt;/li&gt;
+&lt;li&gt;[Remote]タブの &lt;code&gt;＋&lt;/code&gt; から[Add Remote&amp;hellip;] からリモートリポジトリを登録します。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;リモートリポジトリへのpush&#34;&gt;リモートリポジトリへのPush&lt;/h3&gt;
+
+&lt;p&gt;チュートリアルを進めて、いざリモートリポジトリにPushしようとしたら秘密鍵を作成するよう為のガイダンスが表示されてしまいました。&lt;br /&gt;
+わたしとしては、既にリモートリポジトリに登録済みの &lt;code&gt;~/.ssh/foo.pem&lt;/code&gt; で認証したいのですが、その選択肢はないようです。&lt;/p&gt;
+
+&lt;p&gt;色々調べてみたところデフォルトでは &lt;code&gt;~/.ssh/id_rsa&lt;/code&gt; を参照するようでしたので、以下のコマンドでシンボリックリンクを貼ることで、新たに鍵ペアを増やすことなくSSH鍵認証で BitBucket を利用することができました。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ln -s ~/.ssh/foo.pem ~/.ssh/id_rsa
+$ ln -s ~/.ssh/foo.pub ~/.ssh/id_rsa.pub
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;おしまい&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>13.3インチのディスプレイのみで働く工夫</title>
+      <link>https://kachina.github.io/post/2015-02-15-bartender/</link>
+      <pubDate>Sun, 15 Feb 2015 09:35:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2015-02-15-bartender/</guid>
+      <description>
+
+&lt;p&gt;これからはオフィスや自宅以外で働くことも多くなるので、場所にとらわれず同じ生産性を出す為に『持ち歩けないものは使わない』ってチャレンジを初めてから2年が経ちました。
+振り返りに良いタイミングなので、2年間の変化を整理しておきたいと思います。&lt;/p&gt;
+
+&lt;h4 id=&#34;この2年で使わなくなったもの&#34;&gt;この2年で使わなくなったもの&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;外部ディスプレイ / Happy Hackingのキーボード / Logicoolの親指トラックボールマウス&lt;br /&gt;
+この3つは慣れるまでシンドかった&lt;/li&gt;
+&lt;li&gt;iPad&lt;br /&gt;
+持ち歩いていたが全く利用しないことに気が付いた&lt;/li&gt;
+&lt;li&gt;モバイルバッテリー&lt;/li&gt;
+&lt;li&gt;Ethernetアダプタ&lt;/li&gt;
+&lt;li&gt;EMOBILE&lt;br /&gt;
+以下のサービスで代用
+
+&lt;ul&gt;
+&lt;li&gt;iPhone テザリング&lt;/li&gt;
+&lt;li&gt;au Wi-Fi SPOT&lt;/li&gt;
+&lt;li&gt;公衆無線LAN&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;いまも持ち歩いているもの&#34;&gt;いまも持ち歩いているもの&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;13-inch MacBook Air
+
+&lt;ul&gt;
+&lt;li&gt;Mini DisplayPort (VGA) : プロジェクタ接続用&lt;/li&gt;
+&lt;li&gt;Mini DisplayPort (HDMI) : プロジェクタ接続用&lt;/li&gt;
+&lt;li&gt;電源アダプタ&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;iPhone 6 (au)
+
+&lt;ul&gt;
+&lt;li&gt;Lightning USBケーブル&lt;/li&gt;
+&lt;li&gt;USB 電源アダプタ&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;毎日持ち歩くモノが減ったことが最良の出来事かもしれません。&lt;/p&gt;
+
+&lt;p&gt;さて、キーボード/マウスは耐えるのみでしたが『外部ディスプレイを使わない』については、13.3インチの小さいディスプレイを有効に利用する為に &lt;strong&gt;徹底して不要な情報は出力しない&lt;/strong&gt; を実施しました。&lt;/p&gt;
+
+&lt;p&gt;前置きが長くなりましたが、今回はこれについて書きたいと思います。&lt;/p&gt;
+
+&lt;p&gt;はじめに、自分はIDEを使いません。
+開発環境はターミナルとブラウザに集約させています。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://iterm2.com/&#34;&gt;iTerm2&lt;/a&gt; (ターミナル)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://tmux.sourceforge.net/&#34;&gt;tmux&lt;/a&gt; (ターミナルマルチプレクサ)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/jugyo/earthquake&#34;&gt;earthquake&lt;/a&gt; (Twitterクライアント)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.vim.org/&#34;&gt;vim&lt;/a&gt; (エディタ)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.mozilla.org/en-US/firefox/new/&#34;&gt;FireFox&lt;/a&gt; (ブラウザ)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;HipChat / Slack / Sqwiggle等のOS X向けアプリを配布しているサービスも極力ブラウザ版を利用&lt;/li&gt;
+&lt;li&gt;Flash PlayerをOS Xにインストールしないことで軽量化&lt;br /&gt;
+Flash Playerが必要なサービスを利用するときは &lt;a href=&#34;www.google.com/chrome/&#34;&gt;Chrome&lt;/a&gt; を利用&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;1-firefoxのカスタマイズ&#34;&gt;1. FireFoxのカスタマイズ&lt;/h4&gt;
+
+&lt;p&gt;FireFoxのツールバーは &lt;strong&gt;Liberator Statusline Toolbar&lt;/strong&gt; 以外を非表示にしています。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;images/20150215_image_1.png&#34; alt=&#34;FireFox Screen 1&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最近のFireFoxはナビゲーションバーを非表示にすることが出来ないので &lt;strong&gt;&lt;a href=&#34;https://addons.mozilla.org/en-US/firefox/addon/classicthemerestorer/&#34;&gt;Classic Theme Restorer&lt;/a&gt;&lt;/strong&gt; アドオンを使って隠しています。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;images/20150215_image_2.png&#34; alt=&#34;FireFox Screen 2&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;ブラウザ操作は &lt;strong&gt;&lt;a href=&#34;https://addons.mozilla.org/en-us/firefox/addon/vimperator/&#34;&gt;Vimperator&lt;/a&gt;&lt;/strong&gt; を使っており、コマンドのレスが &lt;strong&gt;Liberator Statusline Toolbar&lt;/strong&gt; に出力されます。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;images/20150215_image_3.png&#34; alt=&#34;FireFox Screen 3&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;2-iterm2とos-xのカスタマイズ&#34;&gt;2. iTerm2とOS Xのカスタマイズ&lt;/h4&gt;
+
+&lt;p&gt;以下が &lt;strong&gt;iTerm2&lt;/strong&gt; と &lt;strong&gt;OS Xのメニューバー&lt;/strong&gt; です。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;images/20150215_image_4.png&#34; alt=&#34;iTerm2 x Menu Bar&#34; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;ホスト名&lt;/li&gt;
+&lt;li&gt;tmuxのセッション名, ペイン番号&lt;/li&gt;
+&lt;li&gt;現在のグローバルIPアドレス&lt;/li&gt;
+&lt;li&gt;ペイン&lt;/li&gt;
+&lt;li&gt;バッテリーの残量&lt;/li&gt;
+&lt;li&gt;曜日, 年月日, 時分&lt;/li&gt;
+&lt;li&gt;OS Xのメニューバー&lt;br /&gt;
+以下のモノは &lt;a href=&#34;http://www.macbartender.com/&#34;&gt;Bartender&lt;/a&gt; でメニューバーから隠しています。&lt;br /&gt;
+&lt;img src=&#34;images/20150215_image_5.png&#34; alt=&#34;iTerm2 x Menu Bar&#34; /&gt;&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;アイコンがカラーのダサいアプリ&lt;/li&gt;
+&lt;li&gt;マウスクリックして利用することのないアプリ&lt;/li&gt;
+&lt;li&gt;1〜6で既に表示されている情報&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;まとめ&#34;&gt;まとめ&lt;/h4&gt;
+
+&lt;p&gt;上記の他には、サイズが小さくても読みやすいフォントを選ぶようにしています。(いまは&lt;a href=&#34;http://opendyslexic.org/&#34;&gt;OpenDyslexic&lt;/a&gt;を試しているとこ)&lt;/p&gt;
+
+&lt;p&gt;以上が、13.3インチの小さいディスプレイを有効に利用する為に工夫していることです。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>earthquakeのつぶやきをGrowlで通知する</title>
+      <link>https://kachina.github.io/post/2015-02-11-earthquake-growl-notify/</link>
+      <pubDate>Wed, 11 Feb 2015 11:39:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2015-02-11-earthquake-growl-notify/</guid>
+      <description>
+
+&lt;p&gt;earthquakeにストリームされるつぶやきをGrowlで通知する方法です。&lt;/p&gt;
+
+&lt;h3 id=&#34;1-growlのインストール&#34;&gt;1. Growlのインストール&lt;/h3&gt;
+
+&lt;p&gt;App Storeから &lt;a href=&#34;https://itunes.apple.com/jp/app/growl/id467939042?l=en&amp;amp;mt=12&#34;&gt;Growl&lt;/a&gt; をインストール&lt;/p&gt;
+
+&lt;h3 id=&#34;2-growlnotifyのインストール&#34;&gt;2. growlnotifyのインストール&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ brew install Caskroom/cask/growlnotify
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;3-スクリプトの設置&#34;&gt;3. スクリプトの設置&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;~/.earthquake/plugin/growlnotify.rb&lt;/strong&gt; に以下のファイルを作成&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;require &amp;quot;fileutils&amp;quot;
+require &amp;quot;digest/md5&amp;quot;
+
+Earthquake.init do
+  dir = File.join(File.dirname(__FILE__), &amp;quot;userimage&amp;quot;)
+  output do |item|
+    next if item.nil? || item[&amp;quot;user&amp;quot;].nil? || item[&amp;quot;_stream&amp;quot;].nil?
+    begin
+      image_url = item[&amp;quot;user&amp;quot;][&amp;quot;profile_image_url&amp;quot;]
+      next unless image_url
+      name = Digest::MD5.hexdigest image_url
+      path = File.join(dir, name.chars.first, name)
+      FileUtils.mkdir_p(File.dirname(path))
+      arg = {
+        &amp;quot;-t&amp;quot; =&amp;gt; &amp;quot;#{item[&amp;quot;user&amp;quot;][&amp;quot;screen_name&amp;quot;]}(earthquake.gem)&amp;quot;,
+        &amp;quot;-m&amp;quot; =&amp;gt; item[&amp;quot;text&amp;quot;],
+        &amp;quot;--image&amp;quot; =&amp;gt; path,
+      }
+      EM.defer(
+        lambda {
+          return path if File.exists?(path)
+          open(path, &amp;quot;w&amp;quot;){|f|
+            f.print open(image_url).read
+          }
+          path
+        },
+        lambda {|path|
+          system(&#39;growlnotify&#39;, *arg.to_a.flatten)
+        }
+      )
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;4-growlの設定&#34;&gt;4. Growlの設定&lt;/h3&gt;
+
+&lt;p&gt;デフォルトでは &lt;strong&gt;OS X Notifications&lt;/strong&gt; が &lt;strong&gt;ON&lt;/strong&gt; になっています。
+これだとユーザーアイコンが表示されなかったので &lt;strong&gt;OFF&lt;/strong&gt; にします。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;images/20150211_growlnotify.png&#34; alt=&#34;Growl Preferences&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;以上で、earthquakeのストリームがGrowlで通知されるようになりました。
+&lt;strong&gt;OS X Notifications&lt;/strong&gt; でアイコンも表示できるようにできるか調べてみよう。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>earthquakeが動かなくなった</title>
+      <link>https://kachina.github.io/post/2015-02-08-earthquake/</link>
+      <pubDate>Sun, 08 Feb 2015 13:47:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2015-02-08-earthquake/</guid>
+      <description>
+
+&lt;p&gt;諸事情あって、やっとYosemiteへのバージョンアップ許可がでたので
+アップグレードを繰り返してきたMacbook Airを、この機会にクリーンインストールに挑戦をしました。&lt;/p&gt;
+
+&lt;p&gt;愛用していた &lt;strong&gt;LockScreen2&lt;/strong&gt; が使えなくなったこと以外は購入済みのツールは復旧ができてひと安心
+スクリーンロックは &lt;strong&gt;電源 + s&lt;/strong&gt; でディスプレイをオフにできるみたいなので、当面はこれで対応することにします。&lt;/p&gt;
+
+&lt;p&gt;順調に開発環境は整ったのですが、ターミナル向けツイッタークライアントの &lt;a href=&#34;https://github.com/jugyo/earthquake&#34;&gt;earthquake&lt;/a&gt; を動かすのに苦労したので書き残しておこうと思います。&lt;/p&gt;
+
+&lt;p&gt;環境は以下のとおり&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;OS X 10.10.2&lt;/li&gt;
+&lt;li&gt;Ruby 2.2.0&lt;/li&gt;
+&lt;li&gt;earthquake 1.0.2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;activesupportの読み込みに失敗する&#34;&gt;activesupportの読み込みに失敗する&lt;/h3&gt;
+
+&lt;p&gt;インストール後、earthquakeを起動すると以下のエラーが出力されました。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;/Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/activesupport-4.2.0/lib/active_support/core_ext/module/deprecation.rb:21:in `deprecate&#39;: uninitialized constant ActiveSupport::Deprecation (NameError)
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/activesupport-4.2.0/lib/active_support/core_ext/class/delegating_attributes.rb:26:in `&amp;lt;class:Class&amp;gt;&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/activesupport-4.2.0/lib/active_support/core_ext/class/delegating_attributes.rb:6:in `&amp;lt;top (required)&amp;gt;&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/activesupport-4.2.0/lib/active_support/core_ext/class.rb:2:in `&amp;lt;top (required)&amp;gt;&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/activesupport-4.2.0/lib/active_support/core_ext.rb:2:in `block in &amp;lt;top (required)&amp;gt;&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/activesupport-4.2.0/lib/active_support/core_ext.rb:1:in `each&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/activesupport-4.2.0/lib/active_support/core_ext.rb:1:in `&amp;lt;top (required)&amp;gt;&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/lib/earthquake.rb:17:in `block in &amp;lt;top (required)&amp;gt;&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/lib/earthquake.rb:17:in `each&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/lib/earthquake.rb:17:in `&amp;lt;top (required)&amp;gt;&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/bin/earthquake:34:in `&amp;lt;top (required)&amp;gt;&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/bin/earthquake:25:in `load&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/bin/earthquake:25:in `&amp;lt;main&amp;gt;&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;この問題は ~/bin/earthquake:9 以下でactive_supportを読み込むことで解決しました。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;require &#39;rubygems&#39;
+require &#39;active_support&#39;
+require &#39;active_support/deprecation&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;パラメーターエラーの対応&#34;&gt;パラメーターエラーの対応&lt;/h3&gt;
+
+&lt;p&gt;次に、以下のようなパラメーター不足エラーが発生しましした。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;/Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/em/buftok.rb:15:in `initialize&#39;: wrong number of arguments (2 for 0..1) (ArgumentError)
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:206:in `new&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:206:in `reset_state&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:140:in `post_init&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/em/connection.rb:58:in `block in new&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/em/connection.rb:49:in `instance_eval&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/em/connection.rb:49:in `new&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/eventmachine.rb:679:in `bind_connect&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/eventmachine.rb:649:in `connect&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:65:in `connect&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/lib/earthquake/core.rb:178:in `start_stream&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/lib/earthquake/core.rb:163:in `reconnect&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/lib/earthquake/core.rb:155:in `block in start&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/eventmachine.rb:187:in `call&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/eventmachine.rb:187:in `run_machine&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/eventmachine.rb:187:in `run&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/lib/earthquake/core.rb:130:in `start&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/bin/earthquake:39:in `&amp;lt;top (required)&amp;gt;&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/bin/earthquake:25:in `load&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/bin/earthquake:25:in `&amp;lt;main&amp;gt;&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;この問題は ~/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:206 を
+以下のように変更することで解決します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;@buffer  = BufferedTokenizer.new(&amp;quot;\r&amp;quot;, MAX_LINE_LENGTH)
+↓
+@buffer  = BufferedTokenizer.new(&amp;quot;\r&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;不要な行をコメントアウト&#34;&gt;不要な行をコメントアウト&lt;/h3&gt;
+
+&lt;p&gt;次に、以下エラーが発生します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;/Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:27: warning: duplicated key at line 30 ignored: :path
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;この問題は ~/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:27 を
+以下のように変更することで解決します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;:path           =&amp;gt; &#39;/&#39;,
+↓
+#:path           =&amp;gt; &#39;/&#39;,
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;nomethoderrorの対応&#34;&gt;NoMethodErrorの対応&lt;/h3&gt;
+
+&lt;p&gt;ここまでの修正で earthquake の起動は成功するのですが、25秒すると以下のエラーを出力して異常終了します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;earthquake: reconnecting in: 0.25 seconds
+/Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:119:in `unbind&#39;: undefined method `empty?&#39; for #&amp;lt;BufferedTokenizer:0x007f95949747b8&amp;gt; (NoMethodError)
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/eventmachine.rb:1454:in `event_callback&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/eventmachine.rb:187:in `run_machine&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.6/lib/eventmachine.rb:187:in `run&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/lib/earthquake/core.rb:130:in `start&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/earthquake-1.0.2/bin/earthquake:39:in `&amp;lt;top (required)&amp;gt;&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/bin/earthquake:25:in `load&#39;
+        from /Users/kachina_t/.rbenv/versions/2.2.0/bin/earthquake:25:in `&amp;lt;main&amp;gt;&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;この問題は ~/lib/ruby/gems/2.2.0/gems/twitter-stream-0.1.16/lib/twitter/json_stream.rb:119 を
+以下のように変更することで解決します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;if @state == :stream &amp;amp;&amp;amp; !@buffer.empty?
+↓
+if @state == :stream &amp;amp;&amp;amp; !@buffer.nil?
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上で、earthquakeが正常に動作するようになりました。&lt;/p&gt;
+
+&lt;p&gt;クリーンインストールしたので、すげー快適になりました。&lt;/p&gt;
+
+&lt;p&gt;あわせて、8系にアップグレードしてからモッサリしていたiPadもクリーンインストールしたら
+驚くほど快適になりました。&lt;/p&gt;
+
+&lt;p&gt;週末を1日以上使ってしまったけど、大満足の結果です。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>VimparatorとMiddlemanとOpenDyslexic</title>
+      <link>https://kachina.github.io/post/2014-12-28-environment/</link>
+      <pubDate>Sun, 28 Dec 2014 13:41:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2014-12-28-environment/</guid>
+      <description>
+
+&lt;p&gt;2014年の年末なので、本年の開発環境の変化からベスト3をピックアップして投稿したいと思います。&lt;/p&gt;
+
+&lt;h2 id=&#34;vimperator&#34;&gt;Vimperator&lt;/h2&gt;
+
+&lt;p&gt;Firefox のキーバインディングを Vim のように設定できる『&lt;a href=&#34;https://addons.mozilla.org/en-US/firefox/addon/vimperator/&#34;&gt;Vimperator&lt;/a&gt; 』です。&lt;br /&gt;
+&lt;code&gt;:o google.com&lt;/code&gt; 現在のタブ、&lt;code&gt;:t google.com&lt;/code&gt; で新しいタブでページを開いたり、 &lt;code&gt;/ {word}&lt;/code&gt; でページ内検索&lt;br /&gt;
+Firefoxの&lt;a href=&#34;https://support.mozilla.org/ja/kb/how-search-from-address-bar&#34;&gt;スマートキーワード&lt;/a&gt;を設定しておけば &lt;code&gt;:t {keyword} foo&lt;/code&gt; で検索を実行することができます。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;y&lt;/code&gt; でURLをクリップボードにコピー(ヤンク)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:ls&lt;/code&gt; でタブをリスト表示&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:b {n}&lt;/code&gt; でタブへ移動&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:bw&lt;/code&gt; でタブを閉じる&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:q&lt;/code&gt; でブラウザを閉じる&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:w&lt;/code&gt; でページをダウンロード&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;冗談みたいだけど、完成度がすばらしく高くて、本当にVimライクにFirefoxが使えてしまいます。&lt;/p&gt;
+
+&lt;h2 id=&#34;middleman&#34;&gt;Middleman&lt;/h2&gt;
+
+&lt;p&gt;現在、本ブログは&lt;a href=&#34;https://pages.github.com/&#34;&gt;GitHub Pages&lt;/a&gt; + &lt;a href=&#34;http://jekyllrb.com/&#34;&gt;jekyll&lt;/a&gt; + &lt;a href=&#34;http://octopress.org/&#34;&gt;Octpress&lt;/a&gt;で構成されているのですが&lt;br /&gt;
+職場で使っているブログを&lt;a href=&#34;http://middlemanapp.com/&#34;&gt;Middleman&lt;/a&gt; + &lt;a href=&#34;http://aws.amazon.com/s3/&#34;&gt;Amazon S3&lt;/a&gt;で構成してみたところ、とても使い勝手が良かったので本ブログも同じ構成に移行したいなと考えています。&lt;/p&gt;
+
+&lt;p&gt;すごい好きなのですが、デザインテンプレートが少ないのが難点です。&lt;/p&gt;
+
+&lt;h2 id=&#34;opendyslexic&#34;&gt;OpenDyslexic&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://opendyslexic.org/&#34;&gt;OpenDyslexic&lt;/a&gt;は、識字障害者の為に開発されたフォントです。&lt;br /&gt;
+&lt;code&gt;p&lt;/code&gt;と&lt;code&gt;q&lt;/code&gt; / &lt;code&gt;b&lt;/code&gt;と&lt;code&gt;d&lt;/code&gt; / &lt;code&gt;n&lt;/code&gt;と&lt;code&gt;u&lt;/code&gt;など、識字することが難しい文字を敢えて歪ませたり、&lt;br /&gt;
+全体的に文字の下部を厚くして重みを持たせることで、動いて見えないように工夫されています。&lt;/p&gt;
+
+&lt;p&gt;Rictyフォント(ラテン文字に&lt;a href=&#34;http://levien.com/type/myfonts/inconsolata.html&#34;&gt;Inconsolata&lt;/a&gt;)を使っていたのですが、とても目が疲れたので別のものを探していて見つけたフォントです。&lt;br /&gt;
+僕自身は識字障害と診断されたことはありませんが、この識字率を上げる為の工夫は効果があるのではないかと考え試してみました。&lt;/p&gt;
+
+&lt;p&gt;比較用に新旧のフォント画像を貼っておきます。&lt;/p&gt;
+
+&lt;h3 id=&#34;inconsolataフォント&#34;&gt;Inconsolataフォント&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://kachina.github.io/images/inconsolata.png&#34; alt=&#34;Inconsolata&#34; title=&#34;Inconsolata&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;opendyslexicフォント&#34;&gt;OpenDyslexicフォント&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://kachina.github.io/images/opendyslexic.jpg&#34; alt=&#34;OpenDyslexic&#34; title=&#34;OpenDyslexic&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;フォントを変更してから2〜3日は違和感がありました。&lt;br /&gt;
+馴染んでからは、感覚的な表現で申し訳ないのですが流し読みでも文字が止まっていると言うか、視野内で動かないと言うか。。。&lt;br /&gt;
+以前より、目は疲れていないと思います。&lt;/p&gt;
+
+&lt;h2 id=&#34;まとめ&#34;&gt;まとめ&lt;/h2&gt;
+
+&lt;p&gt;仕事道具の手入れをサボらないってのは、良い仕事をする為の最低条件だと思うので&lt;br /&gt;
+これからも色々試してみたいと思います。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>microSDにlubuntuを入れてみた</title>
+      <link>https://kachina.github.io/post/2014-10-04-lubuntu/</link>
+      <pubDate>Sat, 04 Oct 2014 22:59:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2014-10-04-lubuntu/</guid>
+      <description>
+
+&lt;p&gt;お気に入りの白Macbookがお亡くなりになりました。&lt;/p&gt;
+
+&lt;p&gt;中古品入手から、バッテリーの交換 / HDDからSSDへの換装 / JISからUSキーボードへの換装&lt;br /&gt;
+とグレードアップしてきたのですが、キートップをdvorak配列に付け替えた際に『Uキー』の爪が折れてしまい&lt;br /&gt;
+接着剤でダマシダマシ使っていたのですが復旧不可能な状態になってしまいました。&lt;/p&gt;
+
+&lt;p&gt;メイン機のMacbook Airは、BYODして仕事で使っているから汚したくないので&lt;br /&gt;
+SDカードスロットに指したmicroSDにLinuxを入れて&lt;br /&gt;
+どこまで使えるか挑戦してみたいと思います。&lt;/p&gt;
+
+&lt;p&gt;これでダメだったら、Macbookのキートップを探そうかなと(ry&lt;/p&gt;
+
+&lt;p&gt;以下、手順を間違えるとOS X側のデータを全て消去される場合があるので気をつけてください。&lt;/p&gt;
+
+&lt;h3 id=&#34;1-microsdの購入&#34;&gt;1. microSDの購入&lt;/h3&gt;
+
+&lt;p&gt;すぐ遊びたかったので、近所の電気屋さんで16GBのmicroSD(SDカード化するアタッチメント付き)を3千円くらいで購入&lt;/p&gt;
+
+&lt;h3 id=&#34;2-microsdの初期化-パーティションの作成&#34;&gt;2. microSDの初期化、パーティションの作成&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;SDカード化したmicroSDをMacbook Airに指して、Mac標準ソフトの『ディスクユーティリティ』を起動&lt;/li&gt;
+&lt;li&gt;パーティションを2つ分割して、1つめのパーティションを以下のとおり作成する&lt;br /&gt;
+名前: rEFIt&lt;br /&gt;
+フォーマット: Mac OS 拡張 (ジャーナリング)&lt;br /&gt;
+サイズ: 0.05&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;2つめのパーティションは無視して「適用」&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://refit.sourceforge.net/&#34;&gt;http://refit.sourceforge.net/&lt;/a&gt; からrEFItの「Mac disk image」をダウンロード&lt;/li&gt;
+&lt;li&gt;「rEFIt-0.14.dmg」を展開&lt;/li&gt;
+&lt;li&gt;展開した「efi」フォルダを、USBメモリの「rEFIt」パーティションへコピー&lt;/li&gt;
+&lt;li&gt;「ターミナル」を起動してmicroSDの「refit」ディレクトリへ移動して「enable.sh」を実行&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;$ cd /Volumes/rEFIt/efi/refit/
+$ ./enable.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;3-インストールメディアの作成&#34;&gt;3. インストールメディアの作成&lt;/h3&gt;
+
+&lt;p&gt;lubuntuのサイトから、最新のインストールイメージを取得して&lt;br /&gt;
+インストールメディアを作成します。&lt;br /&gt;
+&lt;a href=&#34;http://unetbootin.sourceforge.net/&#34;&gt;unetbootin&lt;/a&gt;を使ってUSBに作成しました。&lt;/p&gt;
+
+&lt;h3 id=&#34;4-lubuntuのインストール&#34;&gt;4. lubuntuのインストール&lt;/h3&gt;
+
+&lt;p&gt;OS Xをシャットダウンしてから、キーボードの「option」を押したまま電源を入れると&lt;br /&gt;
+起動メディアの選択ができるので、さっき作成したインストールメディアを選んでインストールスタート&lt;/p&gt;
+
+&lt;p&gt;適当にすすめて、「instllation type」を選択する画面で「Something else」を選択すると&lt;br /&gt;
+インストール先のパーティションを選択する画面が表示されるので&lt;br /&gt;
+microSDに作成した、2つめのパーティションを選択する。(自分の環境では「/dev/sdb3」)&lt;br /&gt;
+そこに、ファイルシステム「ext4」でマウントポイント「/」のパーティションを作成(swapなし)&lt;/p&gt;
+
+&lt;p&gt;ブートローダーのインストール先も、同じパーティションを選択します。&lt;br /&gt;
+あとは普通のインストールと一緒なので割愛します。&lt;/p&gt;
+
+&lt;h3 id=&#34;5-lubuntuの起動&#34;&gt;5. lubuntuの起動&lt;/h3&gt;
+
+&lt;p&gt;インストール終了後の再起動時に、キーボードの「option」を押したままにして&lt;br /&gt;
+起動メディアの選択ができるので「rEFIt」を選択すると「OS X」か「lubuntu」を選択する画面が表示されます。&lt;/p&gt;
+
+&lt;p&gt;以降、この手順でlubuntuを起動します。&lt;/p&gt;
+
+&lt;h3 id=&#34;6-チューニング-ファイルアクセス時にタイムスタンプを記録しない&#34;&gt;6. チューニング：ファイルアクセス時にタイムスタンプを記録しない&lt;/h3&gt;
+
+&lt;p&gt;microSDなので、SSDやHDDと比べるとIOが遅いです。&lt;br /&gt;
+なので、OSのインストールが終わったらをmicroSDへのアクセスを極力減らす努力をします。&lt;/p&gt;
+
+&lt;p&gt;まずは「/etc/fstab」を編集し、マウント時のオプションに「relatime」を追記して&lt;br /&gt;
+microSDアクセス時のタイムスタンプ更新頻度を削減します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# /etc/fstabを編集
+UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  / ext4  relatime,errors=remount-ro  0  1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;編集後、再マウントする&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;$ sudo mount -o remount /
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;7-チューニング-tmpをramdisk化&#34;&gt;7. チューニング：/tmpをRAMDISK化&lt;/h3&gt;
+
+&lt;p&gt;頻繁にIOが発生するディレクトリで、OSシャットダウン時に削除されても問題ないものは&lt;br /&gt;
+RAMDISKにして、microSDへのIOを減らします。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# /etc/fstabに以下を追記
+/dev/shm  /tmp  tmpfs  size=1024m  0  0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;8-チューニング-var-logもramdisk化&#34;&gt;8. チューニング：/var/logもRAMDISK化&lt;/h3&gt;
+
+&lt;p&gt;快適さを重視してログも残さないことにします。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;# /etc/fstabに以下を追記
+/dev/shm  /var/log  tmpfs  size=512m  0  0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;9-チューニング-firefoxのキャッシュもramdisk化&#34;&gt;9. チューニング：FirefoxのキャッシュもRAMDISK化&lt;/h3&gt;
+
+&lt;p&gt;Firefoxがメチャクチャ遅かったので、以下のページを参考にFirefoxのキャッシュもRAMDISKにました。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://antarespc.com/web-browser/firefox-cache-ram.html&#34;&gt;http://antarespc.com/web-browser/firefox-cache-ram.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;10-osの再起動&#34;&gt;10. OSの再起動&lt;/h3&gt;
+
+&lt;p&gt;んで、OSを再起動したらチューニング終了&lt;/p&gt;
+
+&lt;h3 id=&#34;まとめ&#34;&gt;まとめ&lt;/h3&gt;
+
+&lt;p&gt;SSDよりは遅いけど、そこそこ普通につかえるレベルにはなりました。&lt;br /&gt;
+以下、入れたものをざっくり紹介&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Byobu (terminal)&lt;/li&gt;
+&lt;li&gt;tmux, tmux-powerline&lt;/li&gt;
+&lt;li&gt;Ricty (font)&lt;/li&gt;
+&lt;li&gt;mozc&lt;/li&gt;
+&lt;li&gt;vim&lt;/li&gt;
+&lt;li&gt;rbenv&lt;/li&gt;
+&lt;li&gt;earthquake (twitterクライアント)&lt;/li&gt;
+&lt;li&gt;Dropbox&lt;/li&gt;
+&lt;li&gt;Firefox (pluginいっぱい)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;あとは、寿命がどれだけ持つかだ&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>FedoraからApple TVを利用</title>
+      <link>https://kachina.github.io/post/2014-09-21-airplay-from-fedora/</link>
+      <pubDate>Sun, 21 Sep 2014 20:51:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2014-09-21-airplay-from-fedora/</guid>
+      <description>
+
+&lt;p&gt;FedoraからをApple TVを操作する方法です。&lt;/p&gt;
+
+&lt;h1 id=&#34;環境情報&#34;&gt;環境情報&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;$ cat /etc/issue                                                                                                                               [~]
+Fedora release 20 (Heisenbug)
+Kernel \r on an \m (\l)
+
+$ ruby -v                                                                                                                                      [~]
+ruby 2.1.2p95 (2014-05-08 revision 45877) [i686-linux]
+
+$ java -version                                                                                                                                [~]
+java version &amp;quot;1.7.0_65&amp;quot;
+OpenJDK Runtime Environment (fedora-2.5.2.5.fc20-i386 u65-b17)
+OpenJDK Server VM (build 24.65-b04, mixed mode)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以下、Apple TVのIPアドレスは&lt;code&gt;192.168.11.8&lt;/code&gt;で記載してあります。&lt;/p&gt;
+
+&lt;h1 id=&#34;1-動画-画像を送る&#34;&gt;1. 動画/画像を送る&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/unused/airstream&#34;&gt;airstream&lt;/a&gt; を利用します。&lt;/p&gt;
+
+&lt;h3 id=&#34;インストール&#34;&gt;インストール&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;$ sudo yum install -y avahi-compat-libdns_sd-devel
+$ gem install airstream
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;動画を再生&#34;&gt;動画を再生&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;$ airstream http://example.com/sample.mp4 -o 192.168.11.8   # Web上のファイルを再生
+$ airstream ~/Movies/sample.mp4 -o 192.168.11.8             # ローカルファイルを再生
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;写真を再生&#34;&gt;写真を再生&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;$ airimg http://example.com/sample.png -o 192.168.11.8      # Web上のファイルを再生
+$ airimg ~/Pictures/sample.png -o 192.168.11.8              # ローカルファイルを再生
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;スライドショーで写真を再生&#34;&gt;スライドショーで写真を再生&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;$ airimg ~/Pictures/* -n 5 -o 192.168.11.8                  # 5秒毎にスライド
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;2-画面のミラーリング&#34;&gt;2. 画面のミラーリング&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.mediafire.com/download/v3h1dbwpqk04h58/airplay.jar&#34;&gt;Airplay.jar&lt;/a&gt; を利用するのが簡単そうです。&lt;/p&gt;
+
+&lt;h3 id=&#34;ミラーリングの開始&#34;&gt;ミラーリングの開始&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;$ java -jar airplay.jar -h 192.168.11.8 -d
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;まとめ&#34;&gt;まとめ&lt;/h1&gt;
+
+&lt;p&gt;特に利用シーンはないのですが、簡単に出来るのか気になったので調べてみました。&lt;br /&gt;
+お試しの際は、自己責任でお願いします。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>earthquakeのつぶやきをFedoraのデスクトップに通知する</title>
+      <link>https://kachina.github.io/post/2014-06-22-earthquake-notify/</link>
+      <pubDate>Sun, 22 Jun 2014 12:23:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2014-06-22-earthquake-notify/</guid>
+      <description>&lt;p&gt;Twitterクライアントに&lt;a href=&#34;https://github.com/jugyo/earthquake&#34;&gt;earthquake&lt;/a&gt;を使っています。&lt;br /&gt;
+今回は、ここに流れてくる&amp;rdquo;つぶやき&amp;rdquo;をFedoraのデスクトップに通知したいと思います。&lt;/p&gt;
+
+&lt;p&gt;と言っても、標準で入っている&lt;code&gt;notify-send&lt;/code&gt;コマンドに値を渡すだけ&lt;/p&gt;
+
+&lt;p&gt;そのためのスクリプトが↓こちら&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/kachina/0ecfb23d410c9494eb2e.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;これを&lt;code&gt;~/.earthquake/plugin/&lt;/code&gt;に設置して&lt;code&gt;earthquake&lt;/code&gt;を再起動する。&lt;/p&gt;
+
+&lt;p&gt;なかなかいい感じです。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>tmuxのコピーをFedoraのクリップボードに同期する</title>
+      <link>https://kachina.github.io/post/2014-06-21-tmux/</link>
+      <pubDate>Sat, 21 Jun 2014 20:05:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2014-06-21-tmux/</guid>
+      <description>&lt;p&gt;以前に投稿した『&lt;a href=&#34;http://blog.strigiformes.net/blog/2012/10/06/tmux/&#34;&gt;tmuxのコピーをMacのクリップボードに同期する&lt;/a&gt;』のFedora版です。&lt;/p&gt;
+
+&lt;p&gt;操作を統一するために&lt;code&gt;.zshrc&lt;/code&gt;や&lt;code&gt;.vimrc&lt;/code&gt;等の設定ファイルをDropboxに保管し&lt;br /&gt;
+Mac/Fedora/AmazonLinux等の環境を跨いで同期しています。&lt;/p&gt;
+
+&lt;p&gt;新しい環境を構築したら、Dropboxをインストールして&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ln -s ~/Dropbox/.../config/_zshrc ~/.zshrc
+$ ln -s ~/Dropbox/.../config/_vimrc ~/.vimrc
+$ ...
+$ ln -s ~/Dropbox/.../config/_tmux.conf ~/.tmux.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;って感じでシンボリックリンクを貼ることで、すべての環境で設定が同期されます。&lt;/p&gt;
+
+&lt;p&gt;この運用、すごく便利だし設定ファイルのバックアップにもなるので&lt;br /&gt;
+お気に入りなのですが、たまに今回のように環境に依存する問題が発生します。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;OS X: pbcopy&lt;/li&gt;
+&lt;li&gt;Fedora: xsel&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;今回は、『&lt;a href=&#34;http://blog.strigiformes.net/blog/2012/10/06/tmux/&#34;&gt;tmuxのコピーをMacのクリップボードに同期する&lt;/a&gt;』の&lt;br /&gt;
+&lt;code&gt;~/bin/tmux-pbcopy&lt;/code&gt;をFedora用に作成することで一旦解決&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/bin/sh
+if ! type xsel &amp;gt;/dev/null 2&amp;gt;&amp;amp;1; then
+    tmux display-message &amp;quot;Error: cannot copy to clipboard.&amp;quot;
+    exit 0
+fi
+
+COPY=`tmux save-buffer -`
+echo &amp;quot;$COPY&amp;quot; &amp;gt; ~/.tmux-buffer
+xsel -i -b &amp;lt; ~/.tmux-buffer
+
+# メッセージ表示
+LINES=`echo &amp;quot;$COPY&amp;quot; | wc -l | tr -d &#39; &#39;`
+tmux display-message &amp;quot;Copy: $LINES lines&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;なんか、もっと良い方法を考えないと。。。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Codeshipでaws-spec実行する</title>
+      <link>https://kachina.github.io/post/2014-05-11-aws-spec-on-codeship/</link>
+      <pubDate>Sun, 11 May 2014 12:47:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2014-05-11-aws-spec-on-codeship/</guid>
+      <description>
+
+&lt;p&gt;50回/月まで無料のCIサービスの&lt;a href=&#34;https://www.codeship.io/&#34;&gt;Codeship&lt;/a&gt;で&lt;br /&gt;
+&lt;a href=&#34;https://github.com/serverworks/aws-spec&#34;&gt;aws-spec&lt;/a&gt;を動かした際のメモ。&lt;/p&gt;
+
+&lt;h2 id=&#34;1-iamアカウントの作成&#34;&gt;1. IAMアカウントの作成&lt;/h2&gt;
+
+&lt;p&gt;aws-specに利用させるIAMアカウントを作成します。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://console.aws.amazon.com/iam/home?region=ap-northeast-1#users&#34;&gt;AWS Management Console&lt;/a&gt;の&lt;strong&gt;[Create New User]&lt;/strong&gt;から&lt;br /&gt;
+&lt;strong&gt;[codeship]&lt;/strong&gt;(任意)ユーザーを作成し、PolicyTemplateから&lt;strong&gt;[Read Only Access]&lt;/strong&gt;を設定します。&lt;/p&gt;
+
+&lt;h2 id=&#34;2-aws-specをfork&#34;&gt;2. aws-specをfork&lt;/h2&gt;
+
+&lt;p&gt;GitHubにてaws-specを&lt;a href=&#34;https://github.com/serverworks/aws-spec/fork&#34;&gt;fork&lt;/a&gt;します。&lt;/p&gt;
+
+&lt;h2 id=&#34;3-codeshipにサインアップ&#34;&gt;3. Codeshipにサインアップ&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.codeship.io/&#34;&gt;Codeship&lt;/a&gt;の&lt;strong&gt;[Sign in with GitHub]&lt;/strong&gt;をクリックしてサインアップ。&lt;/p&gt;
+
+&lt;h2 id=&#34;4-projectの作成&#34;&gt;4. Projectの作成&lt;/h2&gt;
+
+&lt;p&gt;トップ画面の&lt;strong&gt;[Create my first project!]&lt;/strong&gt;からプロジェクトを作成します。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;source code provider -&amp;gt; GitHubを選択&lt;/li&gt;
+&lt;li&gt;repository -&amp;gt; forkしたaws-specを選択&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;セットアップ画面では以下を設定します。&lt;/p&gt;
+
+&lt;h3 id=&#34;select-your-technology-to-prepopulate-basic-commands&#34;&gt;Select your technology to prepopulate basic commands&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;Ruby
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;modify-your-setup-commands&#34;&gt;Modify your Setup Commands&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;rvm use 2.1.1
+bundle install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;modify-your-test-commands&#34;&gt;Modify your Test Commands&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;bundle exec rspec
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;[SAVE AND GO TO DASHBOARD]&lt;/strong&gt;をクリックすると&lt;br /&gt;
+ダッシュボードに遷移しリポジトリをPushするように促されますが&lt;br /&gt;
+これを無視して画面上部の&lt;strong&gt;[Choose a project&amp;hellip;]&lt;/strong&gt;を開き&lt;br /&gt;
+&lt;strong&gt;[aws-spec]&lt;/strong&gt;右部にある歯車アイコンを開き&lt;strong&gt;[Project Settings]&lt;/strong&gt;へ遷移します。&lt;/p&gt;
+
+&lt;p&gt;左メニューの&lt;strong&gt;[Environment]&lt;/strong&gt;から以下のとおり&lt;br /&gt;
+作成したIAMユーザーのアクセスキー/シークレットアクセスキーを設定します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;AWS_ACCESS_KEY_ID=&amp;quot;Provide your access key&amp;quot;
+AWS_SECRET_ACCESS_KEY=&amp;quot;Provide your secret key&amp;quot;
+AWS_REGION=&amp;quot;ap-northeast-1&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;5-実行&#34;&gt;5. 実行&lt;/h2&gt;
+
+&lt;p&gt;準備は整ったので、実際にテストを実行してみます。&lt;br /&gt;
+試しにEC2インスタンス数が正しいかテストしてみたいと思います。&lt;/p&gt;
+
+&lt;h3 id=&#34;spec-ec2-spec-rbの編集&#34;&gt;~/spec/ec2_spec.rbの編集&lt;/h3&gt;
+
+&lt;p&gt;10行目の値を&lt;strong&gt;0&lt;/strong&gt;から&lt;strong&gt;5&lt;/strong&gt;に変更します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;require &amp;quot;spec_helper&amp;quot;
+
+describe &amp;quot;EC2&amp;quot; do
+  ec2 = AWS::EC2.new
+
+  describe &amp;quot;Instances&amp;quot; do
+    subject(:instances) do
+      ec2.instances
+    end
+    it { should have(5).instances }
+  end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;push&#34;&gt;Push&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git add .
+$ git commit -m &amp;quot;change count instance&amp;quot;
+$ git push origin master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;codeshipの確認&#34;&gt;Codeshipの確認&lt;/h3&gt;
+
+&lt;p&gt;テストが実行され&lt;code&gt;~/spec/ec2_spec.rb&lt;/code&gt;の10行目が通っていることを確認します。&lt;/p&gt;
+
+&lt;h2 id=&#34;6-通知&#34;&gt;6. 通知&lt;/h2&gt;
+
+&lt;p&gt;デフォルトで、実行結果はメールにて通知されます。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;[Project Settings]&lt;/strong&gt;の&lt;strong&gt;[Notification]&lt;/strong&gt;をイジればHipChat/Campfire/Slack等にも通知できます。&lt;/p&gt;
+
+&lt;h2 id=&#34;7-まとめ&#34;&gt;7. まとめ&lt;/h2&gt;
+
+&lt;p&gt;Codeshipで動いたのは良いけど、やりたかったことはPushのタイミングでテストを実行するんじゃなくて&lt;br /&gt;
+Jenkinsのスケジュール機能みたいに、1回/日テストを実行してくれてNGだったら通知して欲しいのでコレじゃダメ。&lt;/p&gt;
+
+&lt;p&gt;なにやってたんだろ。ってことで別のサービスを探す。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>fedora 20にbcm4321のドライバをあてる</title>
+      <link>https://kachina.github.io/post/2014-04-19-fedora-bcm4321/</link>
+      <pubDate>Sat, 19 Apr 2014 19:17:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2014-04-19-fedora-bcm4321/</guid>
+      <description>
+
+&lt;p&gt;今日は&lt;a href=&#34;http://regional.rubykaigi.org/oedo04/&#34;&gt;大江戸Ruby会議04&lt;/a&gt;に行くつもりだったのだけど&lt;br /&gt;
+寝起きにスケジュールを確認したら、事前申し込みをしてなかったことが発覚。&lt;br /&gt;
+ってことで、今日はノンビリ白Macbookで遊ぶことにします。&lt;/p&gt;
+
+&lt;p&gt;白Macbookは中古品を手に入れた際のテンションで&lt;br /&gt;
+SSD/バッテリー/キーボードを買い替えてしまった逸品です。&lt;/p&gt;
+
+&lt;p&gt;なんとか使わないとヤリきれないので、いろんなディストリを試して遊んでいるのですが&lt;br /&gt;
+毎度、決まって内蔵の無線LANアダプタに泣かされるので&lt;br /&gt;
+ここに解決手順を残しておこうと思います。&lt;/p&gt;
+
+&lt;h1 id=&#34;macbookについて&#34;&gt;Macbookについて&lt;/h1&gt;
+
+&lt;h2 id=&#34;macbookのバージョン&#34;&gt;MacBookのバージョン&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Macbook (13-inch, Early 2008)&lt;/li&gt;
+&lt;li&gt;Macbook4.1 (MB404xx/A)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;無線lanアダプタ&#34;&gt;無線LANアダプタ&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ lspci
+
+~~~
+Network controller: Broadcom Corporation BCM4321 802.11a/b/g/n (rev 03)
+~~~
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;適用すべきドライバは&lt;strong&gt;broadcom-wl&lt;/strong&gt;であり&lt;br /&gt;
+&lt;strong&gt;ndiswrapper&lt;/strong&gt; / &lt;strong&gt;brcm80211&lt;/strong&gt; / &lt;strong&gt;wl&lt;/strong&gt; / &lt;strong&gt;rndis_wlan&lt;/strong&gt;ではない。&lt;/p&gt;
+
+&lt;h1 id=&#34;fedoraへのドライバ適用&#34;&gt;Fedoraへのドライバ適用&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo yum install b43-fwcutter
+
+$ cd ~/tmp
+$ wget http://downloads.openwrt.org/sources/broadcom-wl-4.150.10.5.tar.bz2
+$ tar xjf broadcom-wl-4.150.10.5.tar.bz2
+$ cd broadcom-wl-4.150.10.5/driver
+$ sudo b43-fwcutter -w /lib/firmware wl_apsta_mimo.o
+
+$ cd ~/tmp
+$ wget http://downloads.openwrt.org/sources/wl_apsta-3.130.20.0.o
+$ sudo b43-fwcutter -w /lib/firmware wl_apsta-3.130.20.0.o
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これでOSを再起動すれば無線LANアダプタが認識される。&lt;/p&gt;
+
+&lt;p&gt;Fedora(gnome)の操作感がOS Xに近くて良い感じです。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>このブログの投稿方法</title>
+      <link>https://kachina.github.io/post/2014-04-19-blog-entry/</link>
+      <pubDate>Sat, 19 Apr 2014 11:03:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2014-04-19-blog-entry/</guid>
+      <description>
+
+&lt;p&gt;めったに書かないブログで、大抵の場合は新しいディストリをインストールして遊んでるとき&lt;br /&gt;
+そんなんで、投稿の度にソノ手順がわからなくなる&lt;br /&gt;
+んなもんで、このブログ自体にブログの投稿手順を投稿しておこうと思う。&lt;/p&gt;
+
+&lt;h1 id=&#34;構成&#34;&gt;構成&lt;/h1&gt;
+
+&lt;p&gt;このブログは&lt;a href=&#34;https://pages.github.com/&#34;&gt;GitHub Pages&lt;/a&gt; + &lt;a href=&#34;http://jekyllrb.com/&#34;&gt;jekyll&lt;/a&gt; + &lt;a href=&#34;http://octopress.org/&#34;&gt;Octpress&lt;/a&gt;で構成されている。&lt;/p&gt;
+
+&lt;h1 id=&#34;準備&#34;&gt;準備&lt;/h1&gt;
+
+&lt;h2 id=&#34;bitbucketのblogリポジトリをclone&#34;&gt;BitBucketのblogリポジトリをclone&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone git@bitbucket.org:kachina/blog.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;パッケージのインストール&#34;&gt;パッケージのインストール&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd blog
+$ bundle install --path vendor/bundle
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;新しい記事の投稿手順&#34;&gt;新しい記事の投稿手順&lt;/h1&gt;
+
+&lt;h2 id=&#34;新規記事の作成&#34;&gt;新規記事の作成&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bundle exec rake new_post\[&amp;quot;title&amp;quot;\]                                                                                              [blog(source)]
+mkdir -p source/_posts
+Creating new post: source/_posts/yyyy-mm-dd-title.markdown
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;記事の編集&#34;&gt;記事の編集&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim source/_posts/yyyy-mm-dd-title.markdown
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;記事のプレビュー&#34;&gt;記事のプレビュー&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bundle exec rake generate
+$ bundle exec rake preview
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://localhost:4000/blog/&#34;&gt;http://localhost:4000/blog/&lt;/a&gt;で内容を確認&lt;/p&gt;
+
+&lt;h2 id=&#34;記事の公開&#34;&gt;記事の公開&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bundle exec rake gen_deploy
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;bitbucketにpush&#34;&gt;BitBucketにPush&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git add .
+$ git commit -m &amp;quot;titleの投稿&amp;quot;
+$ git push origin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これでもう迷わない。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Gentooでの無線LAN設定</title>
+      <link>https://kachina.github.io/post/2013-05-18-gentoo-wifi/</link>
+      <pubDate>Sat, 18 May 2013 11:03:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2013-05-18-gentoo-wifi/</guid>
+      <description>
+
+&lt;p&gt;前回の &lt;a href=&#34;http://blog.strigiformes.net/blog/2013/05/12/gentoo-dvorak/&#34;&gt;GentooでDvorak配列を設定して&amp;rdquo;control&amp;rdquo;と&amp;rdquo;caps Lock&amp;rdquo;キーを入れ替える&lt;/a&gt; に続き&lt;br /&gt;
+今回は無線LANの設定をしたいとおもいます。&lt;/p&gt;
+
+&lt;p&gt;使っているMacBookのバージョンは4,1(13-inch, Early 2008)です。&lt;/p&gt;
+
+&lt;h1 id=&#34;1-接続されているデバイスを確認&#34;&gt;1. 接続されているデバイスを確認&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-objc&#34;&gt;$ lspci | less
+02:00.0 Ntework controller [0280]: Broadcom Corporation BCM4321 802.11a/b/g/n [14e4:4328] (rev 03)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;『Broadcom Corporation BCM4321』を利用していることが解りました。&lt;br /&gt;
+(&lt;code&gt;lspci&lt;/code&gt; コマンドは &lt;code&gt;emerge sys-apps/pciutils&lt;/code&gt; で使えます)&lt;/p&gt;
+
+&lt;h1 id=&#34;2-デバイスの状態を確認&#34;&gt;2. デバイスの状態を確認&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-objc&#34;&gt;$ dmesg
+...
+b43-phy0: Broadcom 4321 WLAN found (core revision 11)
+b43-phy0 ERROR: FOUND UNSUPPORTED PHY (Analog 5, Type 4, Revision 1)
+b43: probe of ssb0:0 failed with error -95
+Broadcom 43xx driver loaded [ Features: PML ]
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;正しく認識されていないことが解りました。&lt;br /&gt;
+それでは、カーネルの設定〜アクセスポイントの設定までの&lt;br /&gt;
+作業履歴を残していきたいと思います。&lt;/p&gt;
+
+&lt;h1 id=&#34;3-カーネルの設定&#34;&gt;3. カーネルの設定&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-objc&#34;&gt;$ cd /usr/src/linux
+$ make menuconfig
+
+Device Drivers ---&amp;gt;
+  Broadcom specific AMBA
+    &amp;lt;M&amp;gt; BCMA support
+    [x] Support for BCMA on PCI-host bus
+    [x] BCMA Broadcom GBIT MAC COMMON core driver
+    [ ] BCMA debugging (NEW)
+[*] Network device support
+  [*] Wireless LAN
+    [ ] Broadcom 43xx debugging
+    &amp;lt; &amp;gt; Broadcom 43xx-legacy wireless support (mac80211 stack)
+    &amp;lt;M&amp;gt; Broadcom IEEE802.11n PCIe SoftMAC WLAN driver
+    &amp;lt;M&amp;gt; Broadcom IEEE802.11n embedded FullMAC WLAN driver
+    [*] USB bus interface support for FullMAC driver (NEW)
+-*- Networking support
+  -*- Wireless
+    &amp;lt;M&amp;gt; cfg80211 - wireless configuration API
+    [*] cfg80211 wireless extensions compatibility
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;4-ドライバの変更&#34;&gt;4. ドライバの変更&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.broadcom.com/support/802.11/linux_sta.php&#34;&gt;こちら&lt;/a&gt; のREADME.txtに従って&amp;rdquo;wl.ko&amp;rdquo;ファイルを作成します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-objc&#34;&gt;$ mkdir /tmp/hybrid_wl
+$ cd /tmp/hybrid_wl
+$ wget http://www.broadcom.com/docs/linux_sta/hybrid-portsrc_x86_32-v5_100_82_112.tar.gz
+$ tar xzf hybrid-portsrc_x86_32-v5_100_82_112.tar.gz
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;手順書に従って&lt;code&gt;make&lt;/code&gt; を実行すると、以下のメッセージが出て失敗します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-objc&#34;&gt;KBUILD_NOPEDANTIC=1 make -C /lib/modules/`uname -r`/build M=`pwd`
+make[1]: Entering directory `/usr/src/linux-3.8.13-gentoo&#39;
+Wireless Extension is the only possible API for this kernel version
+Using Wireless Extension API
+LD /tmp/hybrid_wl/lbuilt-in.o
+CC [M] /tmp/hybrid_wl/src/shared/linux_osl.o
+CC [M] /tmp/hybrid_wl/src/wl/sys/wl_linux.o
+/tmp/hybrid_wl/src/wl/sys/wl_linux.c:43:24: fatal error: asm/system.h: No such file or directory
+compilation terminated.
+make[2]: *** [/tmp/hybrid_wl/src/wl/sys/wl_linux.o] Error 1
+make[1]: *** [_module_/tmp/hybrid_wl] Error 2
+make[1]: Leaving directory `/usr/src/linux-3.8.13-gentoo&#39;
+make: *** [all] Error 2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&amp;ldquo;src/wl/sys/wl_linux.c&amp;rdquo;ファイルを編集します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-objc&#34;&gt;-- 43行目
+
+#include &amp;lt;asm/system.h&amp;gt;
+↓
+#include &amp;lt;asm/switch_to.h&amp;gt;
+
+-- 388行目
+.ndo_set_multicast_list = wl_set_multicast_list,
+↓
+.ndo_set_rx_mode = wl_set_multicast_list,
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ファイルを編集したら&lt;code&gt;make&lt;/code&gt;から手順書の作業を再開します&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-objc&#34;&gt;$ make
+$ make install
+$ depmod
+$ modprobe wl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;生成された&amp;rdquo;wl.ko&amp;rdquo;ファイルを、既存のものと置き換えます。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-objc&#34;&gt;$ rmmod wl
+$ mv /lib/modules/3.8.13-gentoo/kernel/net/wireless/wl.ko /lib/modules/3.8.13-gentoo/kernel/net/wireless/wl.ko.org
+$ cp ./wl.ko /lib/modules/3.8.13-gentoo/kernel/net/wireless/
+$ depmod
+$ modprobe wl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不要なモジュールを読まない様に、ブラックリストに追記し&lt;br /&gt;
+&amp;ldquo;wl&amp;rdquo;モジュールをリロードします&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-objc&#34;&gt;$ echo &amp;quot;blacklist ssb&amp;quot; &amp;gt;&amp;gt; /etc/modprobe.d/blacklist.conf
+$ echo &amp;quot;blacklist bcma&amp;quot; &amp;gt;&amp;gt; /etc/modprobe.d/blacklist.conf
+$ echo &amp;quot;blacklist b43&amp;quot; &amp;gt;&amp;gt; /etc/modprobe.d/blacklist.conf
+$ rmmod ssb
+$ rmmod bcma
+$ rmmod b43
+$ rmmod wl
+$ modprobe wl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これで『Broadcom BCM4321』が認識されました。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ iwconfig
+
+enp2s0    IEEE 802.11abgn  ESSID:&amp;quot;&amp;quot;
+          Mode:Managed  Frequency:2.447 GHz  Access Point: Not-Associated
+          Bit Rate:130 Mb/s  Tx-Power:24 dBm
+          Retry min limit:7  RTS thr:off  Fragment thr:off
+          Power Managementmode:All packets received
+          Link Quality=5/5 Signal level=0 dBm Noise level=-57 dBm
+          Rx invalid nwid:0 Rx invalid crypt:0 Rx invalid frag:0
+          Tx excessive retries:0 Invalid misc:0 Missed beacon:0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;5-ドライバの設定&#34;&gt;5. ドライバの設定&lt;/h1&gt;
+
+&lt;p&gt;&amp;rdquo;/etc/conf.d/net&amp;rdquo;ファイルに以下を追記&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module_enp2s0=&amp;quot;wpa_supplicant dhcpcd&amp;quot;
+config_enp2s0=&amp;quot;dhcp&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;dhcpcdデーモンの自動起動が設定されている場合は削除します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rc-update del dhcpcd
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;それでは、アクセスポイントの設定に進みます。&lt;/p&gt;
+
+&lt;h1 id=&#34;6-アクセスポイントの設定&#34;&gt;6. アクセスポイントの設定&lt;/h1&gt;
+
+&lt;p&gt;サンプルの設定ファイルを流用します。&lt;/p&gt;
+
+&lt;p&gt;まずは、&amp;rdquo;/usr/share/doc/wpa_supplicant-&lt;version&gt;/wpa_supplicant.conf.gz&amp;rdquo;ファイルを&lt;br /&gt;
+&amp;rdquo;/etc/wpa_supplicant/wpa_supplicant.conf&amp;rdquo;に展開し&lt;br /&gt;
+557行目の『Example blocks:』以下の行を消しちゃいます。&lt;/p&gt;
+
+&lt;p&gt;そこにアクセスポイントの情報を追記していきます。&lt;br /&gt;
+&lt;code&gt;wpa_passshpase&lt;/code&gt;コマンドで、アクセスポイント名、暗号化したパスフレーズを追記します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ wpa_passphrase {アクセスポイント名} {パスフレーズ} &amp;gt;&amp;gt; /etc/wpa_supplicant/wpa_supplicant.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&amp;ldquo;wpa_supplicant.conf&amp;rdquo;ファイルを開き、その他の情報を追記します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;network={
+  scan_ssid=1
+  ssid=&amp;quot;{アクセスポイント名}&amp;quot;
+  psk={暗号化されたパスフレーズ}
+  priority=1
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;7-自動起動の設定&#34;&gt;7. 自動起動の設定&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /etc/init.d
+$ ln -s net.lo net.enp2s0
+$ rc-update add net.enp2s0 default
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;8-起動&#34;&gt;8. 起動&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /etc/init.d/net.enp2s0 start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これで設定は完了です。&lt;br /&gt;
+&lt;code&gt;iwconfig&lt;/code&gt;でアクセスポイントに接続されていることを確認します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ iwconfig enp2s0
+
+enp2s0    IEEE 802.11abgn  ESSID:&amp;quot;{アクセスポイント名}&amp;quot;
+          Mode:Managed  Frequency:2.447 GHz  Access Point: xx:xx:xx:xx:xx:xx
+          Bit Rate:130 Mb/s  Tx-Power:24 dBm
+          Retry min limit:7  RTS thr:off  Fragment thr:off
+          Power Managementmode:All packets received
+          Link Quality=5/5 Signal level=0 dBm Noise level=-57 dBm
+          Rx invalid nwid:0 Rx invalid crypt:0 Rx invalid frag:0
+          Tx excessive retries:0 Invalid misc:0 Missed beacon:0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;9-有線lanの自動起動設定を削除&#34;&gt;9. 有線LANの自動起動設定を削除&lt;/h1&gt;
+
+&lt;p&gt;有線LANは利用は限定的になるので、自動起動の設定を削除します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rc-update del net.eth0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;苦節1週間、寝落ち3回、何度も外付けのUSB無線LANアダプタに逃げたくなりましたが&lt;br /&gt;
+なんとか内蔵の無線LANが使える様になりました。&lt;/p&gt;
+
+&lt;p&gt;これでやっと、スタバでドヤ顔できます。&lt;/p&gt;
+
+&lt;p&gt;あとは、&lt;code&gt;enp2s0&lt;/code&gt;って名前を&lt;code&gt;wlan0&lt;/code&gt;とかに変更したいな。。。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>GentooでDvorak配列を設定して&#34;control&#34;と&#34;caps lock&#34;キーを入れ替える</title>
+      <link>https://kachina.github.io/post/2013-05-12-gentoo-dvorak/</link>
+      <pubDate>Sun, 12 May 2013 11:03:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2013-05-12-gentoo-dvorak/</guid>
+      <description>&lt;p&gt;ジャンク品の白Macbookが手に入ったので&lt;br /&gt;
+JISキーボードをUSキーボードに、HDDをSSDに付け替えて&lt;br /&gt;
+干上がったバッテリーを新品に買い替えて、Gentoo Linuxを入れて遊んでます。&lt;/p&gt;
+
+&lt;p&gt;無線LANが使えなかったり／GUI環境が整っていなかったりと、まだまだな感じですが&lt;br /&gt;
+環境構築の備忘録を残していこうと思います。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Dvorak配列の設定&lt;br /&gt;
+まずは、キーボードの配列をQwertyからDvorakに変更します。&lt;br /&gt;
+/etc/conf.d/keymapsを開き、以下のとおり編集します。&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code&gt;keymap=&amp;quot;dvorak&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;設定ファイルの編集後、キーマップサービスを再起動すればキー配列がDvorakに変わります。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/etc/init.d/keymaps restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&amp;ldquo;control&amp;rdquo;キーと&amp;rdquo;caps lock&amp;rdquo;キーを入れ替える&lt;br /&gt;
+Dvorakキー配列の設定は /usr/share/keymaps/i386/dvorak/dvorak.map.gz で定義されています。
+まずはファイルを開きます。&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code&gt;cd /tmp
+cp /usr/share/keymaps/i386/dvorak/dvorak.map.gz /tmp/
+gunzip dvorak.map.gz
+vim dvorak.map
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;エディタにて、以下の行を編集します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;keycode 29 = Caps_Lock
+...
+keycode 58 = Control
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;編集後、ファイルを圧縮して元の場所に戻し&lt;br /&gt;
+キーマップサービスを再起動すれば&lt;br /&gt;
+&amp;ldquo;control&amp;rdquo;キーと&amp;rdquo;caps lock&amp;rdquo;キーを入れ替わります。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;gzip dvorak.map
+mv dvorak.map.gz /usr/share/keymaps/i386/dvorak/
+/etc/init.d/keymaps restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;普段はMacbook Airを使っているのですが&lt;br /&gt;
+白Macbookの方が、全然見た目が良いですね。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://dl.dropboxusercontent.com/u/523792/blog/gentoo-dvorak.jpg&#34; alt=&#34;Macbook&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;ただ、起動時の『ジャーン！』って音だけは慣れません。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>tmuxのコピーをMacのクリップボードに同期する</title>
+      <link>https://kachina.github.io/post/2012-10-06-tmux/</link>
+      <pubDate>Sat, 06 Oct 2012 11:03:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2012-10-06-tmux/</guid>
+      <description>&lt;p&gt;ささやかだけど役にたつことなので、備忘録の意味も含めて投稿します。&lt;/p&gt;
+
+&lt;p&gt;Macでiterm2+zsh+tmux+vim環境で開発をしているのですが、コピー＆ペーストが不便でした。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;vimの場合&lt;br /&gt;
+ビジュアルモードで範囲指定して【y】でヤンクして、【p】でペースト&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;tmuxの場合&lt;br /&gt;
+【ctrl】+【b】→【[】でコピーモードに入り、【space】と【return】で範囲を指定しコピーして、【ctrl】+【b】→【]】でペースト&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;macの場合&lt;br /&gt;
+マウスで対象範囲を選択し【command】+【c】でコピーして、【command】+【v】でペースト&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;この マウスで対象範囲を選択 って操作がとてもストレスなので、&lt;br /&gt;
+tmuxでコピーした内容をMacのクリップボードに同期する様にしてみました。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;reattach-to-user-namespaceのインストール&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo brew install reattach-to-user-namespace
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;コピースクリプトの作成&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkdir ~/bin
+$ touch ~/bin/tmux-pbcopy
+$ chmod 744 ~/bin/tmux-pbcopy
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;スクリプトの内容は以下のとおり。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/bin/sh
+if ! type pbcopy &amp;gt;/dev/null 2&amp;gt;&amp;amp;1 || ! type reattach-to-user-namespace &amp;gt;/dev/null 2&amp;gt;&amp;amp;1; then
+    tmux display-message &amp;quot;Error: cannot copy to clipboard.&amp;quot;
+    exit 0
+fi
+
+COPY=`tmux save-buffer -`
+echo &amp;quot;$COPY&amp;quot; | reattach-to-user-namespace pbcopy
+
+# メッセージ表示
+LINES=`echo &amp;quot;$COPY&amp;quot; | wc -l | tr -d &#39; &#39;`
+tmux display-message &amp;quot;Copy: $LINES lines&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;tmux.confの編集&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;~/.tmux.confに以下を追記します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Ctrl-b yでコピー内容をMacのクリップボードに同期
+unbind y
+bind y run-shell &#39;~/bin/tmux-pbcopy&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上で、設定はおしまいです。&lt;br /&gt;
+利用例は以下のとおりです。&lt;br /&gt;
+【ctrl】+【b】→【[】でtmuxのコピーモードに入る&lt;br /&gt;
+起点までカーソルを移動し【space】で範囲指定の開始&lt;br /&gt;
+終点までカーソルを移動し【return】でtmuxのクリップボードにコピー&lt;br /&gt;
+【ctrl】+【b】→【y】でコピーをMacのクリップボードに同期&lt;br /&gt;
+【command】+【v】でペースト&lt;/p&gt;
+
+&lt;p&gt;これでエラーメッセージ等をコピペしてググるのがラクになりました。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
