@@ -141,21 +141,21 @@ Flash Playerが必要なサービスを利用するときは &lt;a href=&#34;www
 
 &lt;p&gt;FireFoxのツールバーは &lt;strong&gt;Liberator Statusline Toolbar&lt;/strong&gt; 以外を非表示にしています。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;images/20150215_image_1.png&#34; alt=&#34;FireFox Screen 1&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://kachina.github.io/images/20150215_image_1.png&#34; alt=&#34;FireFox Screen 1&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;最近のFireFoxはナビゲーションバーを非表示にすることが出来ないので &lt;strong&gt;&lt;a href=&#34;https://addons.mozilla.org/en-US/firefox/addon/classicthemerestorer/&#34;&gt;Classic Theme Restorer&lt;/a&gt;&lt;/strong&gt; アドオンを使って隠しています。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;images/20150215_image_2.png&#34; alt=&#34;FireFox Screen 2&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://kachina.github.io/images/20150215_image_2.png&#34; alt=&#34;FireFox Screen 2&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;ブラウザ操作は &lt;strong&gt;&lt;a href=&#34;https://addons.mozilla.org/en-us/firefox/addon/vimperator/&#34;&gt;Vimperator&lt;/a&gt;&lt;/strong&gt; を使っており、コマンドのレスが &lt;strong&gt;Liberator Statusline Toolbar&lt;/strong&gt; に出力されます。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;images/20150215_image_3.png&#34; alt=&#34;FireFox Screen 3&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://kachina.github.io/images/20150215_image_3.png&#34; alt=&#34;FireFox Screen 3&#34; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;2-iterm2とos-xのカスタマイズ&#34;&gt;2. iTerm2とOS Xのカスタマイズ&lt;/h4&gt;
 
 &lt;p&gt;以下が &lt;strong&gt;iTerm2&lt;/strong&gt; と &lt;strong&gt;OS Xのメニューバー&lt;/strong&gt; です。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;images/20150215_image_4.png&#34; alt=&#34;iTerm2 x Menu Bar&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://kachina.github.io/images/20150215_image_4.png&#34; alt=&#34;iTerm2 x Menu Bar&#34; /&gt;&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;ホスト名&lt;/li&gt;
@@ -166,7 +166,7 @@ Flash Playerが必要なサービスを利用するときは &lt;a href=&#34;www
 &lt;li&gt;曜日, 年月日, 時分&lt;/li&gt;
 &lt;li&gt;OS Xのメニューバー&lt;br /&gt;
 以下のモノは &lt;a href=&#34;http://www.macbartender.com/&#34;&gt;Bartender&lt;/a&gt; でメニューバーから隠しています。&lt;br /&gt;
-&lt;img src=&#34;images/20150215_image_5.png&#34; alt=&#34;iTerm2 x Menu Bar&#34; /&gt;&lt;br /&gt;
+&lt;img src=&#34;https://kachina.github.io/images/20150215_image_5.png&#34; alt=&#34;iTerm2 x Menu Bar&#34; /&gt;&lt;br /&gt;
 
 &lt;ul&gt;
 &lt;li&gt;アイコンがカラーのダサいアプリ&lt;/li&gt;
@@ -246,7 +246,7 @@ end
 &lt;p&gt;デフォルトでは &lt;strong&gt;OS X Notifications&lt;/strong&gt; が &lt;strong&gt;ON&lt;/strong&gt; になっています。
 これだとユーザーアイコンが表示されなかったので &lt;strong&gt;OFF&lt;/strong&gt; にします。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;images/20150211_growlnotify.png&#34; alt=&#34;Growl Preferences&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://kachina.github.io/images/20150211_growlnotify.png&#34; alt=&#34;Growl Preferences&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;以上で、earthquakeのストリームがGrowlで通知されるようになりました。
 &lt;strong&gt;OS X Notifications&lt;/strong&gt; でアイコンも表示できるようにできるか調べてみよう。&lt;/p&gt;
