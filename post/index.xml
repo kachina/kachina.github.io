@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Ship of Fools</title>
-    <link>https://kachina.github.io/post/index.xml</link>
+    <link>https://blog.tetsuya.chiba.jp/post/index.xml</link>
     <description>Recent content in Posts on Ship of Fools</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
     <copyright>Code released under the Apache 2.0 license.</copyright>
     <lastBuildDate>Tue, 03 Jan 2017 23:12:37 +0900</lastBuildDate>
-    <atom:link href="https://kachina.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.tetsuya.chiba.jp/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>xcodeからリモートのGitリポジトリの認証に既存の秘密鍵をつかう</title>
-      <link>https://kachina.github.io/post/2017-01-03-xcode-git-auth/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2017-01-03-xcode-git-auth/</link>
       <pubDate>Tue, 03 Jan 2017 23:12:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2017-01-03-xcode-git-auth/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2017-01-03-xcode-git-auth/</guid>
       <description>
 
 &lt;p&gt;やりたいことができるアプリが App Store になかったので、いまさらながら iPhone アプリの実装にチャレンジすることにしました。
@@ -64,10 +64,10 @@ $ ln -s ~/.ssh/foo.pub ~/.ssh/id_rsa.pub
     
     <item>
       <title>13.3インチのディスプレイのみで働く工夫</title>
-      <link>https://kachina.github.io/post/2015-02-15-bartender/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2015-02-15-bartender/</link>
       <pubDate>Sun, 15 Feb 2015 09:35:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2015-02-15-bartender/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2015-02-15-bartender/</guid>
       <description>
 
 &lt;p&gt;これからはオフィスや自宅以外で働くことも多くなるので、場所にとらわれず同じ生産性を出す為に『持ち歩けないものは使わない』ってチャレンジを初めてから2年が経ちました。
@@ -141,21 +141,21 @@ Flash Playerが必要なサービスを利用するときは &lt;a href=&#34;www
 
 &lt;p&gt;FireFoxのツールバーは &lt;strong&gt;Liberator Statusline Toolbar&lt;/strong&gt; 以外を非表示にしています。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://kachina.github.io/images/20150215_image_1.png&#34; alt=&#34;FireFox Screen 1&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.tetsuya.chiba.jp/images/20150215_image_1.png&#34; alt=&#34;FireFox Screen 1&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;最近のFireFoxはナビゲーションバーを非表示にすることが出来ないので &lt;strong&gt;&lt;a href=&#34;https://addons.mozilla.org/en-US/firefox/addon/classicthemerestorer/&#34;&gt;Classic Theme Restorer&lt;/a&gt;&lt;/strong&gt; アドオンを使って隠しています。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://kachina.github.io/images/20150215_image_2.png&#34; alt=&#34;FireFox Screen 2&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.tetsuya.chiba.jp/images/20150215_image_2.png&#34; alt=&#34;FireFox Screen 2&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;ブラウザ操作は &lt;strong&gt;&lt;a href=&#34;https://addons.mozilla.org/en-us/firefox/addon/vimperator/&#34;&gt;Vimperator&lt;/a&gt;&lt;/strong&gt; を使っており、コマンドのレスが &lt;strong&gt;Liberator Statusline Toolbar&lt;/strong&gt; に出力されます。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://kachina.github.io/images/20150215_image_3.png&#34; alt=&#34;FireFox Screen 3&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.tetsuya.chiba.jp/images/20150215_image_3.png&#34; alt=&#34;FireFox Screen 3&#34; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;2-iterm2とos-xのカスタマイズ&#34;&gt;2. iTerm2とOS Xのカスタマイズ&lt;/h4&gt;
 
 &lt;p&gt;以下が &lt;strong&gt;iTerm2&lt;/strong&gt; と &lt;strong&gt;OS Xのメニューバー&lt;/strong&gt; です。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://kachina.github.io/images/20150215_image_4.png&#34; alt=&#34;iTerm2 x Menu Bar&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.tetsuya.chiba.jp/images/20150215_image_4.png&#34; alt=&#34;iTerm2 x Menu Bar&#34; /&gt;&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;ホスト名&lt;/li&gt;
@@ -166,7 +166,7 @@ Flash Playerが必要なサービスを利用するときは &lt;a href=&#34;www
 &lt;li&gt;曜日, 年月日, 時分&lt;/li&gt;
 &lt;li&gt;OS Xのメニューバー&lt;br /&gt;
 以下のモノは &lt;a href=&#34;http://www.macbartender.com/&#34;&gt;Bartender&lt;/a&gt; でメニューバーから隠しています。&lt;br /&gt;
-&lt;img src=&#34;https://kachina.github.io/images/20150215_image_5.png&#34; alt=&#34;iTerm2 x Menu Bar&#34; /&gt;&lt;br /&gt;
+&lt;img src=&#34;https://blog.tetsuya.chiba.jp/images/20150215_image_5.png&#34; alt=&#34;iTerm2 x Menu Bar&#34; /&gt;&lt;br /&gt;
 
 &lt;ul&gt;
 &lt;li&gt;アイコンがカラーのダサいアプリ&lt;/li&gt;
@@ -185,10 +185,10 @@ Flash Playerが必要なサービスを利用するときは &lt;a href=&#34;www
     
     <item>
       <title>earthquakeのつぶやきをGrowlで通知する</title>
-      <link>https://kachina.github.io/post/2015-02-11-earthquake-growl-notify/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2015-02-11-earthquake-growl-notify/</link>
       <pubDate>Wed, 11 Feb 2015 11:39:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2015-02-11-earthquake-growl-notify/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2015-02-11-earthquake-growl-notify/</guid>
       <description>
 
 &lt;p&gt;earthquakeにストリームされるつぶやきをGrowlで通知する方法です。&lt;/p&gt;
@@ -246,7 +246,7 @@ end
 &lt;p&gt;デフォルトでは &lt;strong&gt;OS X Notifications&lt;/strong&gt; が &lt;strong&gt;ON&lt;/strong&gt; になっています。
 これだとユーザーアイコンが表示されなかったので &lt;strong&gt;OFF&lt;/strong&gt; にします。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://kachina.github.io/images/20150211_growlnotify.png&#34; alt=&#34;Growl Preferences&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.tetsuya.chiba.jp/images/20150211_growlnotify.png&#34; alt=&#34;Growl Preferences&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;以上で、earthquakeのストリームがGrowlで通知されるようになりました。
 &lt;strong&gt;OS X Notifications&lt;/strong&gt; でアイコンも表示できるようにできるか調べてみよう。&lt;/p&gt;
@@ -255,10 +255,10 @@ end
     
     <item>
       <title>earthquakeが動かなくなった</title>
-      <link>https://kachina.github.io/post/2015-02-08-earthquake/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2015-02-08-earthquake/</link>
       <pubDate>Sun, 08 Feb 2015 13:47:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2015-02-08-earthquake/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2015-02-08-earthquake/</guid>
       <description>
 
 &lt;p&gt;諸事情あって、やっとYosemiteへのバージョンアップ許可がでたので
@@ -396,10 +396,10 @@ if @state == :stream &amp;amp;&amp;amp; !@buffer.nil?
     
     <item>
       <title>VimparatorとMiddlemanとOpenDyslexic</title>
-      <link>https://kachina.github.io/post/2014-12-28-environment/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2014-12-28-environment/</link>
       <pubDate>Sun, 28 Dec 2014 13:41:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2014-12-28-environment/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2014-12-28-environment/</guid>
       <description>
 
 &lt;p&gt;2014年の年末なので、本年の開発環境の変化からベスト3をピックアップして投稿したいと思います。&lt;/p&gt;
@@ -441,11 +441,11 @@ Firefoxの&lt;a href=&#34;https://support.mozilla.org/ja/kb/how-search-from-addr
 
 &lt;h3 id=&#34;inconsolataフォント&#34;&gt;Inconsolataフォント&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://kachina.github.io/images/inconsolata.png&#34; alt=&#34;Inconsolata&#34; title=&#34;Inconsolata&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.tetsuya.chiba.jp/images/inconsolata.png&#34; alt=&#34;Inconsolata&#34; title=&#34;Inconsolata&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;opendyslexicフォント&#34;&gt;OpenDyslexicフォント&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://kachina.github.io/images/opendyslexic.jpg&#34; alt=&#34;OpenDyslexic&#34; title=&#34;OpenDyslexic&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://blog.tetsuya.chiba.jp/images/opendyslexic.jpg&#34; alt=&#34;OpenDyslexic&#34; title=&#34;OpenDyslexic&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;フォントを変更してから2〜3日は違和感がありました。&lt;br /&gt;
 馴染んでからは、感覚的な表現で申し訳ないのですが流し読みでも文字が止まっていると言うか、視野内で動かないと言うか。。。&lt;br /&gt;
@@ -460,10 +460,10 @@ Firefoxの&lt;a href=&#34;https://support.mozilla.org/ja/kb/how-search-from-addr
     
     <item>
       <title>microSDにlubuntuを入れてみた</title>
-      <link>https://kachina.github.io/post/2014-10-04-lubuntu/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2014-10-04-lubuntu/</link>
       <pubDate>Sat, 04 Oct 2014 22:59:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2014-10-04-lubuntu/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2014-10-04-lubuntu/</guid>
       <description>
 
 &lt;p&gt;お気に入りの白Macbookがお亡くなりになりました。&lt;/p&gt;
@@ -596,10 +596,10 @@ RAMDISKにして、microSDへのIOを減らします。&lt;/p&gt;
     
     <item>
       <title>FedoraからApple TVを利用</title>
-      <link>https://kachina.github.io/post/2014-09-21-airplay-from-fedora/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2014-09-21-airplay-from-fedora/</link>
       <pubDate>Sun, 21 Sep 2014 20:51:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2014-09-21-airplay-from-fedora/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2014-09-21-airplay-from-fedora/</guid>
       <description>
 
 &lt;p&gt;FedoraからをApple TVを操作する方法です。&lt;/p&gt;
@@ -666,10 +666,10 @@ $ airimg ~/Pictures/sample.png -o 192.168.11.8              # ローカルファ
     
     <item>
       <title>earthquakeのつぶやきをFedoraのデスクトップに通知する</title>
-      <link>https://kachina.github.io/post/2014-06-22-earthquake-notify/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2014-06-22-earthquake-notify/</link>
       <pubDate>Sun, 22 Jun 2014 12:23:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2014-06-22-earthquake-notify/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2014-06-22-earthquake-notify/</guid>
       <description>&lt;p&gt;Twitterクライアントに&lt;a href=&#34;https://github.com/jugyo/earthquake&#34;&gt;earthquake&lt;/a&gt;を使っています。&lt;br /&gt;
 今回は、ここに流れてくる&amp;rdquo;つぶやき&amp;rdquo;をFedoraのデスクトップに通知したいと思います。&lt;/p&gt;
 
@@ -687,10 +687,10 @@ $ airimg ~/Pictures/sample.png -o 192.168.11.8              # ローカルファ
     
     <item>
       <title>tmuxのコピーをFedoraのクリップボードに同期する</title>
-      <link>https://kachina.github.io/post/2014-06-21-tmux/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2014-06-21-tmux/</link>
       <pubDate>Sat, 21 Jun 2014 20:05:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2014-06-21-tmux/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2014-06-21-tmux/</guid>
       <description>&lt;p&gt;以前に投稿した『&lt;a href=&#34;http://blog.strigiformes.net/blog/2012/10/06/tmux/&#34;&gt;tmuxのコピーをMacのクリップボードに同期する&lt;/a&gt;』のFedora版です。&lt;/p&gt;
 
 &lt;p&gt;操作を統一するために&lt;code&gt;.zshrc&lt;/code&gt;や&lt;code&gt;.vimrc&lt;/code&gt;等の設定ファイルをDropboxに保管し&lt;br /&gt;
@@ -738,10 +738,10 @@ tmux display-message &amp;quot;Copy: $LINES lines&amp;quot;
     
     <item>
       <title>Codeshipでaws-spec実行する</title>
-      <link>https://kachina.github.io/post/2014-05-11-aws-spec-on-codeship/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2014-05-11-aws-spec-on-codeship/</link>
       <pubDate>Sun, 11 May 2014 12:47:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2014-05-11-aws-spec-on-codeship/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2014-05-11-aws-spec-on-codeship/</guid>
       <description>
 
 &lt;p&gt;50回/月まで無料のCIサービスの&lt;a href=&#34;https://www.codeship.io/&#34;&gt;Codeship&lt;/a&gt;で&lt;br /&gt;
@@ -852,10 +852,10 @@ Jenkinsのスケジュール機能みたいに、1回/日テストを実行し�
     
     <item>
       <title>fedora 20にbcm4321のドライバをあてる</title>
-      <link>https://kachina.github.io/post/2014-04-19-fedora-bcm4321/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2014-04-19-fedora-bcm4321/</link>
       <pubDate>Sat, 19 Apr 2014 19:17:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2014-04-19-fedora-bcm4321/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2014-04-19-fedora-bcm4321/</guid>
       <description>
 
 &lt;p&gt;今日は&lt;a href=&#34;http://regional.rubykaigi.org/oedo04/&#34;&gt;大江戸Ruby会議04&lt;/a&gt;に行くつもりだったのだけど&lt;br /&gt;
@@ -913,10 +913,10 @@ $ sudo b43-fwcutter -w /lib/firmware wl_apsta-3.130.20.0.o
     
     <item>
       <title>このブログの投稿方法</title>
-      <link>https://kachina.github.io/post/2014-04-19-blog-entry/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2014-04-19-blog-entry/</link>
       <pubDate>Sat, 19 Apr 2014 11:03:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2014-04-19-blog-entry/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2014-04-19-blog-entry/</guid>
       <description>
 
 &lt;p&gt;めったに書かないブログで、大抵の場合は新しいディストリをインストールして遊んでるとき&lt;br /&gt;
@@ -980,10 +980,10 @@ $ git push origin
     
     <item>
       <title>Gentooでの無線LAN設定</title>
-      <link>https://kachina.github.io/post/2013-05-18-gentoo-wifi/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2013-05-18-gentoo-wifi/</link>
       <pubDate>Sat, 18 May 2013 11:03:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2013-05-18-gentoo-wifi/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2013-05-18-gentoo-wifi/</guid>
       <description>
 
 &lt;p&gt;前回の &lt;a href=&#34;http://blog.strigiformes.net/blog/2013/05/12/gentoo-dvorak/&#34;&gt;GentooでDvorak配列を設定して&amp;rdquo;control&amp;rdquo;と&amp;rdquo;caps Lock&amp;rdquo;キーを入れ替える&lt;/a&gt; に続き&lt;br /&gt;
@@ -1208,10 +1208,10 @@ enp2s0    IEEE 802.11abgn  ESSID:&amp;quot;{アクセスポイント名}&amp;quo
     
     <item>
       <title>GentooでDvorak配列を設定して&#34;control&#34;と&#34;caps lock&#34;キーを入れ替える</title>
-      <link>https://kachina.github.io/post/2013-05-12-gentoo-dvorak/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2013-05-12-gentoo-dvorak/</link>
       <pubDate>Sun, 12 May 2013 11:03:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2013-05-12-gentoo-dvorak/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2013-05-12-gentoo-dvorak/</guid>
       <description>&lt;p&gt;ジャンク品の白Macbookが手に入ったので&lt;br /&gt;
 JISキーボードをUSキーボードに、HDDをSSDに付け替えて&lt;br /&gt;
 干上がったバッテリーを新品に買い替えて、Gentoo Linuxを入れて遊んでます。&lt;/p&gt;
@@ -1272,10 +1272,10 @@ mv dvorak.map.gz /usr/share/keymaps/i386/dvorak/
     
     <item>
       <title>tmuxのコピーをMacのクリップボードに同期する</title>
-      <link>https://kachina.github.io/post/2012-10-06-tmux/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2012-10-06-tmux/</link>
       <pubDate>Sat, 06 Oct 2012 11:03:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2012-10-06-tmux/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2012-10-06-tmux/</guid>
       <description>&lt;p&gt;ささやかだけど役にたつことなので、備忘録の意味も含めて投稿します。&lt;/p&gt;
 
 &lt;p&gt;Macでiterm2+zsh+tmux+vim環境で開発をしているのですが、コピー＆ペーストが不便でした。&lt;/p&gt;

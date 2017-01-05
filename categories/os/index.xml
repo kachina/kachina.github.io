@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Os on Ship of Fools</title>
-    <link>https://kachina.github.io/categories/os/index.xml</link>
+    <link>https://blog.tetsuya.chiba.jp/categories/os/index.xml</link>
     <description>Recent content in Os on Ship of Fools</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
     <copyright>Code released under the Apache 2.0 license.</copyright>
-    <atom:link href="https://kachina.github.io/categories/os/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.tetsuya.chiba.jp/categories/os/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>microSDにlubuntuを入れてみた</title>
-      <link>https://kachina.github.io/post/2014-10-04-lubuntu/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2014-10-04-lubuntu/</link>
       <pubDate>Sat, 04 Oct 2014 22:59:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2014-10-04-lubuntu/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2014-10-04-lubuntu/</guid>
       <description>
 
 &lt;p&gt;お気に入りの白Macbookがお亡くなりになりました。&lt;/p&gt;
@@ -147,10 +147,10 @@ RAMDISKにして、microSDへのIOを減らします。&lt;/p&gt;
     
     <item>
       <title>tmuxのコピーをFedoraのクリップボードに同期する</title>
-      <link>https://kachina.github.io/post/2014-06-21-tmux/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2014-06-21-tmux/</link>
       <pubDate>Sat, 21 Jun 2014 20:05:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2014-06-21-tmux/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2014-06-21-tmux/</guid>
       <description>&lt;p&gt;以前に投稿した『&lt;a href=&#34;http://blog.strigiformes.net/blog/2012/10/06/tmux/&#34;&gt;tmuxのコピーをMacのクリップボードに同期する&lt;/a&gt;』のFedora版です。&lt;/p&gt;
 
 &lt;p&gt;操作を統一するために&lt;code&gt;.zshrc&lt;/code&gt;や&lt;code&gt;.vimrc&lt;/code&gt;等の設定ファイルをDropboxに保管し&lt;br /&gt;
@@ -198,10 +198,10 @@ tmux display-message &amp;quot;Copy: $LINES lines&amp;quot;
     
     <item>
       <title>fedora 20にbcm4321のドライバをあてる</title>
-      <link>https://kachina.github.io/post/2014-04-19-fedora-bcm4321/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2014-04-19-fedora-bcm4321/</link>
       <pubDate>Sat, 19 Apr 2014 19:17:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2014-04-19-fedora-bcm4321/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2014-04-19-fedora-bcm4321/</guid>
       <description>
 
 &lt;p&gt;今日は&lt;a href=&#34;http://regional.rubykaigi.org/oedo04/&#34;&gt;大江戸Ruby会議04&lt;/a&gt;に行くつもりだったのだけど&lt;br /&gt;
@@ -259,10 +259,10 @@ $ sudo b43-fwcutter -w /lib/firmware wl_apsta-3.130.20.0.o
     
     <item>
       <title>Gentooでの無線LAN設定</title>
-      <link>https://kachina.github.io/post/2013-05-18-gentoo-wifi/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2013-05-18-gentoo-wifi/</link>
       <pubDate>Sat, 18 May 2013 11:03:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2013-05-18-gentoo-wifi/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2013-05-18-gentoo-wifi/</guid>
       <description>
 
 &lt;p&gt;前回の &lt;a href=&#34;http://blog.strigiformes.net/blog/2013/05/12/gentoo-dvorak/&#34;&gt;GentooでDvorak配列を設定して&amp;rdquo;control&amp;rdquo;と&amp;rdquo;caps Lock&amp;rdquo;キーを入れ替える&lt;/a&gt; に続き&lt;br /&gt;
@@ -487,10 +487,10 @@ enp2s0    IEEE 802.11abgn  ESSID:&amp;quot;{アクセスポイント名}&amp;quo
     
     <item>
       <title>GentooでDvorak配列を設定して&#34;control&#34;と&#34;caps lock&#34;キーを入れ替える</title>
-      <link>https://kachina.github.io/post/2013-05-12-gentoo-dvorak/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2013-05-12-gentoo-dvorak/</link>
       <pubDate>Sun, 12 May 2013 11:03:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2013-05-12-gentoo-dvorak/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2013-05-12-gentoo-dvorak/</guid>
       <description>&lt;p&gt;ジャンク品の白Macbookが手に入ったので&lt;br /&gt;
 JISキーボードをUSキーボードに、HDDをSSDに付け替えて&lt;br /&gt;
 干上がったバッテリーを新品に買い替えて、Gentoo Linuxを入れて遊んでます。&lt;/p&gt;
@@ -551,10 +551,10 @@ mv dvorak.map.gz /usr/share/keymaps/i386/dvorak/
     
     <item>
       <title>sshの鍵ファイル認証にてハデにハマる</title>
-      <link>https://kachina.github.io/post/2011-07-28-ssh/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2011-07-28-ssh/</link>
       <pubDate>Thu, 28 Jul 2011 11:03:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2011-07-28-ssh/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2011-07-28-ssh/</guid>
       <description>
 
 &lt;p&gt;客先の火消し案件中にsshの鍵ファイル認証でハデにハマり&lt;br /&gt;
@@ -798,10 +798,10 @@ Jul 28 12:12:49 svn sshd[27494]: debug3: PAM: sshpam_thread_cleanup entering
     
     <item>
       <title>magic trackpadのジェスチャーが使えない！</title>
-      <link>https://kachina.github.io/post/2011-01-06-magic-trackpad/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2011-01-06-magic-trackpad/</link>
       <pubDate>Thu, 06 Jan 2011 11:03:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2011-01-06-magic-trackpad/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2011-01-06-magic-trackpad/</guid>
       <description>&lt;p&gt;【magic trackpad】買ったのだけど、マニュアルに従ってインストールしても&lt;br /&gt;
 ジェスチャーが全く使えない。。。&lt;/p&gt;
 

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Lifestyle on Ship of Fools</title>
-    <link>https://kachina.github.io/categories/lifestyle/index.xml</link>
+    <link>https://blog.tetsuya.chiba.jp/categories/lifestyle/index.xml</link>
     <description>Recent content in Lifestyle on Ship of Fools</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
     <copyright>Code released under the Apache 2.0 license.</copyright>
-    <atom:link href="https://kachina.github.io/categories/lifestyle/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.tetsuya.chiba.jp/categories/lifestyle/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>FedoraからApple TVを利用</title>
-      <link>https://kachina.github.io/post/2014-09-21-airplay-from-fedora/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2014-09-21-airplay-from-fedora/</link>
       <pubDate>Sun, 21 Sep 2014 20:51:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2014-09-21-airplay-from-fedora/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2014-09-21-airplay-from-fedora/</guid>
       <description>
 
 &lt;p&gt;FedoraからをApple TVを操作する方法です。&lt;/p&gt;
@@ -81,10 +81,10 @@ $ airimg ~/Pictures/sample.png -o 192.168.11.8              # ローカルファ
     
     <item>
       <title>newsbeuter on Mac</title>
-      <link>https://kachina.github.io/post/2012-09-06-newsbeuter/</link>
+      <link>https://blog.tetsuya.chiba.jp/post/2012-09-06-newsbeuter/</link>
       <pubDate>Thu, 06 Sep 2012 11:03:37 +0900</pubDate>
       
-      <guid>https://kachina.github.io/post/2012-09-06-newsbeuter/</guid>
+      <guid>https://blog.tetsuya.chiba.jp/post/2012-09-06-newsbeuter/</guid>
       <description>
 
 &lt;p&gt;約1年ぶりに個人ブログ向けのネタができたので投稿します。&lt;/p&gt;
