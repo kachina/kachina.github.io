@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Ship of Fools</title>
+    <link>https://kachina.github.io/categories/</link>
+    <description>Recent content in Categories on Ship of Fools</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <copyright>Code released under the Apache 2.0 license.</copyright>
+    
+	<atom:link href="https://kachina.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Development</title>
+      <link>https://kachina.github.io/categories/development/</link>
+      <pubDate>Tue, 03 Jan 2017 23:12:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/categories/development/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Lifestyle</title>
+      <link>https://kachina.github.io/categories/lifestyle/</link>
+      <pubDate>Sun, 21 Sep 2014 20:51:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/categories/lifestyle/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Os</title>
+      <link>https://kachina.github.io/categories/os/</link>
+      <pubDate>Sat, 04 Oct 2014 22:59:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/categories/os/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Raspbian</title>
+      <link>https://kachina.github.io/categories/raspbian/</link>
+      <pubDate>Sun, 13 Aug 2017 19:12:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/categories/raspbian/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

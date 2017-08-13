@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>stoneでファイアウォールを越えてssh接続 -- Ship of Fools</title>
+    <title>cocopar 4inc IPSハイビジョンLCD ディスプレイ のセットアップ -- Ship of Fools</title>
 
     
 
@@ -75,14 +75,14 @@
         <div class="row">
            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
              <div class="post-heading">
-               <h1>stoneでファイアウォールを越えてssh接続</h1>
+               <h1>cocopar 4inc IPSハイビジョンLCD ディスプレイ のセットアップ</h1>
                <h2 class="subheading"></h2>
-               <span class="meta">Posted by <a href="#">@kachina_t</a> on Thu, Feb 17, 2011
+               <span class="meta">Posted by <a href="#">@kachina_t</a> on Sun, Aug 13, 2017
                  <br />
-                 In <a href="https://kachina.github.io/categories/development">Development</a>
+                 In <a href="https://kachina.github.io/categories/raspbian">Raspbian</a>
 
                  <br />
-                 Tags <a href="https://kachina.github.io/tags/development">development</a>
+                 Tags <a href="https://kachina.github.io/tags/4inc">4inc</a>, <a href="https://kachina.github.io/tags/cocopar">cocopar</a>, <a href="https://kachina.github.io/tags/raspberrypi">raspberrypi</a>
                </span>
              </div>
            </div>
@@ -97,97 +97,60 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                   
 
-<p>セキュリティ意識が高まった昨今では、内部から外部への公開ポートも制限することが多く<br />
-下の図のように、http(80)とhttps(443)以外は利用不可としている場所で作業をすることが増えてきました。</p>
+<p><a href="http://amzn.asia/2Aue1Rb">cocopar 4inch LCD ディスプレイ (タッチパネル)</a> が手に入ったのでセットアップをしました。</p>
 
-<pre><code>+----+           +----------+      +----------+
-| PC |-----------| FireWall |------| MyServer |
-+----+           +----------+      +----------+
-                80,443のみ許可
-               ---------------&gt;
-|                                             |
-|--- PrivateNetwork ---| |----- Internet -----|
-|                      | |                    |
-</code></pre>
-
-<p>準備の悪い僕は、使い馴れた『.vimrc』ファイルが欲しくなったり<br />
-昨晩に書いた『ソース』が見たくなったり、『秘密鍵』が欲しくなったり&hellip;etc<br />
-と、【MyServer】にssh接続さえできれば、ちゃちゃっとやっつけられる事に余計な労力をかけることがしばしば・・・</p>
-
-<p>『便利と危険は表裏一体』なんて言葉がありますが<br />
-論理的な理由なく不便を強いられている方は、たまったもんじゃないのです。</p>
-
-<p>ってことで、心に誓います。</p>
-
-<p>この状況をくぐり抜けて【MyServer】にssh接続してやるんだ</p>
-
-<h2 id="ルールは2つ">ルールは2つ</h2>
+<h2 id="環境">環境</h2>
 
 <ul>
-<li>足が付かないこと</li>
-<li>汎用的であること</li>
+<li>macOS Sierra (10.12.6)</li>
+<li>Raspberry Pi 3 Model B</li>
+<li>microSD: 16GB</li>
 </ul>
 
-<p>このルールに従い、DMZ環境のサーバを踏むことはNGとしました。</p>
+<h2 id="1-os-イメージのダウンロード">1. OS イメージのダウンロード</h2>
 
-<p>そんで、見つけたのが『<a href="http://www.gcd.org/sengoku/stone/Welcome.ja.html">stone</a>』<br />
-アプリケーションレベルのTPC/UDPパケットリピータです。</p>
+<p><a href="https://www.dropbox.com/s/3hk0xtw35qhhcpe/lcd4.7z?dl=0">https://www.dropbox.com/s/3hk0xtw35qhhcpe/lcd4.7z?dl=0</a> でセットアップに必要なファイル一式が配布されているのでダウンロード・展開します。</p>
 
-<p>実行イメージは↓こんな感じ。
-* 【PC】から【MyServer】間は443番ポートにて通信し
-* 【MyServer】内で『stone』が443番ポートのパケットを22番ポートに中継
-* 【MyServer】の『sshd』は、通常のsshリクエストとしてコネクションを確立</p>
+<p><code>~/Downloads/</code> に展開したとして <code>$ cd ~/Downloads/4inch RPi LCD/IMAGE</code> へ移動しておきます。</p>
 
-<pre><code>+----+           +----------+             +----------+
-| PC |-----------| FireWall |-------------| MyServer |
-+----+  80,443   +----------+   internet  +----------+
-        のみ許可
-|                                                    |
-|------------------ 443 --------------[stone]-- 22 --|
-|                                                    |
+<h2 id="2-microsd-の初期化">2. microSD の初期化</h2>
+
+<p>Disk Utility を使って、以下の内容で microSD を初期化</p>
+
+<p><strong>Name:</strong> UNTITLED(任意の値)</br>
+<strong>Format:</strong> MS-DOS (FAT)</br>
+<strong>Scheme:</strong> Master Boot Record</br></p>
+
+<h2 id="3-マウントの解除-イメージのコピー">3. マウントの解除、イメージのコピー</h2>
+
+<p>マウントされているディスクに対して <code>dd</code> コマンドを使ったイメージのコピーはできないので、まずは <code>$ df</code> を実行して microSD がマウントされているポイント( <strong>/Volumes/UNTITLED</strong> )を確認のうえアンマウントします。
+<code>$ sudo diskutil umount /Volumes/UNTITLED</code></p>
+
+<p>つぎに <code>$ diskutil list</code> を実行して microSD のデバイスパスを確認します。 ( <strong>/dev/disk2</strong> )
+これで準備が整ったので↓イメージのコピーを実行します。 (結構時間がかかります)</p>
+
+<pre><code>$ sudo dd if=LCD4-160406.img of=/dev/disk2 bs=1m
 </code></pre>
 
-<p>環境構築手順は以下のとおり。</p>
+<h2 id="4-起動">4. 起動</h2>
 
-<ol>
-<li>【MyServer】へ『stone』のインストール</li>
-</ol>
+<p>Raspberry Pi にキーボード・マウスを接続して電源を入れましょう。</p>
 
-<pre><code>[kachina@devsrv ~]$ cd /usr/local/src/
-[kachina@devsrv src]$ wget http://www.gcd.org/sengoku/stone/stone-2.3e.tar.gz
-[kachina@devsrv src]$ tar xvzf stone-2.3e.tar.gz
-[kachina@devsrv src]$ cd stone-2.3d-2.3.2.7/
-[kachina@devsrv stone-2.3d-2.3.2.7]$ make linux-ssl
-[kachina@devsrv stone-2.3d-2.3.2.7]$ cp stone /home/kachina/bin/
+<h2 id="5-パッケージのアップデート">5. パッケージのアップデート</h2>
+
+<p>現在のバージョンを確認</p>
+
+<pre><code>$ cat /etc/issue
+Raspbian GNU/Linux 8 \n \l
 </code></pre>
 
-<ol>
-<li>『stone』の起動</li>
-</ol>
+<p>パッケージのアップデート、アップグレードの実施</p>
 
-<pre><code>[kachina@devsrv ~]$ cd ~
-[kachina@devsrv ~]$ sudo /home/kachina/bin/stone -d localhost:22 443
+<pre><code>$ sudo apt-get update
+$ sudo apt-get dist-upgrade
 </code></pre>
 
-<ol>
-<li>【PC】からポート443番で【MyServer】へssh接続</li>
-</ol>
-
-<p>これで、443番ポートを利用して【MyServer】へssh接続をすることができました。<br />
-基本的なことですが、【MyServer】で既に443番ポートのサービスが動いると動きません。<br />
-また、443番ではなく80番ポートを利用したい場合は、手順2～3の『443』を『80』で設定して下さい。</p>
-
-<p>自分の場合は、/etc/rc.localに以下を追記して<br />
-常にstoneが起動する様にしました。</p>
-
-<pre><code># stoneの起動
-/home/kachina/bin/stone -d localhost:22 443
-</code></pre>
-
-<p>443番ポートは惜しいけど、背に腹さね</p>
-
-<p>べんりべんり！<br />
-うぇっへっへっへ</p>
+<p>この後、Homekit いれて IR Kit と連携させて Siri から家電操作させるようにするつもりだったのだけど、いつまでたっても OS のアップグレードが終わらないので今日はおしまい。</p>
 
                 </div>
             </div>

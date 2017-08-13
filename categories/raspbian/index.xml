@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Raspbian on Ship of Fools</title>
+    <link>https://kachina.github.io/categories/raspbian/</link>
+    <description>Recent content in Raspbian on Ship of Fools</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <copyright>Code released under the Apache 2.0 license.</copyright>
+    <lastBuildDate>Sun, 13 Aug 2017 19:12:37 +0900</lastBuildDate>
+    
+	<atom:link href="https://kachina.github.io/categories/raspbian/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>cocopar 4inc IPSハイビジョンLCD ディスプレイ のセットアップ</title>
+      <link>https://kachina.github.io/post/2017-08-13-setup-4inc-lcd/</link>
+      <pubDate>Sun, 13 Aug 2017 19:12:37 +0900</pubDate>
+      
+      <guid>https://kachina.github.io/post/2017-08-13-setup-4inc-lcd/</guid>
+      <description>cocopar 4inch LCD ディスプレイ (タッチパネル) が手に入ったのでセットアップをしました。
+環境  macOS Sierra (10.12.6) Raspberry Pi 3 Model B microSD: 16GB  1. OS イメージのダウンロード https://www.dropbox.com/s/3hk0xtw35qhhcpe/lcd4.7z?dl=0 でセットアップに必要なファイル一式が配布されているのでダウンロード・展開します。
+~/Downloads/ に展開したとして $ cd ~/Downloads/4inch RPi LCD/IMAGE へ移動しておきます。
+2. microSD の初期化 Disk Utility を使って、以下の内容で microSD を初期化
+Name: UNTITLED(任意の値) Format: MS-DOS (FAT) Scheme: Master Boot Record
+3. マウントの解除、イメージのコピー マウントされているディスクに対して dd コマンドを使ったイメージのコピーはできないので、まずは $ df を実行して microSD がマウントされているポイント( /Volumes/UNTITLED )を確認のうえアンマウントします。 $ sudo diskutil umount /Volumes/UNTITLED
+つぎに $ diskutil list を実行して microSD のデバイスパスを確認します。 ( /dev/disk2 ) これで準備が整ったので↓イメージのコピーを実行します。 (結構時間がかかります)</description>
+    </item>
+    
+  </channel>
+</rss>

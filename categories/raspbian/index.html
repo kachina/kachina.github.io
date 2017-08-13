@@ -9,8 +9,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>xcodeからリモートのGitリポジトリの認証に既存の秘密鍵をつかう -- Ship of Fools</title>
+    <title>Raspbian -- Ship of Fools</title>
 
+    
+    <link href="https://kachina.github.io/categories/raspbian/index.xml" rel="alternate" type="application/rss+xml" title="Ship of Fools" />
+    <link href="https://kachina.github.io/categories/raspbian/index.xml" rel="feed" type="application/rss+xml" title="Ship of Fools" />
     
 
     
@@ -68,81 +71,40 @@
 
 
     
-    
-    <header class="intro-header" style="background-image: url('https://kachina.github.io//img/about-bg.jpg')">
-      
-      <div class="container">
-        <div class="row">
-           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-             <div class="post-heading">
-               <h1>xcodeからリモートのGitリポジトリの認証に既存の秘密鍵をつかう</h1>
-               <h2 class="subheading"></h2>
-               <span class="meta">Posted by <a href="#">@kachina_t</a> on Tue, Jan 3, 2017
-                 <br />
-                 In <a href="https://kachina.github.io/categories/development">Development</a>
-
-                 <br />
-                 Tags <a href="https://kachina.github.io/tags/development">development</a>
-               </span>
-             </div>
+    <header class="intro-header" style="background-image: url('https://kachina.github.io/img/home-bg.jpg')">
+     <div class="container">
+       <div class="row">
+         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+           <div class="site-heading">
+             <h1>Raspbian</h1>
+             <hr class="small">
+             <span class="subheading"></span>
            </div>
-        </div>
-      </div>
+         </div>
+       </div>
+     </div>
     </header>
 
     
-    <article>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                  
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          
+                             <div class="post-preview">
+                  <p class="post-meta"><a href="https://kachina.github.io/post/2017-08-13-setup-4inc-lcd/">cocopar 4inc IPSハイビジョンLCD ディスプレイ のセットアップ</a> on Sun, Aug 13, 2017
+                    <br />
+                    In <a href="https://kachina.github.io/categories/raspbian">Raspbian</a>
 
-<p>やりたいことができるアプリが App Store になかったので、いまさらながら iPhone アプリの実装にチャレンジすることにしました。
-Swift のチュートリアルをやっているのですが、ステップ毎に Git リポジトリにコミットしてリモートの BitBucket に Push しておこうと思った際につまずいたのでメモしておきます。</p>
+                    Tags <a href="https://kachina.github.io/tags/4inc">4inc</a>, <a href="https://kachina.github.io/tags/cocopar">cocopar</a>, <a href="https://kachina.github.io/tags/raspberrypi">raspberrypi</a>
+                  </p>
+               </div>
 
-<p>実行環境は以下のとおりです。</p>
+          
+          
 
-<ul>
-<li>Xcode 8.2.1</li>
-<li>Remote Gitリポジトリ: BitBucket</li>
-<li>認証方式: 公開鍵認証</li>
-</ul>
-
-<h3 id="リモートリポジトリ-bitbucket-側に登録されている公開鍵">リモートリポジトリ(BitBucket)側に登録されている公開鍵</h3>
-
-<p>既に Xcode 以外の開発環境でも BitBucket は利用しているので公開鍵の設定は済んでおり、登録済みの鍵ペアは以下のとおりです。</p>
-
-<ul>
-<li>~/.ssh/foo.pem (秘密鍵)</li>
-<li>~/.ssh/foo.pub (公開鍵)</li>
-</ul>
-
-<h3 id="リモートリポジトリの登録">リモートリポジトリの登録</h3>
-
-<p>まず、Xcode からリモートリポジトリを設定を実施します。</p>
-
-<ol>
-<li>[menu bar] -&gt; [Source Control] -&gt; [&ldquo;プロジェクト名&rdquo; &ndash; master] -&gt; [Configure &ldquo;プロジェクト名&rdquo;&hellip;] でサブウィンドウを開く</li>
-<li>[Remote]タブの <code>＋</code> から[Add Remote&hellip;] からリモートリポジトリを登録します。</li>
-</ol>
-
-<h3 id="リモートリポジトリへのpush">リモートリポジトリへのPush</h3>
-
-<p>チュートリアルを進めて、いざリモートリポジトリにPushしようとしたら秘密鍵を作成するよう為のガイダンスが表示されてしまいました。<br />
-わたしとしては、既にリモートリポジトリに登録済みの <code>~/.ssh/foo.pem</code> で認証したいのですが、その選択肢はないようです。</p>
-
-<p>色々調べてみたところデフォルトでは <code>~/.ssh/id_rsa</code> を参照するようでしたので、以下のコマンドでシンボリックリンクを貼ることで、新たに鍵ペアを増やすことなくSSH鍵認証で BitBucket を利用することができました。</p>
-
-<pre><code>$ ln -s ~/.ssh/foo.pem ~/.ssh/id_rsa
-$ ln -s ~/.ssh/foo.pub ~/.ssh/id_rsa.pub
-</code></pre>
-
-<p>おしまい</p>
-
-                </div>
-            </div>
         </div>
-    </article>
+      </div>
+    </div>
 
     <hr>
     
